@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fragebogen für Ihre Website</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ECECEA;
+    --surface:#FFFFFF;
+    --ink:#1E211F;
+    --soft:#62655F;
+    --teal:#9A2A2A;
+    --teal-deep:#741B1B;
+    --tealtint:#F6E7E5;
+    --sand:#E9DCC4;
+    --line:#DCDCD7;
+    --warn:#F4EEDD;
+    --warnline:#E0CF9E;
+    --radius:14px;
+    --shadow:0 1px 2px rgba(30,33,31,.05), 0 18px 40px -24px rgba(30,33,31,.30);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:"Instrument Sans", system-ui, -apple-system, sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    padding:24px 16px 64px;
+  }
+  .wrap{max-width:660px;margin:0 auto}
+
+  .top{margin-bottom:18px}
+  .toprow{display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--soft);margin-bottom:8px}
+  .saved{display:inline-flex;align-items:center;gap:6px}
+  .saved .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);opacity:0;transition:opacity .25s}
+  .saved.show .dot{opacity:1}
+  .rail{height:8px;background:#D8D8D2;border-radius:99px;overflow:hidden}
+  .fill{height:100%;width:0;background:linear-gradient(90deg,var(--teal),var(--teal-deep));border-radius:99px;transition:width .4s ease}
+
+  .card{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:30px 26px 26px;
+    animation:rise .35s ease;
+  }
+  @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){.card{animation:none}.fill{transition:none}}
+
+  .eyebrow{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal);font-weight:600;margin:0 0 6px}
+  h1{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:30px;line-height:1.15;margin:0 0 10px;color:var(--ink);letter-spacing:-.01em}
+  h2{font-family:"Fraunces",Georgia,serif;font-weight:500;font-size:25px;line-height:1.2;margin:0 0 8px;letter-spacing:-.01em}
+  .lead{color:var(--soft);font-size:16px;margin:0 0 6px}
+
+  .field{margin-top:22px}
+  .field:first-of-type{margin-top:18px}
+  label.q{display:block;font-weight:600;font-size:16px;margin-bottom:3px}
+  .req{color:var(--teal);font-weight:600;font-size:13px}
+  .hint{color:var(--soft);font-size:14px;margin:0 0 10px}
+
+  input[type=text], textarea{
+    width:100%;font-family:inherit;font-size:16px;color:var(--ink);
+    background:#FBFBFA;border:1.5px solid var(--line);border-radius:11px;
+    padding:13px 14px;outline:none;transition:border-color .15s, box-shadow .15s;
+  }
+  textarea{min-height:84px;resize:vertical;line-height:1.5}
+  input[type=text]:focus, textarea:focus{border-color:var(--teal);box-shadow:0 0 0 3px var(--tealtint)}
+  input::placeholder, textarea::placeholder{color:#A2A39D}
+
+  .opts{display:grid;grid-template-columns:1fr;gap:10px;margin-top:4px}
+  .opts.two{grid-template-columns:1fr 1fr}
+  @media (max-width:520px){.opts.two{grid-template-columns:1fr}}
+
+  .opt{position:relative;display:flex;align-items:center;gap:12px;
+    border:1.5px solid var(--line);border-radius:11px;padding:13px 14px;
+    cursor:pointer;background:#FCFCFB;transition:border-color .15s, background .15s;user-select:none}
+  .opt:hover{border-color:#C9C9C2}
+  .opt input{position:absolute;opacity:0;width:0;height:0}
+  .box{flex:0 0 auto;width:22px;height:22px;border:2px solid #C9C9C2;border-radius:6px;display:grid;place-items:center;transition:all .15s;background:#fff}
+  .opt[data-type=radio] .box{border-radius:50%}
+  .box svg{width:13px;height:13px;opacity:0;transform:scale(.5);transition:all .15s}
+  .opt.on{border-color:var(--teal);background:var(--tealtint)}
+  .opt.on .box{background:var(--teal);border-color:var(--teal)}
+  .opt.on .box svg{opacity:1;transform:scale(1)}
+  .opt .txt{font-size:15.5px;font-weight:500}
+
+  .notice{background:var(--warn);border:1px solid var(--warnline);border-radius:11px;padding:14px 16px;font-size:14.5px;color:#5e5326;margin-top:18px}
+  .notice strong{color:#4a4019}
+
+  .nav{display:flex;gap:12px;margin-top:30px}
+  button{font-family:inherit;cursor:pointer;border:none;border-radius:11px;font-size:16px;font-weight:600;padding:14px 20px;transition:transform .08s, background .15s, box-shadow .15s}
+  button:active{transform:translateY(1px)}
+  .primary{background:var(--teal);color:#fff;flex:1;box-shadow:0 6px 16px -8px rgba(154,42,42,.7)}
+  .primary:hover{background:var(--teal-deep)}
+  .ghost{background:#EDEDEA;color:var(--ink)}
+  .ghost:hover{background:#E2E2DE}
+  button:focus-visible, .opt:focus-within, input:focus-visible{outline:3px solid var(--tealtint);outline-offset:2px}
+
+  .center{text-align:center}
+  .big-emoji{font-size:42px;margin-bottom:6px}
+  .report-box{width:100%;min-height:280px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;line-height:1.5;white-space:pre;overflow:auto;background:#FBFBFA;border:1.5px solid var(--line);border-radius:11px;padding:16px;margin-top:18px;color:#2c2f2b}
+  .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:12px 20px;border-radius:99px;font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:all .25s}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .foot{font-size:13px;color:var(--soft);text-align:center;margin-top:18px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top" id="top">
+    <div class="toprow">
+      <span id="stepLabel">Willkommen</span>
+      <span class="saved" id="saved"><span class="dot"></span>Automatisch gespeichert</span>
+    </div>
+    <div class="rail"><div class="fill" id="fill"></div></div>
+  </div>
+  <div class="card" id="card"></div>
+  <div class="foot" id="foot"></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const CHECK = '<svg viewBox="0 0 24 24" fill="none"><path d="M5 12.5l4.2 4.2L19 7" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const DOT = '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="6" fill="#fff"/></svg>';
+
+const SECTIONS = [
+  {
+    id:"absender", title:"Wer dahinter steht",
+    intro:"Ganz kurz, wer hinter der Website steht. Es geht ausdrücklich nicht um Werbung für Ihre Praxis.",
+    fields:[
+      {id:"absender_name", type:"text", q:"Ihr Name und Ihre Funktion", hint:"Z.B. 'Dr. Mustermann, Zahnarzt'. Wird fürs Impressum und für die Glaubwürdigkeit gebraucht.", req:true},
+      {id:"region", type:"text", q:"Region oder Ort", hint:"Grob reicht, z.B. Landkreis oder Stadt."},
+      {id:"auftritt", type:"radio", q:"Wie möchten Sie auftreten?", hint:"Wie sichtbar wollen Sie persönlich sein?", options:["Offen mit Namen und Gesicht","Mit Namen, aber zurückhaltend","Möglichst im Hintergrund, als Initiative"]},
+      {id:"kontakt", type:"text", q:"Kontakt für Rückfragen oder Presse", hint:"Optional. E-Mail oder Telefon."}
+    ]
+  },
+  {
+    id:"botschaft", title:"Ihre Kernbotschaft",
+    intro:"Das Herz der Website. Worum geht es Ihnen wirklich?",
+    fields:[
+      {id:"kern", type:"check", cols:2, q:"Worum geht es im Kern?", hint:"Alles ankreuzen, was zutrifft.", options:["Es herrscht ein massiver Ärztemangel","Die Gesundheitspolitik versagt","Die Ausbildung ist praxisfern und kaputt","Praxen sind völlig überlastet","Ich muss Patienten abweisen, das ist ein Alarmsignal","Es fehlt am Nachwuchs"]},
+      {id:"kernsatz", type:"textarea", q:"Bringen Sie es in ein, zwei Sätzen auf den Punkt.", hint:"Die zentrale Aussage, mit Ihren eigenen Worten. Ruhig deutlich.", req:true},
+      {id:"merksatz", type:"text", q:"Der eine Satz, den ein Besucher im Kopf behalten soll", hint:"Optional. Eine knackige Hauptaussage oder Schlagzeile."}
+    ]
+  },
+  {
+    id:"abgrenzung", title:"Worum es nicht geht",
+    intro:"Damit nichts in die falsche Richtung läuft.",
+    fields:[
+      {id:"_info", type:"info", text:"<strong>Klar ist:</strong> Sie wollen keine Werbung für sich selbst und keine neuen Patienten. Das halte ich strikt ein. Hier nur ein paar Klarstellungen."},
+      {id:"keinepatienten", type:"radio", q:"Soll auf der Website klar stehen, dass Sie keine neuen Patienten aufnehmen?", options:["Ja, deutlich","Ja, aber dezent","Nein, gar nicht erwähnen"]},
+      {id:"grund", type:"textarea", q:"Warum müssen Sie Patienten abweisen?", hint:"Optional. In Ihren Worten. Genau das macht die Botschaft glaubwürdig."},
+      {id:"tabu", type:"text", q:"Was darf auf keinen Fall nach Eigenwerbung aussehen?", hint:"Optional. Falls Ihnen etwas Konkretes wichtig ist."}
+    ]
+  },
+  {
+    id:"missstaende", title:"Die Missstände",
+    intro:"Welche Probleme soll die Website konkret benennen?",
+    fields:[
+      {id:"punkte", type:"check", cols:2, q:"Welche Punkte sollen vorkommen?", hint:"Alles ankreuzen, was Sie ansprechen wollen.", options:["Zu wenige Studienplätze, Numerus Clausus","Praxisferne, überbürokratische Ausbildung","Bürokratie und Überregulierung","Schlechte Honorare, Budgetierung","Ärztemangel auf dem Land","Alternde Ärzteschaft, fehlende Nachfolger","Alternde Bevölkerung, mehr Bedarf","Politische Untätigkeit"]},
+      {id:"eigene", type:"textarea", q:"Eigene Punkte, die oben fehlen?", hint:"Optional. Ihre persönliche Sicht aus dem Praxisalltag."},
+      {id:"schuld", type:"text", q:"Wen oder was machen Sie hauptverantwortlich?", hint:"Optional. Z.B. die Politik allgemein, ein Ministerium, das System."}
+    ]
+  },
+  {
+    id:"belege", title:"Belege & Zahlen",
+    intro:"Fakten machen so eine Botschaft stark und rechtlich sicher.",
+    fields:[
+      {id:"eigenezahlen", type:"textarea", q:"Haben Sie konkrete Zahlen, Studien oder Quellen?", hint:"Optional. Einfach hinschreiben oder Links einfügen."},
+      {id:"recherche", type:"radio", q:"Sollen passende Statistiken recherchiert und mit Quelle eingebaut werden?", options:["Ja, gerne","Nur geprüfte, seriöse Quellen","Nein, nur meine eigenen Angaben"]}
+    ]
+  },
+  {
+    id:"zielgruppe", title:"Wen Sie erreichen wollen",
+    intro:"An wen richtet sich die Website vor allem?",
+    fields:[
+      {id:"wer", type:"check", cols:2, q:"Wen wollen Sie erreichen?", hint:"Mehrfachauswahl möglich.", options:["Die breite Öffentlichkeit","Politik und Entscheider","Medien und Presse","Ärzte- und Zahnarztkollegen","Junge Menschen vor der Studienwahl","Abgewiesene, suchende Patienten"]},
+      {id:"gefuehl", type:"text", q:"Was sollen diese Menschen fühlen oder verstehen?", hint:"Optional. In einem Satz."}
+    ]
+  },
+  {
+    id:"cta", title:"Was passieren soll",
+    intro:"Soll der Besucher etwas tun, nachdem er die Seite gelesen hat?",
+    fields:[
+      {id:"aktion", type:"check", cols:2, q:"Was sollen Besucher tun können?", hint:"Alles ankreuzen, was passt.", options:["Den Beitrag teilen","Eine Petition unterschreiben","Politiker anschreiben","Eigene Erfahrung teilen","Sich einfach informieren","Sich an Medien wenden"]},
+      {id:"forderung", type:"textarea", q:"Haben Sie eine konkrete Forderung?", hint:"Optional. Was müsste sich ändern? Klar und kurz."},
+      {id:"petition", type:"text", q:"Gibt es eine bestehende Petition oder Initiative zum Verlinken?", hint:"Optional. Adresse oder Name."}
+    ]
+  },
+  {
+    id:"ton", title:"Tonfall",
+    intro:"Wie deutlich soll die Website sprechen?",
+    fields:[
+      {id:"tonfall", type:"radio", q:"Welcher Ton trifft es?", options:["Sachlich und nüchtern","Deutlich und kritisch","Laut und aufrüttelnd","Ruhig, persönlich, erzählend","Klartext, kein Blatt vor den Mund"]},
+      {id:"story", type:"radio", q:"Soll Ihr persönlicher Praxisalltag vorkommen?", hint:"Z.B. warum Sie Menschen abweisen müssen.", options:["Ja, das ist wichtig","Nur am Rande","Nein"]}
+    ]
+  },
+  {
+    id:"aufbau", title:"Aufbau",
+    intro:"Wie umfangreich soll die Website sein?",
+    fields:[
+      {id:"umfang", type:"radio", q:"Welche Form passt?", options:["Eine starke Einzelseite (alles auf einer Seite)","Mehrere Unterseiten"]},
+      {id:"seiten", type:"check", cols:2, q:"Welche Inhalte soll es geben?", hint:"Die Üblichen sind vorgeschlagen.", options:["Starke Startaussage","Hintergrund und Fakten","Mein Standpunkt, Erfahrungsbericht","Quellen und Belege","Mitmachen und Teilen","Kontakt und Impressum"]}
+    ]
+  },
+  {
+    id:"wirkung_design", title:"Aussehen & Wirkung",
+    intro:"Wie soll die Seite wirken, wenn man sie öffnet?",
+    fields:[
+      {id:"stimmung", type:"check", cols:2, q:"Welche Wirkung soll sie haben?", hint:"Wählen Sie 2 bis 4 Begriffe.", options:["Ernst und eindringlich","Sachlich und seriös","Laut und plakativ","Ruhig und würdevoll","Modern und klar","Dokumentarisch, wie ein Bericht"]},
+      {id:"farben", type:"text", q:"Farbwünsche oder No-Gos?", hint:"Optional. In Worten reicht."},
+      {id:"logo", type:"radio", q:"Soll ein Logo oder eine Bildmarke verwendet werden?", options:["Ja, vorhanden","Nein, lieber schlicht","Egal"]}
+    ]
+  },
+  {
+    id:"vorbilder", title:"Vorbilder",
+    intro:"Kampagnen oder Websites, die Sie überzeugend finden.",
+    fields:[
+      {id:"gut", type:"textarea", q:"Was finden Sie stark? Und warum?", hint:"Gerne auch Kampagnen oder Artikel, nicht nur Websites."},
+      {id:"schlecht", type:"textarea", q:"Was geht für Sie gar nicht?", hint:"Optional."}
+    ]
+  },
+  {
+    id:"recht", title:"Rechtliches",
+    intro:"Bei einer kritischen, politischen Website besonders wichtig.",
+    fields:[
+      {id:"_recht", type:"info", text:"<strong>Hinweis:</strong> Ihre Meinung ist durch die Meinungsfreiheit geschützt. Aber Tatsachenbehauptungen müssen stimmen, namentliche Angriffe auf einzelne Personen sind heikel, und für Sie als Zahnarzt gilt das Berufsrecht Ihrer Kammer. Das schauen wir beim Bau gemeinsam an. Bei scharfen Formulierungen kann sich ein kurzer Blick eines Anwalts lohnen."},
+      {id:"verantwortlich", type:"text", q:"Wer ist rechtlich für die Inhalte verantwortlich?", hint:"Pflichtangabe fürs Impressum.", req:true},
+      {id:"namentlich", type:"radio", q:"Sollen einzelne Personen oder Parteien namentlich genannt werden?", options:["Nein, nur das System und die Politik allgemein","Ja, das ist gewollt","Unsicher, bitte beraten"]},
+      {id:"impressum", type:"radio", q:"Haben Sie Impressum und Datenschutz schon?", options:["Ja, beides","Teilweise","Nein"]}
+    ]
+  },
+  {
+    id:"schluss", title:"Zum Schluss",
+    intro:"Ihre letzten Wünsche. Hier dürfen Sie frei schreiben.",
+    fields:[
+      {id:"muss", type:"textarea", q:"Was darf auf keinen Fall fehlen?", hint:"Das eine, das Ihnen am Herzen liegt."},
+      {id:"nie", type:"textarea", q:"Was darf auf keinen Fall drauf?", hint:"Optional."},
+      {id:"sonstiges", type:"textarea", q:"Sonstige Wünsche oder Anmerkungen?", hint:"Optional. Alles, was Ihnen sonst einfällt."},
+      {id:"ausgefuellt_von", type:"text", q:"Ihr Name", hint:"Für meinen Überblick.", req:true},
+      {id:"datum", type:"text", q:"Datum", hint:"Optional."}
+    ]
+  }
+];
+
+let answers = {};
+let current = -1;
+const card = document.getElementById('card');
+
+try{ const s = localStorage.getItem('arzt_standpunkt_fragebogen'); if(s) answers = JSON.parse(s); }catch(e){}
+
+function save(){
+  try{ localStorage.setItem('arzt_standpunkt_fragebogen', JSON.stringify(answers)); }catch(e){}
+  const el = document.getElementById('saved'); if(el){ el.classList.add('show'); clearTimeout(window._st); window._st=setTimeout(()=>el.classList.remove('show'),1100); }
+}
+
+function setProgress(){
+  const total = SECTIONS.length;
+  let pct = 0, label = "Willkommen";
+  if(current === -1){ pct = 0; label = "Willkommen"; }
+  else if(current >= total){ pct = 100; label = "Fertig"; }
+  else { pct = Math.round(((current) / total) * 100); label = "Abschnitt " + (current+1) + " von " + total; }
+  document.getElementById('fill').style.width = pct + "%";
+  document.getElementById('stepLabel').textContent = label;
+}
+
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function fieldHTML(f){
+  if(f.type === 'info'){
+    return '<div class="notice">'+f.text+'</div>';
+  }
+  let h = '<div class="field" data-fid="'+f.id+'">';
+  h += '<label class="q">'+f.q+(f.req?' <span class="req">(wichtig)</span>':'')+'</label>';
+  if(f.hint) h += '<p class="hint">'+f.hint+'</p>';
+  if(f.type === 'text'){
+    h += '<input type="text" data-field="'+f.id+'" value="'+esc(answers[f.id]||'')+'">';
+  } else if(f.type === 'textarea'){
+    h += '<textarea data-field="'+f.id+'">'+esc(answers[f.id]||'')+'</textarea>';
+  } else if(f.type === 'radio' || f.type === 'check'){
+    const multi = f.type === 'check';
+    const cur = answers[f.id] || (multi?[]:'');
+    h += '<div class="opts'+(f.cols===2?' two':'')+'">';
+    f.options.forEach(opt=>{
+      const on = multi ? cur.indexOf(opt)>-1 : cur===opt;
+      h += '<label class="opt'+(on?' on':'')+'" data-type="'+(multi?'check':'radio')+'" data-field="'+f.id+'" data-val="'+esc(opt)+'" tabindex="0">';
+      h += '<span class="box">'+(multi?CHECK:DOT)+'</span><span class="txt">'+opt+'</span>';
+      h += '<input type="'+(multi?'checkbox':'radio')+'" '+(on?'checked':'')+'></label>';
+    });
+    h += '</div>';
+  }
+  h += '</div>';
+  return h;
+}
+
+function renderIntro(){
+  card.innerHTML =
+    '<p class="big-emoji center">📣</p>'+
+    '<h1 class="center">Fragebogen für Ihre Website</h1>'+
+    '<p class="lead center">Diese Website soll ein Zeichen setzen, nicht werben. Es geht um Ärztemangel, Gesundheitspolitik und Ausbildung. Ihre Antworten sind die Grundlage dafür.</p>'+
+    '<div class="notice" style="margin-top:24px">'+
+      '<strong>So einfach geht es:</strong><br>'+
+      '• Überwiegend nur anklicken, kaum Tippen<br>'+
+      '• Dauert etwa 10 bis 15 Minuten<br>'+
+      '• Alles wird automatisch gespeichert, Sie können jederzeit pausieren<br>'+
+      '• Am Ende laden Sie eine Datei herunter und schicken sie mir zurück'+
+    '</div>'+
+    '<div class="nav"><button class="primary" id="start">Los geht\'s</button></div>';
+  document.getElementById('start').onclick = ()=>{ current=0; render(); };
+  document.getElementById('foot').textContent = "Sie können diesen Tab schließen und später weitermachen. Ihre Eingaben bleiben erhalten.";
+}
+
+function renderSection(){
+  const s = SECTIONS[current];
+  let h = '<p class="eyebrow">Abschnitt '+(current+1)+' / '+SECTIONS.length+'</p>';
+  h += '<h2>'+s.title+'</h2>';
+  if(s.intro) h += '<p class="lead">'+s.intro+'</p>';
+  s.fields.forEach(f=> h += fieldHTML(f));
+  const last = current === SECTIONS.length-1;
+  h += '<div class="nav">';
+  h += '<button class="ghost" id="back">Zurück</button>';
+  h += '<button class="primary" id="next">'+(last?'Fertig & Report erstellen':'Weiter')+'</button>';
+  h += '</div>';
+  card.innerHTML = h;
+  document.getElementById('back').onclick = ()=>{ current--; render(); };
+  document.getElementById('next').onclick = ()=>{ current++; render(); };
+  document.getElementById('foot').textContent = "Automatisch gespeichert. Sie können jederzeit pausieren und später weitermachen.";
+}
+
+function buildReport(){
+  const sep = "\n────────────────────────────────────────\n";
+  let r = "FRAGEBOGEN WEBSITE\n";
+  r += "Thema: Ärztemangel & Gesundheitspolitik (Standpunkt, ausdrücklich keine Eigenwerbung)\n";
+  r += "Ausgefüllt von: " + (answers.ausgefuellt_von || answers.absender_name || "—") + (answers.datum?("   am "+answers.datum):"") + "\n";
+  SECTIONS.forEach((s, i)=>{
+    let block = "";
+    s.fields.forEach(f=>{
+      if(f.type === 'info') return;
+      let v = answers[f.id];
+      if(v === undefined || v === '' || (Array.isArray(v) && v.length===0)) return;
+      if(Array.isArray(v)) v = v.join(", ");
+      block += "• " + f.q.replace(/\s*<span.*?<\/span>/g,'') + "\n   " + String(v).replace(/\n/g,"\n   ") + "\n";
+    });
+    if(block){
+      r += sep + (i+1) + ". " + s.title.toUpperCase() + "\n\n" + block;
+    }
+  });
+  r += sep + "\nEnde des Fragebogens.";
+  return r;
+}
+
+function renderReport(){
+  const report = buildReport();
+  card.innerHTML =
+    '<p class="big-emoji center">✅</p>'+
+    '<h1 class="center">Geschafft, vielen Dank!</h1>'+
+    '<p class="lead center">Unten steht Ihr fertiger Report. Bitte schicken Sie ihn mir, dann lege ich los.</p>'+
+    '<div class="nav">'+
+      '<button class="primary" id="dl">Report herunterladen</button>'+
+      '<button class="ghost" id="cp">Text kopieren</button>'+
+    '</div>'+
+    '<textarea class="report-box" id="rep" readonly>'+esc(report)+'</textarea>'+
+    '<p class="foot">Tipp: Laden Sie die Datei herunter und senden Sie sie als E-Mail-Anhang. Oder kopieren Sie den Text und fügen ihn in eine E-Mail ein.</p>';
+  document.getElementById('foot').textContent = "";
+  const fname = "Website-Fragebogen-" + (answers.absender_name||"Standpunkt").replace(/[^a-zA-Z0-9äöüÄÖÜß]+/g,"-").replace(/^-|-$/g,"") + ".txt";
+  document.getElementById('dl').onclick = ()=>{
+    const blob = new Blob([report], {type:"text/plain;charset=utf-8"});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = fname; a.click();
+    setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
+    toast("Datei wird heruntergeladen");
+  };
+  document.getElementById('cp').onclick = async ()=>{
+    try{ await navigator.clipboard.writeText(report); toast("In die Zwischenablage kopiert"); }
+    catch(e){ const t=document.getElementById('rep'); t.focus(); t.select(); toast("Bitte mit Strg+C kopieren"); }
+  };
+}
+
+function toast(msg){
+  const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(window._tt); window._tt = setTimeout(()=>t.classList.remove('show'), 1800);
+}
+
+function render(){
+  if(current < -1) current = -1;
+  setProgress();
+  window.scrollTo({top:0, behavior:'smooth'});
+  if(current === -1) renderIntro();
+  else if(current >= SECTIONS.length) renderReport();
+  else renderSection();
+}
+
+card.addEventListener('input', e=>{
+  const el = e.target;
+  if(el.dataset && el.dataset.field && ((el.tagName==='INPUT' && el.type==='text') || el.tagName==='TEXTAREA')){
+    answers[el.dataset.field] = el.value; save();
+  }
+});
+function toggleOpt(lab){
+  const fid = lab.dataset.field, val = lab.dataset.val, multi = lab.dataset.type==='check';
+  if(multi){
+    let arr = Array.isArray(answers[fid])?answers[fid].slice():[];
+    const idx = arr.indexOf(val);
+    if(idx>-1){ arr.splice(idx,1); lab.classList.remove('on'); }
+    else { arr.push(val); lab.classList.add('on'); }
+    answers[fid] = arr;
+  } else {
+    answers[fid] = val;
+    card.querySelectorAll('.opt[data-field="'+fid+'"]').forEach(o=>o.classList.remove('on'));
+    lab.classList.add('on');
+  }
+  save();
+}
+card.addEventListener('click', e=>{
+  const lab = e.target.closest('.opt');
+  if(lab){ e.preventDefault(); toggleOpt(lab); }
+});
+card.addEventListener('keydown', e=>{
+  const lab = e.target.closest('.opt');
+  if(lab && (e.key===' '||e.key==='Enter')){ e.preventDefault(); toggleOpt(lab); }
+});
+
+render();
+</script>
+</body>
+</html>

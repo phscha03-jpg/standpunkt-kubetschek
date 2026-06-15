@@ -1,0 +1,252 @@
+---
+import Layout from "@layouts/Layout.astro";
+import PageHeader from "@components/PageHeader.astro";
+import ShareActions from "@components/ShareActions.astro";
+import LetterTemplate from "@components/LetterTemplate.astro";
+import ScrollReveal from "@components/ScrollReveal.astro";
+---
+
+<Layout
+  title="Mitmachen &amp; Teilen"
+  description="Was Sie tun können: teilen, informieren, anschreiben, einfordern."
+>
+  <PageHeader
+    title="Was Sie tun können"
+    subtitle="Beitrag teilen, Fakten verbreiten, Politiker anschreiben"
+    image="mitmachen-akzent.jpg"
+    imageAlt="Akzentbild Mitmachen"
+    placeholderColor="#1C3830"
+  />
+
+  <!-- Einleitung -->
+  <section class="section" aria-labelledby="intro-heading">
+    <div class="container">
+      <ScrollReveal>
+        
+        <h2 id="intro-heading">Warum es auf Sie ankommt</h2>
+        <p class="lead">
+          Politischer Wandel beginnt nicht in Ministerien. Er beginnt damit, daß
+          genug Menschen ein Problem nicht mehr ignorieren. Was Sie hier tun können,
+          ist einfach und wirkt.
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Aktionsblöcke -->
+  <section class="section section--tight actions" aria-label="Aktionsmöglichkeiten">
+    <div class="container">
+      <div class="actions-grid">
+
+        <!-- 1. Teilen -->
+        <article class="action-card" id="teilen">
+          <ScrollReveal>
+            <div class="action-card__number" aria-hidden="true">01</div>
+            <h2 class="action-card__title">Diese Seite teilen</h2>
+            <p>
+              Die einfachste und wirksamste Handlung: Leiten Sie diese Website
+              an Menschen weiter, die den Zusammenhang noch nicht kennen.
+              Patienten, Bekannte, Kolleginnen und Kollegen: je mehr Menschen
+              verstehen, was hier passiert, desto mehr Druck entsteht.
+            </p>
+            <ShareActions
+              url="https://standpunkt-kubetschek.de"
+              title="Standpunkt zur Gesundheitsversorgung. Dr. Roman Kubetschek, Zahnarzt in Neubrandenburg"
+            />
+          </ScrollReveal>
+        </article>
+
+        <!-- 2. Informieren -->
+        <article class="action-card" id="informieren">
+          <ScrollReveal delay={100}>
+            <div class="action-card__number" aria-hidden="true">02</div>
+            <h2 class="action-card__title">Sich informieren</h2>
+            <p>
+              Wer argumentieren will, muß die Fakten kennen. Auf dieser Website
+              sind die wesentlichen Hintergründe dokumentiert und mit Quellen belegt,
+              die Sie selbst nachprüfen können.
+            </p>
+            <div class="action-links">
+              <a href="/hintergrund" class="action-link">→ Hintergrund und Fakten</a>
+              <a href="/quellen" class="action-link">→ Quellen und Belege</a>
+            </div>
+          </ScrollReveal>
+        </article>
+
+        <!-- 3. Medien -->
+        <article class="action-card" id="medien">
+          <ScrollReveal>
+            <div class="action-card__number" aria-hidden="true">03</div>
+            <h2 class="action-card__title">Medien aufmerksam machen</h2>
+            <p>
+              Wenn Sie eigene Erfahrungen mit dem Ärztemangel haben (als Patient,
+              Angehöriger oder im medizinischen Umfeld), können Sie diese an
+              Redaktionen weitergeben. Lokale Berichterstattung hat Wirkung.
+            </p>
+            <ul class="action-hint-list">
+              <li>Nordkurier (Neubrandenburg und Region)</li>
+              <li>Schweriner Volkszeitung</li>
+              <li>NDR Mecklenburg-Vorpommern</li>
+              <li>Fachmedien: Zahnärztliche Mitteilungen, ZWP online</li>
+            </ul>
+            <p class="text-muted">
+              Ihre eigene Geschichte ist ein Beleg. Redaktionen reagieren auf
+              konkrete, erlebte Fälle, nicht nur auf Statistiken.
+            </p>
+          </ScrollReveal>
+        </article>
+
+        <!-- 4. Politiker anschreiben -->
+        <article class="action-card" id="brief">
+          <ScrollReveal delay={100}>
+            <div class="action-card__number" aria-hidden="true">04</div>
+            <h2 class="action-card__title">Bundestagsabgeordnete anschreiben</h2>
+            <p>
+              Schreiben Sie an die Bundestagsabgeordneten aus Mecklenburg-Vorpommern,
+              unabhängig von deren Partei. Sie wurden gewählt, um die Interessen
+              der Menschen in dieser Region zu vertreten. Nutzen Sie das.
+            </p>
+            <p>
+              Die aktuellen Kontaktadressen aller MdBs aus MV finden Sie unter
+              <a href="https://www.abgeordnetenwatch.de/mecklenburg-vorpommern" target="_blank" rel="noopener noreferrer">
+                abgeordnetenwatch.de
+              </a>.
+              Dort können Sie auch direkt Fragen stellen, die öffentlich sichtbar sind.
+            </p>
+            <LetterTemplate />
+          </ScrollReveal>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Projekt NB -->
+  <section class="section projekt-nb" aria-labelledby="projektnb-heading">
+    <div class="container">
+      <ScrollReveal>
+        
+        <h2 id="projektnb-heading">Kommunales Engagement in Neubrandenburg</h2>
+        <p>
+          Dr. Kubetschek engagiert sich auch auf kommunaler Ebene für die Region
+          Neubrandenburg. Das geschieht in einem anderen Kontext und unter anderer
+          Trägerschaft, getrennt von dieser Website und von seiner beruflichen Tätigkeit
+          als Zahnarzt.
+        </p>
+        <a
+          href="https://www.projekt-nb.de"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="projekt-nb-link"
+        >
+          projekt-nb.de →
+          <span class="visually-hidden">(öffnet in neuem Tab)</span>
+        </a>
+      </ScrollReveal>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lead {
+    font-size: var(--text-lg);
+    max-width: 680px;
+    margin-top: var(--space-3);
+    margin-bottom: 0;
+  }
+
+  .section--tight { padding-block: var(--space-8); }
+
+  .actions-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .actions-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .action-card {
+    background-color: var(--color-white);
+    border-top: 3px solid var(--color-green);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .action-card__number {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--color-rule);
+    line-height: 1;
+  }
+
+  .action-card__title {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--color-black);
+    line-height: 1.2;
+  }
+
+  .action-card p {
+    font-size: var(--text-base);
+    line-height: 1.7;
+    color: var(--color-text);
+    max-width: none;
+    margin: 0;
+  }
+
+  .action-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .action-link {
+    font-size: var(--text-base);
+    color: var(--color-green);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .action-link:hover { text-decoration: underline; }
+
+  .action-hint-list {
+    padding-left: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .action-hint-list li {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  /* Projekt NB */
+  .projekt-nb { background-color: var(--color-white); }
+
+  .projekt-nb p {
+    max-width: var(--max-width-text);
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-4);
+  }
+
+  .projekt-nb-link {
+    display: inline-block;
+    font-size: var(--text-base);
+    font-weight: 600;
+    color: var(--color-green);
+    text-decoration: none;
+    border-bottom: 2px solid var(--color-gold);
+    padding-bottom: 2px;
+  }
+
+  .projekt-nb-link:hover { color: var(--color-green-mid); }
+</style>

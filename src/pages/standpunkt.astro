@@ -1,0 +1,419 @@
+---
+import Layout from "@layouts/Layout.astro";
+import PageHeader from "@components/PageHeader.astro";
+import PullQuote from "@components/PullQuote.astro";
+import ImagePlaceholder from "@components/ImagePlaceholder.astro";
+import ScrollReveal from "@components/ScrollReveal.astro";
+---
+
+<Layout
+  title="Mein Standpunkt"
+  description="Der persönliche Erfahrungsbericht von Dr. Roman Kubetschek. Warum er nicht mehr schweigen kann."
+>
+  <PageHeader
+    title="Mein Standpunkt"
+    subtitle="Ein persönlicher Bericht aus dem Praxisalltag"
+    image="portrait-kubetschek-quer.jpg"
+    imageAlt="Dr. Roman Kubetschek"
+    placeholderColor="#2D5A42"
+  />
+
+  <!-- Einleitung Ich-Form -->
+  <section class="section" aria-labelledby="intro-heading">
+    <div class="container intro-grid">
+      <div class="intro-text">
+        <ScrollReveal>
+          
+          <h2 id="intro-heading">Warum ich das schreibe</h2>
+        </ScrollReveal>
+        <ScrollReveal delay={100}>
+          <p>
+            Ich bin Zahnarzt in Neubrandenburg. Ich liebe meinen Beruf. Das war immer so
+            und ist es heute noch. Was sich verändert hat, ist das System, in dem
+            ich arbeite. Und die Erschöpfung, die entsteht, wenn man Tag für Tag Menschen
+            abweisen muß, die Hilfe brauchen.
+          </p>
+          <p>
+            Diese Website ist kein Klagelied. Sie ist eine Stellungnahme. Ich schreibe
+            hier als Einzelperson, nicht als Sprecher irgendeiner Organisation oder Partei.
+            Was Sie lesen, ist meine Einschätzung, geprägt durch drei Jahrzehnte Praxis
+            in dieser Region.
+          </p>
+          <p>
+            Ich will nicht als Retter dastehen. Ich stehe hier als jemand, der
+            beobachtet, analysiert und der nicht mehr schweigen kann.
+          </p>
+        </ScrollReveal>
+      </div>
+      <div class="intro-image">
+        <ScrollReveal delay={200}>
+          <ImagePlaceholder
+            filename="portrait-kubetschek-hoch.jpg"
+            ratio="4:5"
+            color="#2D5A42"
+            alt="Portrait Dr. Roman Kubetschek"
+          />
+        </ScrollReveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- Praxisalltag: Telefon -->
+  <section class="section section--alt" aria-labelledby="alltag-heading">
+    <div class="container image-text-block">
+      <ScrollReveal>
+        <ImagePlaceholder
+          filename="alltag-telefon.jpg"
+          ratio="3:2"
+          color="#57534E"
+          alt="Klingelndes Telefon an der Rezeption"
+        />
+      </ScrollReveal>
+      <div class="image-text-block__text">
+        <ScrollReveal delay={150}>
+          
+          <h2 id="alltag-heading">Das Telefon klingelt. Wir können nicht helfen.</h2>
+          <p>
+            Jeden Tag melden sich Menschen, die einen Zahnarzt suchen. Schmerzen,
+            dringende Behandlungen, Routineuntersuchungen. Jeden Tag müssen wir
+            sagen: Wir nehmen keine neuen Patienten auf.
+          </p>
+          <p>
+            Das ist nicht Kälte. Das ist Kapazität. Eine Praxis, die an ihrer Belastungsgrenze
+            arbeitet, kann nicht wachsen, ohne die Qualität der Behandlung für bestehende
+            Patienten zu gefährden. Die Gewissenhaftigkeit gegenüber denen, die mir
+            vertrauen, läßt das nicht zu.
+          </p>
+          <p>
+            Gewonnene Zeitfenster (etwa durch Absagen) gehen ausnahmslos an akute
+            Schmerzfälle. Das ist die einzige Möglichkeit, im Rahmen des Möglichen
+            zu helfen.
+          </p>
+        </ScrollReveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- Praxisalltag: Team -->
+  <section class="section" aria-labelledby="team-heading">
+    <div class="container image-text-block image-text-block--reverse">
+      <ScrollReveal>
+        <ImagePlaceholder
+          filename="alltag-team.jpg"
+          ratio="3:2"
+          color="#4A4540"
+          alt="Team bei der Arbeit"
+        />
+      </ScrollReveal>
+      <div class="image-text-block__text">
+        <ScrollReveal delay={150}>
+          
+          <h2 id="team-heading">Das Team trägt mit</h2>
+          <p>
+            Hinter dieser Entscheidung steht nicht nur ich. Ein ganzes Team arbeitet
+            täglich an der Grenze des Machbaren. Zahnmedizinische Fachangestellte,
+            die jeden Anruf entgegennehmen und ablehnen müssen. Die das Gewissen
+            dieser Arbeit täglich spüren.
+          </p>
+          <p>
+            Die Erschöpfung in diesem Berufsfeld ist real. Sie ist nicht Klagen,
+            sie ist die natürliche Folge eines Systems, das Menschen verpflichtet,
+            mehr zu leisten, als die Rahmenbedingungen erlauben.
+          </p>
+        </ScrollReveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- Aufnahme-Stopp Bild -->
+  <div class="container section--tight">
+    <ScrollReveal>
+      <div class="aufnahmestopp-block">
+        <ImagePlaceholder
+          filename="alltag-aufnahmestopp.jpg"
+          ratio="4:5"
+          color="#0E1410"
+          alt="Aushang: Keine Aufnahme neuer Patienten"
+          class="aufnahmestopp-img"
+        />
+        <div class="aufnahmestopp-text">
+          <p>
+            Dieses Schild hängt an unserer Praxis. Es ist kein Ausdruck von Gleichgültigkeit.
+            Es ist ein Dokument des Versagens. Nicht unseres, sondern des Systems.
+          </p>
+        </div>
+      </div>
+    </ScrollReveal>
+  </div>
+
+  <!-- Haltung: Berufung -->
+  <section class="section section--dark" aria-labelledby="berufung-heading">
+    <div class="container">
+      <ScrollReveal>
+        
+        <h2 id="berufung-heading" class="text-white">Beruf oder Berufung</h2>
+      </ScrollReveal>
+      <ScrollReveal delay={150}>
+        <PullQuote
+          quote="Zahnarzt ist kein Beruf sondern Berufung."
+          author="Dr. Roman Kubetschek"
+          large
+          light
+        />
+      </ScrollReveal>
+      <ScrollReveal delay={250}>
+        <p class="text-white-muted">
+          Diese Haltung bestimmt, wie ich meinen Beruf verstehe. Sie bedeutet:
+          Verpflichtung gegenüber dem einzelnen Menschen auf dem Stuhl, aber auch
+          gegenüber dem Gemeinwohl. Verpflichtung, nicht zu schweigen, wenn das
+          System versagt.
+        </p>
+        <p class="text-white-muted">
+          Die Begeisterung für diesen Beruf ist geblieben. Was mich antreibt,
+          ist die Überzeugung, daß gute Zahnmedizin möglich ist, wenn die
+          Rahmenbedingungen stimmen. Sie stimmen nicht.
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Forderung -->
+  <section class="section" aria-labelledby="forderung-heading">
+    <div class="container forderung-grid">
+      <div class="forderung-text">
+        <ScrollReveal>
+          
+          <h2 id="forderung-heading">Was sich ändern muß</h2>
+          <p>
+            Ich erhebe keine parteipolitischen Forderungen. Ich formuliere, was ich
+            als Praktiker für notwendig halte. Sachlich, ohne Empörungsgestus.
+          </p>
+          <ul class="forderung-list">
+            <li>
+              <strong>Sofortige Anpassung der GOZ:</strong> Der Punktwert ist seit
+              1988 unverändert. Das ist keine Nachlässigkeit, das ist Mißachtung.
+            </li>
+            <li>
+              <strong>Mehr Studienplätze</strong> mit Anreizen für die Niederlassung
+              im ländlichen Raum. Nicht als Zwang, sondern als Angebot.
+            </li>
+            <li>
+              <strong>Bürokratieabbau:</strong> Dokumentationspflichten, die Zeit
+              stehlen, die Patienten gehört.
+            </li>
+            <li>
+              <strong>Kompetenz statt Proporz:</strong> Menschen, die über das
+              Gesundheitssystem entscheiden, sollten es kennen.
+            </li>
+            <li>
+              <strong>Regionale Lösungen zulassen:</strong> Statt auf eine große
+              Verwaltungslösung zu warten, die seit 16 Jahren ausbleibt.
+            </li>
+          </ul>
+        </ScrollReveal>
+      </div>
+      <div class="forderung-quote">
+        <ScrollReveal delay={200}>
+          <PullQuote
+            quote="Kompetenz statt Proporz"
+            author="Entscheider in der Politik müssen das studiert haben, worüber sie entscheiden."
+            large
+          />
+          <ImagePlaceholder
+            filename="portrait-kubetschek-hoch.jpg"
+            ratio="4:5"
+            color="#2D5A42"
+            alt="Portrait Dr. Roman Kubetschek"
+            class="forderung-portrait"
+          />
+        </ScrollReveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" aria-labelledby="cta-heading">
+    <div class="container">
+      <ScrollReveal>
+        
+        <h2 id="cta-heading">Was Sie tun können</h2>
+        <p>Teilen. Informieren. Anschreiben. Einfordern.</p>
+        <div class="cta-actions">
+          <a href="/mitmachen" class="btn btn--primary">Mitmachen &amp; Teilen</a>
+          <a href="/quellen" class="btn btn--secondary">Quellen &amp; Belege</a>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .intro-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .intro-grid {
+      grid-template-columns: 1fr 280px;
+      gap: var(--space-12);
+    }
+  }
+
+  .intro-text h2 { margin-bottom: var(--space-4); }
+  .intro-text p { max-width: none; }
+
+  /* Bild-Text-Blöcke */
+  .image-text-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .image-text-block {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+    }
+    .image-text-block--reverse > :first-child { order: 2; }
+    .image-text-block--reverse > :last-child  { order: 1; }
+  }
+
+  .image-text-block__text h2 { margin-bottom: var(--space-4); }
+  .image-text-block__text p  { max-width: none; }
+
+  .section--alt { background-color: var(--color-white); }
+
+  /* Aufnahmestopp-Block */
+  .section--tight { padding-block: var(--space-8); }
+
+  .aufnahmestopp-block {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  @media (max-width: 640px) {
+    .aufnahmestopp-block { grid-template-columns: 1fr; }
+    .aufnahmestopp-img   { max-width: 200px; }
+  }
+
+  .aufnahmestopp-text p {
+    font-size: var(--text-lg);
+    font-style: italic;
+    font-family: var(--font-display);
+    color: var(--color-text-muted);
+    max-width: none;
+    margin: 0;
+  }
+
+  /* Dunkle Sektion Berufung */
+  .section--dark {
+    background-color: var(--color-black);
+  }
+
+  .section--dark h2,
+  .text-white {
+    color: var(--color-white);
+    margin-bottom: var(--space-6);
+  }
+
+  .text-white-muted {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: var(--text-base);
+    line-height: 1.7;
+    max-width: var(--max-width-text);
+    margin-bottom: var(--space-3);
+  }
+
+  /* Forderung */
+  .forderung-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  @media (min-width: 768px) {
+    .forderung-grid { grid-template-columns: 1fr 280px; }
+  }
+
+  .forderung-text h2   { margin-bottom: var(--space-4); }
+  .forderung-text p    { max-width: none; }
+
+  .forderung-list {
+    margin-top: var(--space-4);
+    padding-left: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .forderung-list li {
+    font-size: var(--text-base);
+    line-height: 1.6;
+  }
+
+  .forderung-quote {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .forderung-portrait { max-width: 220px; }
+
+  /* CTA */
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px var(--space-6);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    font-family: var(--font-body);
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition:
+      background-color var(--transition-base),
+      color var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .btn--primary,
+  .btn--primary:link,
+  .btn--primary:visited {
+    background-color: var(--color-green);
+    color: var(--color-white);
+    border: 2px solid var(--color-green);
+  }
+
+  .btn--primary:hover,
+  .btn--primary:active {
+    background-color: var(--color-green-mid);
+    border-color: var(--color-green-mid);
+    color: var(--color-white);
+  }
+
+  .btn--secondary,
+  .btn--secondary:link,
+  .btn--secondary:visited {
+    background-color: transparent;
+    color: var(--color-green);
+    border: 2px solid var(--color-green);
+  }
+
+  .btn--secondary:hover,
+  .btn--secondary:active {
+    background-color: var(--color-green);
+    color: var(--color-white);
+  }
+</style>

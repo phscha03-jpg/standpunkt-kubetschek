@@ -1,0 +1,69 @@
+---
+interface Props {
+  quote: string;
+  author?: string;
+  large?: boolean;
+  light?: boolean;
+}
+const { quote, author, large = false, light = false } = Astro.props;
+---
+
+<figure class={`pq ${large ? "pq--large" : ""} ${light ? "pq--light" : ""}`}>
+  <blockquote class="pq__text">
+    <p>„{quote}"</p>
+  </blockquote>
+  {author && (
+    <figcaption class="pq__author">
+      <cite>— {author}</cite>
+    </figcaption>
+  )}
+</figure>
+
+<style>
+  .pq {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding-left: var(--space-4);
+    border-left: 3px solid var(--color-green);
+    max-width: 680px;
+  }
+
+  .pq--large {
+    padding-left: var(--space-6);
+    border-left-width: 4px;
+    border-left-color: var(--color-gold);
+  }
+
+  .pq--light { border-left-color: rgba(255,255,255,0.25); }
+
+  .pq__text {
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-xl), 2.8vw, var(--text-3xl));
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.35;
+    color: var(--color-black);
+    border: none;
+    padding: 0;
+  }
+
+  .pq--large .pq__text {
+    font-size: clamp(var(--text-2xl), 4vw, var(--text-5xl));
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .pq--light .pq__text { color: var(--color-white); }
+
+  .pq__author cite {
+    font-family: var(--font-body);
+    font-style: normal;
+    font-size: var(--text-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .pq--light .pq__author cite { color: rgba(255,255,255,0.5); }
+</style>

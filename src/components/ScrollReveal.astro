@@ -1,0 +1,64 @@
+---
+interface Props {
+  delay?: number;
+  class?: string;
+}
+const { delay = 0, class: className = "" } = Astro.props;
+---
+
+<div
+  class={`reveal ${className}`}
+  data-reveal
+  style={delay ? `--reveal-delay: ${delay}ms` : ""}
+>
+  <slot />
+</div>
+
+<style>
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 600ms ease var(--reveal-delay, 0ms),
+      transform 600ms ease var(--reveal-delay, 0ms);
+  }
+
+  .reveal[data-visible] {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReduced) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.setAttribute("data-visible", "");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll("[data-reveal]").forEach((el) => {
+      observer.observe(el);
+    });
+  } else {
+    document.querySelectorAll("[data-reveal]").forEach((el) => {
+      el.setAttribute("data-visible", "");
+    });
+  }
+</script>

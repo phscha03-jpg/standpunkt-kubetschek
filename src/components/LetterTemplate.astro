@@ -1,0 +1,177 @@
+---
+const letterText = `Sehr geehrte Damen und Herren,
+
+ich wende mich an Sie als gewählte Bundestagsabgeordnete aus Mecklenburg-Vorpommern in einer Frage, die viele Menschen in unserer Region unmittelbar betrifft: die dramatisch verschlechterte zahnärztliche Versorgungslage.
+
+In Mecklenburg-Vorpommern ist die Zahl der niedergelassenen Zahnärztinnen und Zahnärzte von 985 (Januar 2021) auf 778 (Stand 2026) gesunken. Ein Rückgang von mehr als 20 Prozent in fünf Jahren. In einigen Landkreisen wird der Versorgungsgrad bis 2030 auf unter 50 Prozent sinken. Die Bundeszahnärztekammer warnt seit über 15 Jahren vor dieser Entwicklung.
+
+Ich fordere Sie auf, sich auf Bundesebene für folgende Maßnahmen einzusetzen:
+
+1. Reform der Gebührenordnung für Zahnärzte (GOZ): Der Punktwert ist seit 1988 unverändert und hat durch die Inflation real um fast 109 Prozent an Wert verloren. Eine sofortige Anpassung ist überfällig.
+
+2. Ausweitung der Studienplatzzahlen in der Zahnmedizin mit besonderem Anreiz für Tätigkeit im ländlichen Raum.
+
+3. Abbau bürokratischer Hürden für Praxisnachfolgen und die Niederlassung im ländlichen Raum.
+
+4. Entlastung von Dokumentations- und Verwaltungspflichten, die Behandlungszeit verdrängen.
+
+Die gesundheitliche Grundversorgung der Bevölkerung ist eine staatliche Verpflichtung. Es ist Zeit zu handeln.
+
+Mit freundlichen Grüßen
+
+[Ihr Name]
+[Ihre Adresse]`;
+
+const mailtoHref = `mailto:?subject=${encodeURIComponent("Zahnärztliche Versorgung in Mecklenburg-Vorpommern: Handlungsbedarf")}&body=${encodeURIComponent(letterText)}`;
+---
+
+<div class="letter-template">
+  <div class="letter-template__header">
+    <h3>Musterbrief an Ihre Abgeordneten</h3>
+    <p>
+      Kopieren Sie den Text und schicken Sie ihn an die Bundestagsabgeordneten
+      aus Mecklenburg-Vorpommern. Die aktuellen Kontaktadressen finden Sie bei
+      <a href="https://www.abgeordnetenwatch.de/mecklenburg-vorpommern" target="_blank" rel="noopener noreferrer">
+        abgeordnetenwatch.de
+      </a>.
+    </p>
+  </div>
+
+  <div class="letter-template__body">
+    <pre class="letter-template__text" id="letter-text">{letterText}</pre>
+  </div>
+
+  <div class="letter-template__actions">
+    <button class="letter-template__btn letter-template__btn--copy" id="copy-letter">
+      Text kopieren
+    </button>
+    <a
+      href={mailtoHref}
+      class="letter-template__btn letter-template__btn--mail"
+      aria-label="Brief im E-Mail-Programm öffnen"
+    >
+      Im E-Mail-Programm öffnen
+    </a>
+  </div>
+
+  <p class="letter-template__note">
+    Keine Daten werden hier gespeichert oder weitergeleitet. Der „E-Mail öffnen"-Button
+    öffnet nur Ihr lokales E-Mail-Programm mit dem vorausgefüllten Text.
+  </p>
+</div>
+
+<style>
+  .letter-template {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-rule);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .letter-template__header h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    margin-bottom: var(--space-2);
+  }
+
+  .letter-template__header p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    max-width: none;
+    margin: 0;
+  }
+
+  .letter-template__body {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    padding: var(--space-4);
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  .letter-template__text {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .letter-template__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .letter-template__btn {
+    display: inline-block;
+    padding: 12px var(--space-4);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    font-family: var(--font-body);
+    border-radius: 2px;
+    cursor: pointer;
+    text-decoration: none;
+    transition:
+      background-color var(--transition-base),
+      color var(--transition-base);
+  }
+
+  .letter-template__btn--copy {
+    background-color: var(--color-green);
+    color: var(--color-white);
+    border: none;
+  }
+
+  .letter-template__btn--copy:hover {
+    background-color: var(--color-green-mid);
+    color: var(--color-white);
+  }
+
+  .letter-template__btn--copy[data-copied] {
+    background-color: var(--color-gold);
+  }
+
+  .letter-template__btn--mail {
+    background-color: var(--color-white);
+    color: var(--color-green);
+    border: 1.5px solid var(--color-green);
+  }
+
+  .letter-template__btn--mail:hover {
+    background-color: var(--color-green);
+    color: var(--color-white);
+  }
+
+  .letter-template__note {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    max-width: none;
+    margin: 0;
+  }
+</style>
+
+<script>
+  const copyBtn = document.getElementById("copy-letter") as HTMLButtonElement;
+  const letterText = document.getElementById("letter-text");
+
+  copyBtn?.addEventListener("click", async () => {
+    const text = letterText?.textContent ?? "";
+    try {
+      await navigator.clipboard.writeText(text);
+      copyBtn.textContent = "Kopiert ✓";
+      copyBtn.setAttribute("data-copied", "");
+      setTimeout(() => {
+        copyBtn.textContent = "Text kopieren";
+        copyBtn.removeAttribute("data-copied");
+      }, 3000);
+    } catch {
+      copyBtn.textContent = "Bitte manuell kopieren (Strg+A, Strg+C)";
+    }
+  });
+</script>

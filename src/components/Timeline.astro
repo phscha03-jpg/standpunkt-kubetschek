@@ -1,0 +1,93 @@
+---
+interface TimelineItem {
+  year: string;
+  event: string;
+  source?: string;
+}
+
+interface Props {
+  items: TimelineItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="timeline" aria-label="Chronologie der Ereignisse">
+  {items.map(({ year, event, source }) => (
+    <li class="timeline__item">
+      <div class="timeline__year">{year}</div>
+      <div class="timeline__content">
+        <p class="timeline__event">{event}</p>
+        {source && <cite class="timeline__source">{source}</cite>}
+      </div>
+    </li>
+  ))}
+</ol>
+
+<style>
+  .timeline {
+    list-style: none;
+    position: relative;
+    padding-left: var(--space-8);
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 20px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background-color: var(--color-rule);
+  }
+
+  .timeline__item {
+    display: flex;
+    gap: var(--space-4);
+    margin-bottom: var(--space-6);
+    position: relative;
+  }
+
+  .timeline__item::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--space-8) + 14px);
+    top: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-green);
+    border: 2px solid var(--color-surface);
+    box-shadow: 0 0 0 1px var(--color-green);
+  }
+
+  .timeline__year {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-green);
+    min-width: 52px;
+    padding-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .timeline__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .timeline__event {
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-text);
+    max-width: none;
+    margin: 0;
+  }
+
+  .timeline__source {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    font-style: normal;
+  }
+</style>

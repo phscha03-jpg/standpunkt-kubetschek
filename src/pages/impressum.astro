@@ -1,0 +1,217 @@
+---
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout title="Impressum" noIndex>
+  <div class="page-header-text">
+    <div class="container">
+      
+      <h1>Impressum</h1>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container legal-content">
+
+      <div class="todo-banner">
+        <strong>⚠ Rechtliche Prüfung erforderlich</strong>
+        <p>
+          Dieses Impressum ist eine strukturierte Vorlage mit Platzhaltern.
+          Vor Veröffentlichung muß es von einem Rechtsanwalt oder der
+          Zahnärztekammer Mecklenburg-Vorpommern geprüft und vervollständigt werden.
+          Alle <code>[TODO]</code>-Felder müssen ausgefüllt sein.
+        </p>
+      </div>
+
+      <div class="legal-checklist">
+        <h2>Checkliste vor Veröffentlichung</h2>
+        <ul>
+          <li>☐ Vollständige Anschrift (Straße, Hausnummer, PLZ, Ort)</li>
+          <li>☐ Berufsbezeichnung und verleihender Staat bestätigt</li>
+          <li>☐ Zuständige Kammer und Aufsichtsbehörde benannt</li>
+          <li>☐ Berufsrechtliche Regelungen verlinkt/benannt</li>
+          <li>☐ Verantwortlicher gemäß § 18 Abs. 2 MStV benannt</li>
+          <li>☐ Steuernummer / USt-IdNr. (falls vorhanden) eingetragen</li>
+          <li>☐ Anwaltliche oder kammerseitige Prüfung abgeschlossen</li>
+          <li>☐ Datenschutzerklärung verlinkt und vollständig</li>
+        </ul>
+      </div>
+
+      <h2>Angaben gemäß § 5 DDG (ehem. § 5 TMG)</h2>
+
+      <h3>Verantwortlicher</h3>
+      <address>
+        Dr. Roman Kubetschek<br />
+        Wilhelm-Külz-Str. 4<br />
+        17033 Neubrandenburg<br />
+        Deutschland
+      </address>
+
+      <h3>Kontakt</h3>
+      <p>
+        Telefon: <a href="tel:+493955442332">03955 442332</a><br />
+        <strong>Keine E-Mail-Kommunikation für Patientenanliegen.</strong><br />
+        Pressekontakt: <a href="mailto:zahnarzt@startmail.com">zahnarzt@startmail.com</a>
+      </p>
+
+      <h3>Heilberufliche Angaben</h3>
+      <dl class="legal-dl">
+        <dt>Berufsbezeichnung</dt>
+        <dd>Zahnarzt (verliehen in der Bundesrepublik Deutschland)</dd>
+
+        <dt>Zuständige Kammer</dt>
+        <dd>
+          Zahnärztekammer Mecklenburg-Vorpommern<br />
+          [TODO: Adresse der ZÄK M-V einfügen]<br />
+          <a href="https://www.zaekmv.de" target="_blank" rel="noopener noreferrer">zaekmv.de</a>
+        </dd>
+
+        <dt>Zuständige Aufsichtsbehörde</dt>
+        <dd>[TODO: Aufsichtsbehörde benennen, i.d.R. Sozialministerium M-V]</dd>
+
+        <dt>Berufsrechtliche Regelung</dt>
+        <dd>
+          Zahnheilkundegesetz (ZHG)<br />
+          Berufsordnung der Zahnärztekammer Mecklenburg-Vorpommern<br />
+          [TODO: Link zur aktuellen Berufsordnung der ZÄK M-V]
+        </dd>
+
+        <dt>Steuernummer / USt-IdNr.</dt>
+        <dd>[TODO: falls vorhanden eintragen, sonst Zeile entfernen]</dd>
+      </dl>
+
+      <h3>Verantwortlich für den redaktionellen Inhalt (§ 18 Abs. 2 MStV)</h3>
+      <address>
+        Dr. Roman Kubetschek<br />
+        Wilhelm-Külz-Str. 4<br />
+        17033 Neubrandenburg
+      </address>
+
+      <h3>Hinweis zu projekt-nb.de</h3>
+      <p>
+        Diese Website (standpunkt-kubetschek.de) ist ausschließlich persönlicher
+        Meinungsausdruck von Dr. Roman Kubetschek als Privatperson und Zahnarzt.
+        Sie steht in keiner organisatorischen oder inhaltlichen Verbindung mit dem
+        kommunalpolitischen Engagement unter
+        <a href="https://www.projekt-nb.de" target="_blank" rel="noopener noreferrer">projekt-nb.de</a>,
+        das gesondert betrieben wird und eigenem Impressum und eigener
+        Datenschutzerklärung unterliegt.
+      </p>
+
+      <h3>Haftungsausschluß</h3>
+      <p>
+        Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt.
+        Belegbare Fakten sind mit Quellenangaben versehen. Persönliche Einschätzungen
+        und Meinungen sind als solche kenntlich gemacht und stellen keine Tatsachenbehauptungen dar.
+        Für die Richtigkeit, Vollständigkeit und Aktualität der Quellinhalte,
+        auf die verwiesen wird, können wir keine Gewähr übernehmen.
+      </p>
+
+      <h3>Urheberrecht</h3>
+      <p>
+        Die durch den Seitenbetreiber erstellten Inhalte und Werke unterliegen
+        dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung
+        und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen
+        der schriftlichen Zustimmung von Dr. Roman Kubetschek.
+      </p>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-text {
+    background-color: var(--color-black);
+    padding-block: var(--space-12);
+  }
+  .page-header-text h1 { color: var(--color-white); margin-top: var(--space-3); }
+  .page-header-text .gold-rule { margin-bottom: var(--space-3); }
+
+  .legal-content {
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .legal-content h2 {
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .legal-content h3 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+    color: var(--color-green);
+  }
+
+  .legal-content p, .legal-content address { font-size: var(--text-sm); max-width: none; margin: 0; line-height: 1.7; }
+
+  address { font-style: normal; }
+
+  .legal-dl {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  dt {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    padding-top: 2px;
+  }
+
+  dd {
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .todo-banner {
+    background-color: rgba(184, 146, 46, 0.1);
+    border: 1px solid var(--color-gold);
+    border-left: 4px solid var(--color-gold);
+    padding: var(--space-4);
+  }
+
+  .todo-banner strong {
+    display: block;
+    font-size: var(--text-base);
+    color: var(--color-gold);
+    margin-bottom: var(--space-2);
+  }
+
+  .todo-banner p { font-size: var(--text-sm); color: var(--color-text-muted); max-width: none; margin: 0; }
+
+  .legal-checklist {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-rule);
+    padding: var(--space-4);
+  }
+
+  .legal-checklist h2 {
+    font-size: var(--text-lg);
+    margin-bottom: var(--space-3);
+  }
+
+  .legal-checklist ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .legal-checklist li {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    font-family: monospace;
+  }
+
+  code {
+    background-color: var(--color-rule);
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-size: 0.85em;
+  }
+</style>

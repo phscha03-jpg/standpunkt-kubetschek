@@ -1,0 +1,365 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ScrollReveal from "@components/ScrollReveal.astro";
+
+interface Source {
+  title: string;
+  author?: string;
+  year?: string;
+  url?: string;
+  note?: string;
+}
+
+interface SourceGroup {
+  heading: string;
+  id: string;
+  sources: Source[];
+}
+
+const sourceGroups: SourceGroup[] = [
+  {
+    heading: "Offizielle Statistiken und Berichte",
+    id: "statistiken",
+    sources: [
+      {
+        title: "Daten und Zahlen / Nachgezählt: Statistik der Zahnärzteschaft",
+        author: "Bundeszahnärztekammer (BZÄK)",
+        year: "laufend (zuletzt 2024/2025)",
+        url: "https://www.bzaek.de/ueber-uns/daten-und-zahlen/nachgezaehlt.html",
+        note: "Jährliche Statistik zu Zahnärztezahlen, Altersstruktur und Versorgungsdichte in Deutschland.",
+      },
+      {
+        title: "Statistisches Jahrbuch der BZÄK",
+        author: "Bundeszahnärztekammer (BZÄK)",
+        year: "jährlich seit 2009/2010",
+        url: "https://www.bzaek.de/ueber-uns/daten-und-zahlen.html",
+        note: "Umfassende Jahresstatistiken zur Entwicklung der Zahnärzteschaft, Nachwuchs und Versorgungslage.",
+      },
+      {
+        title: "Jahrbuch 2024",
+        author: "Kassenzahnärztliche Bundesvereinigung (KZBV)",
+        year: "2024",
+        url: "https://www.kzbv.de/service/statistisches-jahrbuch/",
+        note: "Statistiken zur vertragszahnärztlichen Versorgung in Deutschland.",
+      },
+      {
+        title: "Zahnärztliche Versorgung. Daten & Fakten 2024",
+        author: "KZBV / BZÄK",
+        year: "2024",
+        url: "https://www.kzbv.de/wp-content/uploads/KZBV2024_Jahrbuch_WEB_ohne_GOZ.pdf",
+        note: "Gemeinsame Datenpublikation zu Versorgungsstrukturen.",
+      },
+    ],
+  },
+  {
+    heading: "GOZ: Gebührenordnung für Zahnärzte",
+    id: "goz",
+    sources: [
+      {
+        title: "Gebührenordnung für Zahnärzte (GOZ)",
+        author: "Bundesministerium der Justiz",
+        year: "in Kraft seit 1988, zuletzt geändert 2012",
+        url: "https://www.bzaek.de/goz/gebuehrenordnung-fuer-zahnaerzte-goz.html",
+        note: "Der Punktwert von 0,0562421 Euro ist seit 1988 unverändert.",
+      },
+      {
+        title: '„Gebührenordnungen für Ärzte und für Zahnärzte jetzt novellieren"',
+        author: "Bundeszahnärztekammer",
+        year: "2023",
+        url: "https://www.bzaek.de/service/positionen-statements/einzelansicht/gebuehrenordnungen-fuer-aerzte-und-fuer-zahnaerzte-jetzt-novellieren-bt-drucksache-20-7586.html",
+        note: "Stellungnahme zur Bundestagsdrucksache 20/7586. Forderung nach sofortiger GOZ-Novellierung.",
+      },
+      {
+        title: "GOZ: Und jährlich grüßt … der gleiche Wert",
+        author: "ZWP online",
+        year: "2024",
+        url: "https://www.zwp-online.info/zwpnews/dental-news/branchenmeldungen/goz-und-jahrlich-grusst-der-gleiche-wert",
+        note: "Journalistische Aufarbeitung der ausgebliebenen GOZ-Anpassung.",
+      },
+    ],
+  },
+  {
+    heading: "Versorgungslage Mecklenburg-Vorpommern",
+    id: "mv",
+    sources: [
+      {
+        title: "Zahl der Zahnmediziner in Mecklenburg-Vorpommern sinkt",
+        author: "ZWP online (Quelle: KZV Mecklenburg-Vorpommern / dpa)",
+        year: "2026",
+        url: "https://www.zwp-online.info/zwpnews/dental-news/branchenmeldungen/zahl-der-zahnmediziner-in-mecklenburg-vorpommern-sinkt",
+        note: "Aktuelle Zahlen: 778 niedergelassene Zahnärzte (Jan. 2026), −207 gegenüber 2021. Versorgungsgrad Nordwestmecklenburg: 55,3%.",
+      },
+      {
+        title: "Die Versorgungslage spitzt sich zu",
+        author: "Zahnärztliche Mitteilungen (zm-online)",
+        year: "2024",
+        url: "https://www.zm-online.de/artikel/2024/zm-2024-05/die-versorgungslage-spitzt-sich-zu",
+        note: "Überblick zur bundesweiten und regionalen Versorgungsentwicklung.",
+      },
+      {
+        title: "Zahnärzte in MV mahnen: Patienten droht der Versorgungs-Kollaps",
+        author: "Nordkurier",
+        year: "2024/2025",
+        url: "https://www.nordkurier.de/regional/mecklenburg-vorpommern/zahnaerzte-in-mv-mahnen-patienten-droht-der-versorgungs-kollaps-2927825",
+        note: "Regionale Berichterstattung zum Versorgungsengpaß in MV. Möglicherweise hinter Paywall.",
+      },
+      {
+        title: "Diese Folgen hat der Zahnarztmangel in der Seenplatte",
+        author: "Nordkurier",
+        year: "2024",
+        url: "https://www.nordkurier.de/regional/neubrandenburg/diese-folgen-hat-der-zahnarztmangel-in-der-seenplatte-3137234",
+        note: "Berichterstattung aus der Region Neubrandenburg/Seenplatte. Möglicherweise hinter Paywall.",
+      },
+      {
+        title: "Immer größere Lücken bei der Zahnarzt-Versorgung",
+        author: "Nordkurier",
+        year: "o. J.",
+        url: "https://www.nordkurier.de/regional/neubrandenburg/immer-groessere-luecken-bei-der-zahnarzt-versorgung-2159470",
+        note: "Weitere Nordkurier-Berichterstattung zu Versorgungslücken in der Region.",
+      },
+    ],
+  },
+  {
+    heading: "Positionen und Erklärungen der BZÄK",
+    id: "bzaek",
+    sources: [
+      {
+        title: "Münsteraner Erklärung der Bundeszahnärztekammer",
+        author: "Bundeszahnärztekammer (BZÄK)",
+        year: "2024",
+        url: "https://www.bzaek.de/service/positionen-statements/einzelansicht/muensteraner-erklaerung-der-bundeszahnaerztekammer.html",
+        note: "Erklärung zu demografischem Wandel, Fachkräftemangel und überlasteten Sozialversicherungssystemen.",
+      },
+      {
+        title: 'Mehr „Hauszahnärztinnen und -zahnärzte" für den ländlichen Raum',
+        author: "Bundeszahnärztekammer",
+        year: "o. J.",
+        url: "https://www.bzaek.de/presse/presseinformationen/presseinformation/mehr-hauszahnaerztinnen-und-zahnaerzte-fuer-den-laendlichen-raum.html",
+        note: "Forderung nach Ausweitung des Hauszahnarzt-Modells zur Verbesserung der Landversorgung.",
+      },
+    ],
+  },
+  {
+    heading: "Wissenschaft und Fachpersonen",
+    id: "wissenschaft",
+    sources: [
+      {
+        title: "Prof. Dr. Dietmar Österreich: Überblick Wirken und Stellungnahmen",
+        author: "ZWP online",
+        year: "o. J.",
+        url: "https://www.zwp-online.info/zwp-online-koepfe/prof-dr-dietmar-oesterreich",
+        note: "Prof. Dr. Österreich war Präsident der Zahnärztekammer MV und Vizepräsident der BZÄK. Zahnarzt in Stavenhagen (MV). Vielfach zitiert zu Versorgungsfragen im ländlichen Raum.",
+      },
+      {
+        title: '„Tradierte Berufspolitik gefährdet Präventionserfolge"',
+        author: "Prof. Dr. Dietmar Österreich / mgo dental",
+        year: "o. J.",
+        url: "https://mgo-dental.de/news/zahnmedizin/prof-oesterreich-tradierte-berufspolitik-gefaehrdet-praeventionserfolge",
+        note: "Kritische Einschätzung Prof. Österreichs zur Berufspolitik in der Zahnmedizin.",
+      },
+      {
+        title: "Was macht Ärzte glücklich? Berufszufriedenheit von Medizinern",
+        author: "Thieme-Verlag / Institut für Allgemeinmedizin, Universität Rostock",
+        year: "2014",
+        url: "https://www.thieme-connect.com/products/ejournals/abstract/10.1055/s-0034-1387743",
+        note: "Studie zur Berufszufriedenheit im medizinischen Bereich. Bezug auf MV-Studie zu Allgemeinmedizin. Spezifische Zahnarzt-Studie der Uni Rostock nicht eigenständig nachgewiesen; Verweis hier mit Vorbehalt.",
+      },
+    ],
+  },
+  {
+    heading: "Eigene Beiträge und Analysen",
+    id: "eigene",
+    sources: [
+      {
+        title: "Analyse Zahnärztemangel Neubrandenburg 2025",
+        author: "Dr. Roman Kubetschek",
+        year: "2025",
+        note: "Interne Analyse zur regionalen Versorgungslage. Nicht öffentlich verlinkt; auf Anfrage bei der Pressekontaktadresse erhältlich.",
+      },
+      {
+        title: "Artikel in der Tageszeitung Nordkurier",
+        author: "Dr. Roman Kubetschek",
+        year: "o. J.",
+        note: "Erschienener Meinungsbeitrag zum Zahnärztemangel. Möglicherweise hinter Paywall. Genaue Erscheinungsdaten auf Anfrage.",
+      },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Quellen &amp; Belege"
+  description="Transparente Quellenliste zu allen Fakten und Aussagen auf dieser Website."
+>
+  <div class="page-header-text">
+    <div class="container">
+      
+      <h1>Quellen &amp; Belege</h1>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="intro-heading">
+    <div class="container">
+      <ScrollReveal>
+        <h2 id="intro-heading" class="visually-hidden">Einleitung</h2>
+        <p class="lead">
+          Diese Website trennt zwischen belegbaren Tatsachen und persönlichen Einschätzungen.
+          Alle auf der Hintergrund-Seite als Fakten ausgewiesenen Aussagen sind hier mit
+          Quellen belegt. Einschätzungen und Meinungen von Dr. Kubetschek sind als solche
+          kenntlich gemacht und erscheinen ohne Quellenangabe.
+        </p>
+        <p>
+          Verlinkte externe Inhalte können sich ändern oder hinter Paywalls liegen.
+          Wo das der Fall ist, wird es vermerkt.
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Quellengruppen -->
+  {sourceGroups.map(({ heading, id, sources }) => (
+    <section class="section section--tight" id={id} aria-labelledby={`heading-${id}`}>
+      <div class="container">
+        <ScrollReveal>
+          
+          <h2 id={`heading-${id}`}>{heading}</h2>
+        </ScrollReveal>
+        <ol class="source-list" role="list">
+          {sources.map((source, i) => (
+            <li class="source-item">
+              <ScrollReveal delay={i * 50}>
+                <div class="source-item__inner">
+                  <p class="source-item__title">
+                    {source.url
+                      ? <a href={source.url} target="_blank" rel="noopener noreferrer">{source.title}</a>
+                      : source.title}
+                  </p>
+                  {(source.author || source.year) && (
+                    <p class="source-item__meta">
+                      {source.author}{source.author && source.year ? ". " : ""}{source.year}
+                    </p>
+                  )}
+                  {source.note && (
+                    <p class="source-item__note">{source.note}</p>
+                  )}
+                </div>
+              </ScrollReveal>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  ))}
+
+  <!-- Hinweis -->
+  <section class="section section--tight" aria-labelledby="hinweis-heading">
+    <div class="container">
+      <ScrollReveal>
+        <div class="hinweis-box">
+          <h2 id="hinweis-heading">Hinweis zur Vollständigkeit</h2>
+          <p>
+            Diese Quellenliste erhebt keinen Anspruch auf Vollständigkeit. Sie enthält alle
+            Belege, auf die sich die Inhalte dieser Website stützen. Weitere Recherchen
+            können und sollten eigene Ergebnisse liefern. Korrekturen und Ergänzungen
+            nehmen wir gerne unter <a href="/kontakt">zahnarzt@startmail.com</a> entgegen.
+          </p>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-text {
+    background-color: var(--color-black);
+    padding-block: var(--space-12);
+    margin-bottom: 0;
+  }
+
+  .page-header-text h1 {
+    color: var(--color-white);
+    margin-top: var(--space-3);
+  }
+
+  .page-header-text .gold-rule { margin-bottom: var(--space-3); }
+
+  .lead {
+    font-size: var(--text-lg);
+    max-width: 680px;
+    margin-bottom: var(--space-3);
+  }
+
+  .section--tight { padding-block: var(--space-8); }
+
+  .section--tight h2 { margin-top: var(--space-3); margin-bottom: var(--space-6); }
+
+  .source-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .source-item {
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .source-item:first-child { border-top: 1px solid var(--color-rule); }
+
+  .source-item__inner {
+    padding-block: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .source-item__title {
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--color-black);
+    max-width: none;
+    margin: 0;
+  }
+
+  .source-item__title a {
+    color: var(--color-black);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .source-item__title a:hover { color: var(--color-green); }
+
+  .source-item__meta {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    max-width: none;
+    margin: 0;
+  }
+
+  .source-item__note {
+    font-size: var(--text-sm);
+    color: var(--color-gray-600);
+    font-style: italic;
+    max-width: none;
+    margin: 0;
+  }
+
+  .hinweis-box {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-rule);
+    border-left: 3px solid var(--color-gold);
+    padding: var(--space-6);
+  }
+
+  .hinweis-box h2 {
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-3);
+  }
+
+  .hinweis-box p {
+    max-width: none;
+    margin: 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+</style>

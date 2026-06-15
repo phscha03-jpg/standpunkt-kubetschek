@@ -1,0 +1,85 @@
+---
+interface Props {
+  image: string;
+  imageAlt: string;
+  placeholderColor?: string;
+}
+const { image, imageAlt, placeholderColor = "#0A0D0C" } = Astro.props;
+---
+
+<section class="hero" aria-label="Leitbild">
+  <div class="hero__bg">
+    <div class="hero__placeholder" style={`background-color: ${placeholderColor};`}>
+      <span class="hero__img-label">{image}</span>
+    </div>
+    <div class="hero__overlay"></div>
+  </div>
+
+  <div class="hero__content container">
+    <slot />
+  </div>
+
+  <a href="#nach-hero" class="hero__scroll" aria-label="Nach unten scrollen">
+    <svg width="14" height="22" viewBox="0 0 14 22" fill="none" aria-hidden="true">
+      <line x1="7" y1="0" x2="7" y2="20" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+      <polyline points="2,14 7,20 12,14" stroke="rgba(255,255,255,0.35)" stroke-width="1" fill="none"/>
+    </svg>
+  </a>
+</section>
+
+<div id="nach-hero"></div>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero__bg { position: absolute; inset: 0; }
+
+  .hero__placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end; padding: var(--space-2);
+  }
+  .hero__img-label { font-family: monospace; font-size: 10px; color: rgba(255,255,255,0.12); }
+
+  .hero__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(10,13,12,0.88) 0%,
+      rgba(10,13,12,0.6) 60%,
+      rgba(10,13,12,0.35) 100%
+    );
+  }
+
+  .hero__content {
+    position: relative; z-index: 1;
+    padding-block: var(--space-24);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 800px;
+  }
+
+  .hero__scroll {
+    position: absolute;
+    bottom: var(--space-6);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+    display: flex;
+    animation: scrollPulse 2.4s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+    50%       { opacity: 1;   transform: translateX(-50%) translateY(5px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero__scroll { animation: none; opacity: 0.4; }
+  }
+</style>

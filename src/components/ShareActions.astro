@@ -1,0 +1,136 @@
+---
+interface Props {
+  url?: string;
+  title?: string;
+}
+
+const {
+  url = "https://standpunkt-kubetschek.de",
+  title = "Standpunkt zur Gesundheitsversorgung. Dr. Roman Kubetschek",
+} = Astro.props;
+
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+---
+
+<div class="share-actions">
+  <p class="share-actions__label">Diese Seite teilen:</p>
+  <ul class="share-actions__list" role="list">
+    <li>
+      <a
+        href={`https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="share-actions__btn"
+        aria-label="Auf X (Twitter) teilen"
+      >
+        X / Twitter
+      </a>
+    </li>
+    <li>
+      <a
+        href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="share-actions__btn"
+        aria-label="Auf Facebook teilen"
+      >
+        Facebook
+      </a>
+    </li>
+    <li>
+      <a
+        href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="share-actions__btn"
+        aria-label="Auf LinkedIn teilen"
+      >
+        LinkedIn
+      </a>
+    </li>
+    <li>
+      <a
+        href={`https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="share-actions__btn"
+        aria-label="Per WhatsApp teilen"
+      >
+        WhatsApp
+      </a>
+    </li>
+    <li>
+      <button
+        class="share-actions__btn share-actions__btn--copy"
+        data-copy-url={url}
+        aria-label="Link kopieren"
+      >
+        Link kopieren
+      </button>
+    </li>
+  </ul>
+</div>
+
+<style>
+  .share-actions__label {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-2);
+    font-weight: 500;
+    max-width: none;
+  }
+
+  .share-actions__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    list-style: none;
+  }
+
+  .share-actions__btn {
+    display: inline-block;
+    padding: 10px var(--space-3);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    font-family: var(--font-body);
+    color: var(--color-green);
+    background-color: var(--color-white);
+    border: 1.5px solid var(--color-green);
+    border-radius: 2px;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      background-color var(--transition-base),
+      color var(--transition-base);
+  }
+
+  .share-actions__btn:hover {
+    background-color: var(--color-green);
+    color: var(--color-white);
+  }
+
+  .share-actions__btn--copy[data-copied] {
+    background-color: var(--color-green);
+    color: var(--color-white);
+  }
+</style>
+
+<script>
+  const copyBtn = document.querySelector("[data-copy-url]") as HTMLButtonElement;
+
+  copyBtn?.addEventListener("click", async () => {
+    const url = copyBtn.dataset.copyUrl ?? "";
+    try {
+      await navigator.clipboard.writeText(url);
+      copyBtn.textContent = "Kopiert ✓";
+      copyBtn.setAttribute("data-copied", "");
+      setTimeout(() => {
+        copyBtn.textContent = "Link kopieren";
+        copyBtn.removeAttribute("data-copied");
+      }, 2500);
+    } catch {
+      copyBtn.textContent = url;
+    }
+  });
+</script>

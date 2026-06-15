@@ -1,0 +1,428 @@
+---
+import Layout from "@layouts/Layout.astro";
+import PageHeader from "@components/PageHeader.astro";
+import FactBlock from "@components/FactBlock.astro";
+import PullQuote from "@components/PullQuote.astro";
+import Timeline from "@components/Timeline.astro";
+import ImagePlaceholder from "@components/ImagePlaceholder.astro";
+import ScrollReveal from "@components/ScrollReveal.astro";
+
+const timelineItems = [
+  {
+    year: "2009",
+    event: "Das Statistische Jahrbuch der Bundeszahnärztekammer dokumentiert erstmals in dieser Deutlichkeit den drohenden Nachwuchsmangel in der Zahnmedizin, insbesondere im ländlichen Raum.",
+    source: "BZÄK Statistisches Jahrbuch 2009/2010",
+  },
+  {
+    year: "2010",
+    event: "Die Bundeszahnärztekammer warnt öffentlich vor einem drohenden Versorgungsengpaß durch alternde Ärzteschaft und fehlenden Nachwuchs. Erste konkrete Prognosen für strukturschwache Regionen.",
+    source: "BZÄK, Presseinformationen 2010",
+  },
+  {
+    year: "2012",
+    event: "Prof. Dr. Dietmar Österreich, ehem. Präsident der Zahnärztekammer Mecklenburg-Vorpommern und ehem. Vizepräsident der BZÄK, fordert verstärkte Maßnahmen zur Sicherung der Versorgung im ländlichen Raum.",
+    source: "ZWP online, Aussagen Prof. Dr. Österreich",
+  },
+  {
+    year: "2018",
+    event: "Versorgungsgrad in Mecklenburg-Vorpommern beginnt spürbar zu sinken. Prognosen warnen vor kritischen Unterversorgungsregionen bis 2030.",
+    source: "KZV Mecklenburg-Vorpommern",
+  },
+  {
+    year: "2021",
+    event: "Noch 985 niedergelassene Zahnärztinnen und Zahnärzte in Mecklenburg-Vorpommern. Innerhalb von fünf Jahren wird mehr als ein Fünftel dieser Zahl wegfallen.",
+    source: "KZV Mecklenburg-Vorpommern, ZWP online (Januar 2026)",
+  },
+  {
+    year: "2024",
+    event: "Münsteraner Erklärung der BZÄK: Demografischer Wandel, Fachkräftemangel und überlastete Sozialversicherungssysteme werden als akute Krisen benannt. Forderung: Länder müssen genug Fachkräfte für den eigenen Bedarf ausbilden.",
+    source: "BZÄK Münsteraner Erklärung, September 2024",
+  },
+  {
+    year: "2025",
+    event: "816 niedergelassene Zahnärztinnen und Zahnärzte in MV (Januar 2025). Der Versorgungsgrad in Nordwestmecklenburg sinkt auf 55,3 Prozent. Die BZÄK unterstützt parlamentarische Anträge zur GOZ-Novelle, die seit 1988 aussteht.",
+    source: "KZV MV; BZÄK; Nordkurier, 2025",
+  },
+  {
+    year: "2026",
+    event: "Noch 778 niedergelassene Zahnärztinnen und Zahnärzte in MV. 38 weniger als ein Jahr zuvor. Jährlich schließen rund 70 Zahnmediziner ihr Studium ab, doch nur etwa 10 bleiben dauerhaft im Land.",
+    source: "KZV Mecklenburg-Vorpommern, Januar 2026",
+  },
+];
+---
+
+<Layout
+  title="Hintergrund &amp; Fakten"
+  description="Dokumentierte Fakten zum Ärztemangel und zur verfehlten Gesundheitspolitik in Deutschland und Mecklenburg-Vorpommern."
+>
+  <PageHeader
+    title="Das Fundament bröckelt seit Jahren"
+    subtitle="Belegte Fakten zur Versorgungskrise in der Zahnmedizin"
+    image="region-neubrandenburg.jpg"
+    imageAlt="Neubrandenburg und Region, Kontext Versorgungslage"
+    placeholderColor="#1B3A2D"
+  />
+
+  <!-- Einleitung -->
+  <section class="section" aria-labelledby="intro-heading">
+    <div class="container">
+      <ScrollReveal>
+        
+        <h2 id="intro-heading">Was hier dokumentiert wird</h2>
+        <p class="lead">
+          Diese Seite trennt zwischen belegbaren Tatsachen und persönlichen Einschätzungen.
+          Wo es Meinung ist, steht es dabei. Wo es Fakt ist, steht die Quelle.
+          Diese Unterscheidung ist kein Vorbehalt. Sie ist Respekt vor der Wahrheit.
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Faktenblöcke -->
+  <section class="section section--facts" id="mangel" aria-labelledby="facts-heading">
+    <div class="container">
+      <ScrollReveal>
+        
+        <h2 id="facts-heading">Die Fakten</h2>
+      </ScrollReveal>
+
+      <div class="facts-grid">
+
+        <ScrollReveal>
+          <FactBlock
+            headline="Mecklenburg-Vorpommern: Dramatischer Rückgang"
+            countTo={21}
+            countPrefix="−"
+            countSuffix="%"
+            source="KZV Mecklenburg-Vorpommern / ZWP online, Januar 2026"
+            sourceUrl="https://www.zwp-online.info/zwpnews/dental-news/branchenmeldungen/zahl-der-zahnmediziner-in-mecklenburg-vorpommern-sinkt"
+          >
+            <p>
+              In fünf Jahren sank die Zahl niedergelassener Zahnärztinnen und Zahnärzte
+              in Mecklenburg-Vorpommern von 985 (Januar 2021) auf 778 (Januar 2026).
+              Ein Rückgang von mehr als 20 Prozent. Jährlich gehen 60 bis 70 Zahnärzte
+              in den Ruhestand. Nachwuchs ist im ländlichen Raum kaum in Sicht.
+            </p>
+          </FactBlock>
+        </ScrollReveal>
+
+        <ScrollReveal delay={100}>
+          <FactBlock
+            headline="Nordwestmecklenburg: Versorgungsgrad unter 56 Prozent"
+            countTo={55}
+            countSuffix=",3%"
+            source="KZV Mecklenburg-Vorpommern"
+          >
+            <p>
+              Während Städte wie Rostock oder Greifswald überversorgt sind,
+              liegt der Versorgungsgrad in Nordwestmecklenburg bei nur 55,3 Prozent.
+              In Ludwigslust und Nordvorpommern ist die Lage ähnlich kritisch.
+              Bis 2030 drohen einigen Landkreisen Versorgungsgrade unter 50 Prozent.
+            </p>
+          </FactBlock>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <FactBlock
+            headline="GOZ-Punktwert: Seit 1988 nicht angepaßt"
+            countTo={1988}
+            countFrom={1970}
+            source="BZÄK, GOZ-Verordnung; ZWP online"
+            sourceUrl="https://www.zwp-online.info/zwpnews/dental-news/branchenmeldungen/goz-und-jahrlich-grusst-der-gleiche-wert"
+          >
+            <p>
+              Der Punktwert der Gebührenordnung für Zahnärzte (GOZ) beträgt seit 1988
+              unverändert 0,0562421 Euro, also knapp 5,6 Cent. Inflationsbereinigt hat
+              das Zahnarzthonorar seither um fast 109 Prozent an realem Wert verloren.
+              Personalkosten, Materialpreise und Betriebskosten stiegen dagegen kontinuierlich.
+              Alle politischen und rechtlichen Versuche der Zahnärzteorganisationen,
+              eine Anpassung zu erreichen, blieben bisher ohne Ergebnis.
+            </p>
+          </FactBlock>
+        </ScrollReveal>
+
+        <ScrollReveal delay={100}>
+          <FactBlock
+            headline="Nachwuchsmangel: Studieren, aber nicht bleiben"
+            stat="10 / 70"
+            source="KZV Mecklenburg-Vorpommern / ZWP online, 2026"
+          >
+            <p>
+              Jährlich schließen rund 70 Zahnmedizinerinnen und Zahnmediziner ihr Studium
+              in Mecklenburg-Vorpommern ab. Doch nur etwa 10 bleiben dauerhaft im Land.
+              Die anderen ziehen in Städte oder ins Ausland, wo Bedingungen und Honorare
+              attraktiver sind. Der Numerus Clausus begrenzt zusätzlich die Studienplatzzahlen.
+            </p>
+          </FactBlock>
+        </ScrollReveal>
+
+        <ScrollReveal>
+          <FactBlock
+            headline="Deutschlandweit: Alternde Ärzteschaft"
+            countTo={53}
+            countSuffix=",6"
+            source="BZÄK, Nachgezählt / Daten und Zahlen, 2024"
+            sourceUrl="https://www.bzaek.de/ueber-uns/daten-und-zahlen/nachgezaehlt.html"
+          >
+            <p>
+              Das Durchschnittsalter der aktiv tätigen Zahnärztinnen und Zahnärzte in
+              Deutschland beträgt 53,6 Jahre. 8,4 Prozent der Niedergelassenen sind
+              bereits über 65 Jahre alt und arbeiten über das Rentenalter hinaus, weil
+              Nachfolger fehlen. Die Konzentration von Praxen in großen Städten und
+              Medizinischen Versorgungszentren gefährdet mittelfristig die
+              flächendeckende Versorgung.
+            </p>
+          </FactBlock>
+        </ScrollReveal>
+
+        <ScrollReveal delay={100}>
+          <FactBlock
+            headline="Überregulierung und Bürokratie"
+            isOpinion
+          >
+            <p>
+              Ein wachsender Teil der Arbeitszeit in Zahnarztpraxen geht für Dokumentation,
+              Verwaltung und Compliance auf. Zeit, die nicht für Patientenbehandlungen
+              zur Verfügung steht. Statt die Bürokratielast zu senken, wurden in den
+              letzten Jahren neue Pflichten eingeführt, ohne die alten zu streichen.
+            </p>
+            <p>
+              Nach Einschätzung von Dr. Kubetschek ist dies einer der zentralen Faktoren,
+              der Niedergelassene belastet und potenzielle Nachfolger abschreckt.
+            </p>
+          </FactBlock>
+        </ScrollReveal>
+
+        <ScrollReveal id="politik">
+          <FactBlock
+            headline="Warnungen seit über 15 Jahren"
+            source="BZÄK Jahresberichte und Pressemitteilungen ab 2010; Münsteraner Erklärung 2024"
+            sourceUrl="https://www.bzaek.de/service/positionen-statements/einzelansicht/muensteraner-erklaerung-der-bundeszahnaerztekammer.html"
+          >
+            <p>
+              Die Bundeszahnärztekammer warnt seit mindestens 2010 öffentlich vor dem
+              drohenden Versorgungsengpaß durch alternde Ärzteschaft, fehlenden Nachwuchs
+              und mangelnde Attraktivität der Niederlassung im ländlichen Raum.
+              Die Münsteraner Erklärung von 2024 benennt erneut demografischen Wandel
+              und Fachkräftemangel als akute Krisen. Sie fordert, daß Bundesländer
+              genug Fachkräfte für den eigenen Bedarf ausbilden.
+            </p>
+          </FactBlock>
+        </ScrollReveal>
+
+        <ScrollReveal delay={100} id="nachwuchs">
+          <FactBlock
+            headline="Fehlende Kompetenz in der Entscheidungsebene"
+            isOpinion
+          >
+            <p>
+              Entscheidungen über das Gesundheitssystem werden von Menschen getroffen,
+              die das System nicht aus eigenem Erleben kennen. Die Konsequenz:
+              realitätsferne Gesetzgebung, starre Verwaltungsvorschriften und eine
+              Haltung, die auf regionale, individuelle Lösungen mit „Das geht nicht,
+              weil..." reagiert, statt Möglichkeiten zu suchen.
+            </p>
+            <p>
+              Dr. Kubetschek sieht darin eine Hauptursache für den ausgebliebenen
+              politischen Wandel: „<strong>Kompetenz statt Proporz</strong>".
+              Entscheider sollten das studiert haben, worüber sie entscheiden.
+            </p>
+          </FactBlock>
+        </ScrollReveal>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Bilder -->
+  <section class="section section--tight images-block" aria-hidden="true">
+    <div class="container images-block__grid">
+      <ImagePlaceholder
+        filename="alltag-kalender.jpg"
+        ratio="3:2"
+        color="#57534E"
+        alt="Überfüllter Terminplan, sichtbare Überlastung"
+      />
+      <ImagePlaceholder
+        filename="alltag-detail.jpg"
+        ratio="1:1"
+        color="#3D3530"
+        alt="Hände und Instrumente, anonym"
+      />
+    </div>
+  </section>
+
+  <!-- Zeitachse -->
+  <section class="section" aria-labelledby="timeline-heading">
+    <div class="container">
+      <ScrollReveal>
+        
+        <h2 id="timeline-heading">Chronologie der Untätigkeit</h2>
+        <p class="lead">
+          Die Entwicklung war vorhersehbar. Die Warnungen lagen vor.
+          Was fehlte, war der politische Wille zu handeln.
+        </p>
+      </ScrollReveal>
+      <ScrollReveal delay={150}>
+        <Timeline items={timelineItems} />
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Zitat -->
+  <section class="section section--green" aria-label="Forderung">
+    <div class="container">
+      <ScrollReveal>
+        <PullQuote
+          quote="Kompetenz statt Proporz"
+          author="Dr. Roman Kubetschek. Entscheider müssen das studiert haben, worüber sie entscheiden."
+          large
+        />
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" aria-labelledby="cta-heading">
+    <div class="container">
+      <ScrollReveal>
+        
+        <h2 id="cta-heading">Persönlicher Standpunkt</h2>
+        <p>Was es bedeutet, in diesem System täglich zu arbeiten.</p>
+        <div class="cta-actions">
+          <a href="/standpunkt" class="btn btn--primary">Zum Standpunkt</a>
+          <a href="/quellen" class="btn btn--secondary">Alle Quellen</a>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 680px;
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-8);
+  }
+
+  .facts-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    padding-bottom: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .facts-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .section--facts { background-color: var(--color-surface); }
+
+  .images-block__grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-4);
+  }
+
+  .section--green {
+    background-color: var(--color-white);
+    border-top: 1px solid var(--color-rule);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 14px var(--space-6);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    font-family: var(--font-body);
+    letter-spacing: 0.03em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition:
+      background-color var(--transition-base),
+      color var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .btn--primary,
+  .btn--primary:link,
+  .btn--primary:visited {
+    background-color: var(--color-green);
+    color: var(--color-white);
+    border: 2px solid var(--color-green);
+  }
+
+  .btn--primary:hover,
+  .btn--primary:active {
+    background-color: var(--color-green-mid);
+    border-color: var(--color-green-mid);
+    color: var(--color-white);
+  }
+
+  .btn--secondary,
+  .btn--secondary:link,
+  .btn--secondary:visited {
+    background-color: transparent;
+    color: var(--color-green);
+    border: 2px solid var(--color-green);
+  }
+
+  .btn--secondary:hover,
+  .btn--secondary:active {
+    background-color: var(--color-green);
+    color: var(--color-white);
+  }
+</style>
+
+<script>
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!reduced) {
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const animate = (el: HTMLElement) => {
+      const to     = parseFloat(el.dataset.countTo!);
+      const from   = parseFloat(el.dataset.countFrom ?? "0");
+      const prefix = el.dataset.prefix ?? "";
+      const duration = 1800;
+      const start  = performance.now();
+
+      const tick = (now: number) => {
+        const p   = Math.min((now - start) / duration, 1);
+        const val = Math.round(from + (to - from) * easeOut(p));
+        el.textContent = prefix + val;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+
+      requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            animate(e.target as HTMLElement);
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    document.querySelectorAll<HTMLElement>("[data-count-to]").forEach((el) => {
+      observer.observe(el);
+    });
+  }
+</script>

@@ -1,0 +1,80 @@
+---
+interface Props {
+  title: string;
+  subtitle?: string;
+  label?: string;
+  image: string;
+  imageAlt: string;
+  placeholderColor?: string;
+}
+const { title, subtitle, label, image, imageAlt, placeholderColor = "#1C3830" } = Astro.props;
+---
+
+<header class="ph">
+  <div class="ph__img">
+    <div class="ph__placeholder" style={`background-color: ${placeholderColor};`}>
+      <span class="ph__img-label">{image}</span>
+    </div>
+    <div class="ph__overlay"></div>
+  </div>
+  <div class="ph__content container">
+    {label && <span class="ph__label section-label">{label}</span>}
+    <h1 class="ph__title">{title}</h1>
+    {subtitle && <p class="ph__sub">{subtitle}</p>}
+  </div>
+</header>
+
+<style>
+  .ph {
+    position: relative;
+    min-height: 52vh;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .ph__img { position: absolute; inset: 0; }
+
+  .ph__placeholder {
+    position: absolute; inset: 0;
+    display: flex; align-items: flex-end; padding: var(--space-2);
+  }
+  .ph__img-label { font-family: monospace; font-size: 10px; color: rgba(255,255,255,0.15); }
+
+  .ph__overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10,13,12,0.92) 0%,
+      rgba(10,13,12,0.55) 55%,
+      rgba(10,13,12,0.25) 100%
+    );
+  }
+
+  .ph__content {
+    position: relative; z-index: 1;
+    padding-bottom: var(--space-10, 80px);
+    padding-top: calc(var(--nav-height) + var(--space-12));
+  }
+
+  .ph__label { margin-bottom: var(--space-3); }
+
+  .ph__title {
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-3xl), 6vw, var(--text-6xl));
+    font-weight: 700;
+    color: var(--color-white);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+  }
+
+  .ph__sub {
+    margin-top: var(--space-3);
+    font-size: var(--text-lg);
+    color: rgba(255,255,255,0.6);
+    max-width: 560px;
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+</style>

@@ -1,0 +1,426 @@
+---
+import Layout from "@layouts/Layout.astro";
+import HeroFullscreen from "@components/HeroFullscreen.astro";
+import PullQuote from "@components/PullQuote.astro";
+import StopNotice from "@components/StopNotice.astro";
+import ImagePlaceholder from "@components/ImagePlaceholder.astro";
+import ScrollReveal from "@components/ScrollReveal.astro";
+---
+
+<Layout
+  title="Start"
+  description="Dr. Roman Kubetschek, Zahnarzt in Neubrandenburg, bezieht Stellung zum Ärztemangel und zur verfehlten Gesundheitspolitik."
+>
+
+  <!-- ① Hero: Zitat auf schwarzem Grund, kein Coaching-Overlay -->
+  <HeroFullscreen image="start-leitbild.jpg" imageAlt="Dokumentarisches Leitmotiv">
+    <span class="section-label">Standpunkt · Dr. Roman Kubetschek</span>
+    <PullQuote
+      quote="Wie groß muß der Schmerz noch werden, ehe die Heilung einsetzt und der Mensch ins Tun kommt?"
+      large
+      light
+    />
+    <p class="hero-sub">
+      Zahnarzt in Neubrandenburg · Zur Lage der zahnärztlichen Versorgung in Deutschland
+    </p>
+  </HeroFullscreen>
+
+  <!-- ② Aufnahmestopp – sofort, kein Puffer -->
+  <StopNotice />
+
+  <!-- ③ Drei Kennzahlen – dokumentarisch, kein Karten-Grid -->
+  <section class="section--sm stats-band" aria-label="Kennzahlen">
+    <div class="container">
+      <div class="stats-row">
+        <div class="stat">
+          <div class="stat__num" data-count-to="778">778</div>
+          <div class="stat__desc">niedergelassene Zahnärzte in MV (Jan. 2026). Vor fünf Jahren waren es noch 985.</div>
+        </div>
+        <div class="stat-div" aria-hidden="true"></div>
+        <div class="stat">
+          <div class="stat__num"><span data-count-to="21" data-prefix="−">−21</span><span class="stat__unit">%</span></div>
+          <div class="stat__desc">Rückgang der Zahnarztdichte in MV innerhalb von fünf Jahren</div>
+        </div>
+        <div class="stat-div" aria-hidden="true"></div>
+        <div class="stat">
+          <div class="stat__num" data-count-to="1988" data-count-from="1970">1988</div>
+          <div class="stat__desc">letztes Jahr, in dem der GOZ-Punktwert angepaßt wurde. Seitdem real −109 %.</div>
+        </div>
+      </div>
+      <p class="stats-source">Quellen: KZV Mecklenburg-Vorpommern, BZÄK / <a href="/quellen">Alle Belege</a></p>
+    </div>
+  </section>
+
+  <!-- ④ Worum es geht – zweispaltig, journalistisch -->
+  <section class="section" aria-labelledby="worum-heading">
+    <div class="container">
+      <div class="rule"></div>
+      <div class="editorial-block">
+        <div class="editorial-block__left">
+          <span class="section-label">Was diese Website ist</span>
+          <h2 id="worum-heading">Kein Praxisauftritt.<br />Eine Stellungnahme.</h2>
+        </div>
+        <div class="editorial-block__right">
+          <ScrollReveal>
+            <p>
+              Diese Website ist keine Werbung. Sie ist der persönliche Standpunkt
+              eines Zahnarztes, der seit Jahrzehnten beobachtet, wie ein System
+              zerbricht. Er will nicht länger schweigen.
+            </p>
+            <p>
+              Der Ärztemangel in Deutschland ist kein Naturereignis. Er ist das Ergebnis
+              einer verfehlten Gesundheitspolitik, die seit über 16 Jahren trotz klarer
+              Warnungen keine wirksamen Konsequenzen zieht.
+            </p>
+            <p>
+              Auf dieser Website: belegbare Fakten mit Quellenangabe. Persönliche
+              Einschätzungen klar als solche kenntlich gemacht.
+            </p>
+            <div class="cta-row">
+              <a href="/hintergrund" class="btn btn--primary">Hintergrund lesen</a>
+              <a href="/standpunkt" class="btn btn--outline">Mein Standpunkt</a>
+            </div>
+          </ScrollReveal>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ Portrait + Zitat – horizontal, kein vertikaler Karten-Stack -->
+  <section class="section--sm portrait-band" aria-label="Berufung">
+    <div class="container">
+      <div class="portrait-row">
+        <div class="portrait-img">
+          <ImagePlaceholder
+            filename="portrait-kubetschek-hoch.jpg"
+            ratio="4:5"
+            color="#1C3830"
+            alt="Portrait Dr. Roman Kubetschek"
+          />
+        </div>
+        <div class="portrait-text">
+          <ScrollReveal>
+            <span class="section-label">Haltung</span>
+            <PullQuote
+              quote="Zahnarzt ist kein Beruf sondern Berufung."
+              author="Dr. Roman Kubetschek"
+              large
+            />
+            <p class="portrait-body">
+              Diese Haltung erklärt, warum dieser Standpunkt öffentlich formuliert wird.
+              Nicht aus Selbstdarstellung. Sondern weil Schweigen eine Entscheidung ist: die falsche.
+            </p>
+          </ScrollReveal>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑥ Drei Probleme als horizontale Liste, nicht als Cards -->
+  <section class="section" aria-labelledby="probleme-heading">
+    <div class="container">
+      <div class="rule"></div>
+      <span class="section-label">Systemversagen</span>
+      <h2 id="probleme-heading">Drei Ursachen. Sechzehn Jahre. Keine Lösung.</h2>
+
+      <ol class="problem-list" role="list">
+        <li class="problem-item">
+          <ScrollReveal>
+            <a href="/hintergrund#mangel" class="problem-link">
+              <span class="problem-n">01</span>
+              <div class="problem-content">
+                <h3>Zu wenige Zahnärzte</h3>
+                <p>
+                  In Mecklenburg-Vorpommern sank die Zahl von 985 auf 778 in fünf Jahren.
+                  Jährlich gehen 60–70 in Rente. Nachwuchs fehlt.
+                  Einige Landkreise steuern auf einen Versorgungsgrad unter 50 % zu.
+                </p>
+              </div>
+              <span class="problem-arrow" aria-hidden="true">→</span>
+            </a>
+          </ScrollReveal>
+        </li>
+        <li class="problem-item">
+          <ScrollReveal delay={80}>
+            <a href="/hintergrund#politik" class="problem-link">
+              <span class="problem-n">02</span>
+              <div class="problem-content">
+                <h3>Versagende Politik</h3>
+                <p>
+                  Warnungen der Bundeszahnärztekammer seit 2010 blieben folgenlos.
+                  Der GOZ-Punktwert ist seit 1988 unverändert. Das Honorar hat real
+                  fast 109 % an Wert verloren.
+                </p>
+              </div>
+              <span class="problem-arrow" aria-hidden="true">→</span>
+            </a>
+          </ScrollReveal>
+        </li>
+        <li class="problem-item">
+          <ScrollReveal delay={160}>
+            <a href="/hintergrund#nachwuchs" class="problem-link">
+              <span class="problem-n">03</span>
+              <div class="problem-content">
+                <h3>Fehlende Kompetenz</h3>
+                <p>
+                  Entscheidungen über das Gesundheitssystem werden von Menschen
+                  getroffen, die es nicht aus eigenem Erleben kennen.
+                  Die Folge: realitätsferne Gesetze, starre Verwaltung, ausgebliebener Wandel.
+                </p>
+              </div>
+              <span class="problem-arrow" aria-hidden="true">→</span>
+            </a>
+          </ScrollReveal>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ⑦ Aufruf: Mitmachen -->
+  <section class="section cta-dark" aria-labelledby="cta-heading">
+    <div class="container">
+      <ScrollReveal>
+        <span class="section-label" style="color: rgba(255,255,255,0.4);">Handlung</span>
+        <h2 id="cta-heading">Was Sie tun können</h2>
+        <p class="cta-body">
+          Teilen. Informieren. Politiker anschreiben. Jede Handlung zählt, auch wenn sie klein erscheint.
+        </p>
+        <div class="cta-row">
+          <a href="/mitmachen" class="btn btn--white">Mitmachen &amp; Teilen</a>
+          <a href="/quellen" class="btn btn--outline" style="border-color:rgba(255,255,255,0.3); color:rgba(255,255,255,0.7);">
+            Quellen &amp; Belege
+          </a>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  .hero-sub {
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.04em;
+    max-width: none;
+    margin: 0;
+  }
+
+  /* Kennzahlen-Band */
+  .stats-band { background-color: var(--color-surface); }
+
+  .stats-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+    padding-block: var(--space-6);
+  }
+
+  @media (min-width: 640px) {
+    .stats-row {
+      grid-template-columns: 1fr 1px 1fr 1px 1fr;
+      align-items: center;
+    }
+  }
+
+  .stat-div {
+    background-color: var(--color-rule);
+    height: 40px;
+    display: none;
+  }
+  @media (min-width: 640px) { .stat-div { display: block; } }
+
+  .stat { display: flex; flex-direction: column; gap: 6px; }
+
+  .stat__num {
+    font-family: var(--font-display);
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .stat__unit { font-size: 0.55em; vertical-align: super; }
+
+  .stat__desc {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    max-width: 200px;
+  }
+
+  .stats-source {
+    font-size: var(--text-xs);
+    color: var(--color-gray-400);
+    margin-top: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-rule);
+    max-width: none;
+    margin-bottom: 0;
+  }
+
+  /* Zweispaltiger Textblock */
+  .editorial-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    margin-top: var(--space-6);
+  }
+
+  @media (min-width: 768px) {
+    .editorial-block {
+      grid-template-columns: 340px 1fr;
+      gap: var(--space-16);
+      align-items: start;
+    }
+  }
+
+  .editorial-block__left h2 {
+    margin-top: var(--space-2);
+    line-height: 1.1;
+  }
+
+  .editorial-block__right p { max-width: none; }
+
+  .cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+  }
+
+  /* Portrait-Band */
+  .portrait-band { background-color: var(--color-white); }
+
+  .portrait-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .portrait-row {
+      grid-template-columns: 220px 1fr;
+      gap: var(--space-12);
+    }
+  }
+
+  .portrait-img { max-width: 220px; }
+  .portrait-body { margin-top: var(--space-4); font-size: var(--text-sm); color: var(--color-text-muted); max-width: none; }
+
+  /* Probleme als Liste */
+  .problem-list {
+    list-style: none;
+    margin-top: var(--space-8);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .problem-item { border-top: 1px solid var(--color-rule); }
+  .problem-item:last-child { border-bottom: 1px solid var(--color-rule); }
+
+  .problem-link {
+    display: grid;
+    grid-template-columns: 48px 1fr 24px;
+    gap: var(--space-4);
+    align-items: start;
+    padding-block: var(--space-4);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--transition-base);
+  }
+  .problem-link:hover { background-color: var(--color-surface); }
+  .problem-link:focus-visible { outline: 2px solid var(--color-gold); outline-offset: 2px; }
+
+  .problem-n {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--color-rule);
+    line-height: 1;
+    padding-top: 4px;
+  }
+
+  .problem-content h3 {
+    font-size: var(--text-xl);
+    font-weight: 700;
+    margin-bottom: var(--space-2);
+  }
+
+  .problem-content p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    line-height: 1.65;
+    max-width: none;
+    margin: 0;
+  }
+
+  .problem-arrow {
+    font-size: var(--text-xl);
+    color: var(--color-green);
+    padding-top: 4px;
+    transition: transform var(--transition-base);
+  }
+  .problem-link:hover .problem-arrow { transform: translateX(4px); }
+
+  /* Dunkle CTA-Sektion */
+  .cta-dark {
+    background-color: var(--color-black);
+  }
+
+  .cta-dark h2 {
+    color: var(--color-white);
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-3);
+  }
+
+  .cta-body {
+    color: rgba(255,255,255,0.55);
+    font-size: var(--text-lg);
+    max-width: 560px;
+    margin-bottom: 0;
+  }
+</style>
+
+<script>
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!reduced) {
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+
+    const animate = (el: HTMLElement) => {
+      const to   = parseFloat(el.dataset.countTo!);
+      const from = parseFloat(el.dataset.countFrom ?? "0");
+      const prefix = el.dataset.prefix ?? "";
+      const duration = 1800;
+      const start = performance.now();
+
+      const tick = (now: number) => {
+        const p = Math.min((now - start) / duration, 1);
+        const val = Math.round(from + (to - from) * easeOut(p));
+        el.textContent = prefix + val;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+
+      requestAnimationFrame(tick);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            animate(e.target as HTMLElement);
+            observer.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    document.querySelectorAll<HTMLElement>("[data-count-to]").forEach((el) => {
+      observer.observe(el);
+    });
+  }
+</script>

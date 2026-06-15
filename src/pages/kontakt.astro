@@ -1,0 +1,261 @@
+---
+import Layout from "@layouts/Layout.astro";
+import StopNotice from "@components/StopNotice.astro";
+import ImagePlaceholder from "@components/ImagePlaceholder.astro";
+import ScrollReveal from "@components/ScrollReveal.astro";
+---
+
+<Layout
+  title="Kontakt"
+  description="Praxisinfo und Pressekontakt. Dr. Roman Kubetschek, Zahnarzt in Neubrandenburg."
+>
+  <div class="page-header-text">
+    <div class="container">
+      
+      <h1>Kontakt</h1>
+    </div>
+  </div>
+
+  <section class="section" aria-labelledby="praxis-heading">
+    <div class="container contact-grid">
+
+      <!-- Praxisinfo -->
+      <div class="contact-main">
+        <ScrollReveal>
+          
+          <h2 id="praxis-heading">Zahnarztpraxis Dr. Roman Kubetschek</h2>
+        </ScrollReveal>
+
+        <ScrollReveal delay={100}>
+          <dl class="contact-list">
+            <div class="contact-list__item">
+              <dt>Telefon</dt>
+              <dd>
+                <a href="tel:+493955442332" class="contact-phone">03955 442332</a>
+              </dd>
+            </div>
+            <div class="contact-list__item">
+              <dt>Adresse</dt>
+              <dd>
+                <address>
+                  Wilhelm-Külz-Str. 4<br />
+                  17033 Neubrandenburg
+                </address>
+              </dd>
+            </div>
+            <div class="contact-list__item">
+              <dt>Öffnungszeiten</dt>
+              <dd>
+                <table class="hours-table">
+                  <tr><td>Mo</td><td>07:00 – 14:00</td></tr>
+                  <tr><td>Di</td><td>12:00 – 19:00</td></tr>
+                  <tr><td>Mi</td><td>07:00 – 14:00</td></tr>
+                  <tr><td>Do</td><td>12:00 – 19:00</td></tr>
+                  <tr><td>Fr</td><td>07:00 – 11:00</td></tr>
+                  <tr class="hours-closed"><td>Sa</td><td>geschlossen</td></tr>
+                  <tr class="hours-closed"><td>So</td><td>geschlossen</td></tr>
+                </table>
+              </dd>
+            </div>
+          </dl>
+        </ScrollReveal>
+
+        <ScrollReveal delay={150}>
+          <div class="contact-notice">
+            <strong>Keine E-Mail-Kommunikation für Patientenanliegen.</strong>
+            <p>
+              Terminanfragen, Rezeptanfragen und alle Patientenkontakte erfolgen
+              ausschließlich telefonisch oder persönlich in der Praxis.
+              E-Mail-Anfragen zu Behandlungen werden nicht beantwortet.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={200}>
+          <StopNotice compact />
+        </ScrollReveal>
+      </div>
+
+      <!-- Aufnahmestopp-Bild -->
+      <div class="contact-image">
+        <ScrollReveal delay={100}>
+          <ImagePlaceholder
+            filename="alltag-aufnahmestopp.jpg"
+            ratio="4:5"
+            color="#0E1410"
+            alt="Aushang: Keine Aufnahme neuer Patienten"
+          />
+        </ScrollReveal>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pressekontakt -->
+  <section class="section press-section" aria-labelledby="presse-heading">
+    <div class="container">
+      <ScrollReveal>
+        
+        <h2 id="presse-heading">Presse und Rückfragen zur Website</h2>
+        <p>
+          Für Rückfragen zu den Inhalten dieser Website und für Presseanfragen
+          steht folgende Adresse zur Verfügung:
+        </p>
+        <div class="press-contact">
+          <a href="mailto:zahnarzt@startmail.com" class="press-email">
+            zahnarzt@startmail.com
+          </a>
+          <p class="press-note">
+            Diese Adresse ist ausschließlich für Presse und inhaltliche Rückfragen
+            zur Website vorgesehen, nicht für Patientenanliegen oder Terminanfragen.
+          </p>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .page-header-text {
+    background-color: var(--color-black);
+    padding-block: var(--space-12);
+  }
+
+  .page-header-text h1 {
+    color: var(--color-white);
+    margin-top: var(--space-3);
+  }
+
+  .page-header-text .gold-rule { margin-bottom: var(--space-3); }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  @media (min-width: 768px) {
+    .contact-grid { grid-template-columns: 1fr 280px; }
+  }
+
+  .contact-main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .contact-main h2 { margin-top: var(--space-3); }
+
+  .contact-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .contact-list__item {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: var(--space-3);
+  }
+
+  dt {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding-top: 2px;
+  }
+
+  .hours-table {
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    line-height: 1.8;
+  }
+  .hours-table td:first-child {
+    min-width: 32px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    padding-right: var(--space-3);
+  }
+  .hours-table td:last-child { color: var(--color-text); }
+  .hours-closed td { color: var(--color-text-muted) !important; }
+
+  dd {
+    font-size: var(--text-base);
+    color: var(--color-text);
+  }
+
+  address { font-style: normal; line-height: 1.6; }
+
+  .contact-phone {
+    font-family: var(--font-display);
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--color-green);
+    text-decoration: none;
+  }
+
+  .contact-phone:hover { color: var(--color-green-mid); }
+
+  .todo-placeholder {
+    font-size: var(--text-sm);
+    color: var(--color-gold);
+    background-color: rgba(184, 146, 46, 0.1);
+    padding: 2px 6px;
+    border-radius: 2px;
+    font-style: italic;
+  }
+
+  .contact-notice {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-left: 3px solid var(--color-green);
+    padding: var(--space-4);
+  }
+
+  .contact-notice strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    color: var(--color-black);
+    margin-bottom: var(--space-2);
+  }
+
+  .contact-notice p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    max-width: none;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Presse */
+  .press-section { background-color: var(--color-white); }
+
+  .press-section p { max-width: var(--max-width-text); }
+
+  .press-contact {
+    margin-top: var(--space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .press-email {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-green);
+    text-decoration: none;
+  }
+
+  .press-email:hover { color: var(--color-green-mid); }
+
+  .press-note {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    max-width: none;
+    margin: 0;
+  }
+</style>

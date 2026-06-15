@@ -1,0 +1,113 @@
+---
+interface Props {
+  headline: string;
+  stat?: string;
+  countTo?: number;
+  countFrom?: number;
+  countPrefix?: string;
+  countSuffix?: string;
+  isOpinion?: boolean;
+  source?: string;
+  sourceUrl?: string;
+}
+const { headline, stat, countTo, countFrom, countPrefix, countSuffix, isOpinion = false, source, sourceUrl } = Astro.props;
+---
+
+<article class="fact">
+  <div class="fact__top">
+    {(stat || countTo !== undefined) && (
+      <div class="fact__stat" aria-hidden="true">
+        {countTo !== undefined ? (
+          <><span
+            data-count-to={String(countTo)}
+            data-count-from={countFrom !== undefined ? String(countFrom) : undefined}
+            data-prefix={countPrefix || undefined}
+          >{countPrefix ?? ""}{countTo}</span>{countSuffix ?? ""}</>
+        ) : stat}
+      </div>
+    )}
+    <h3 class="fact__headline">{headline}</h3>
+  </div>
+  <div class="fact__body"><slot /></div>
+  {(isOpinion || source) && (
+    <footer class="fact__foot">
+      {isOpinion && <span class="fact__tag">Einschätzung Dr. Kubetschek</span>}
+      {source && (
+        <cite class="fact__source">
+          {sourceUrl
+            ? <a href={sourceUrl} target="_blank" rel="noopener noreferrer">{source}</a>
+            : source}
+        </cite>
+      )}
+    </footer>
+  )}
+</article>
+
+<style>
+  .fact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    background-color: var(--color-white);
+    border: 1px solid var(--color-rule);
+    border-top-width: 3px;
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .fact:hover {
+    border-color: var(--color-green);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-3px);
+  }
+
+  .fact__top { display: flex; flex-direction: column; gap: var(--space-1); }
+
+  .fact__stat {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    transition: color 0.2s ease;
+  }
+
+  .fact:hover .fact__stat { color: var(--color-green-mid); }
+
+  .fact__headline {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-black);
+    line-height: 1.2;
+  }
+
+  .fact__body { font-size: var(--text-sm); line-height: 1.7; color: var(--color-text); }
+  .fact__body :global(p) { max-width: none; margin-bottom: var(--space-2); }
+  .fact__body :global(p:last-child) { margin-bottom: 0; }
+
+  .fact__foot {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: auto;
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .fact__tag {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .fact__source { font-size: var(--text-xs); color: var(--color-text-muted); font-style: normal; }
+  .fact__source a { color: var(--color-text-muted); }
+  .fact__source a:hover { color: var(--color-green); }
+</style>

@@ -1,10 +1,13 @@
 ---
+import ToothWireframe from "@components/ToothWireframe.astro";
+
 interface Props {
   image: string;
   imageAlt: string;
   placeholderColor?: string;
+  tooth?: boolean;
 }
-const { image, imageAlt, placeholderColor = "#0A0D0C" } = Astro.props;
+const { image, imageAlt, placeholderColor = "#0A0D0C", tooth = false } = Astro.props;
 ---
 
 <section class="hero" aria-label="Leitbild">
@@ -13,6 +16,7 @@ const { image, imageAlt, placeholderColor = "#0A0D0C" } = Astro.props;
       <span class="hero__img-label">{image}</span>
     </div>
     <div class="hero__overlay"></div>
+    {tooth && <ToothWireframe />}
   </div>
 
   <div class="hero__content container">

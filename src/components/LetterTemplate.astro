@@ -64,6 +64,7 @@ const mailtoHref = `mailto:?subject=${encodeURIComponent("Zahnärztliche Versorg
   .letter-template {
     background-color: var(--color-white);
     border: 1px solid var(--color-rule);
+    border-radius: var(--radius-card);
     padding: var(--space-6);
     display: flex;
     flex-direction: column;
@@ -87,6 +88,7 @@ const mailtoHref = `mailto:?subject=${encodeURIComponent("Zahnärztliche Versorg
   .letter-template__body {
     background-color: var(--color-surface);
     border: 1px solid var(--color-rule);
+    border-radius: calc(var(--radius-card) - 6px);
     padding: var(--space-4);
     max-height: 320px;
     overflow-y: auto;

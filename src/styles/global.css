@@ -55,6 +55,9 @@
   --nav-height:      64px;
 
   --transition-base: 180ms ease;
+
+  /* Abrundungen */
+  --radius-card: 14px;
 }
 
 /* ─── Reset ──────────────────────────────────────────────────────── */

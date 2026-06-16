@@ -1,0 +1,1043 @@
+---
+import Layout from "@layouts/Layout.astro";
+import PageHeader from "@components/PageHeader.astro";
+import PullQuote from "@components/PullQuote.astro";
+import ScrollReveal from "@components/ScrollReveal.astro";
+
+// Versorgungsgrad je Planungsbereich (Quelle: dens 6/2025, Stichtag 31.12.2024)
+// offiziell (Schlüssel 1:1680) vs. real nach Altersstruktur M-V (1:1173)
+const regionen = [
+  { name: "Wismar-Stadt",         offiziell: 139.8, real: 97.6, fehlend: 0.9 },
+  { name: "Greifswald-Stadt",     offiziell: 130.6, real: 91.2, fehlend: 4.5 },
+  { name: "Schwerin-Stadt",       offiziell: 128.0, real: 89.4, fehlend: 9.0 },
+  { name: "Stralsund-Stadt",      offiziell: 108.8, real: 76.0, fehlend: 12.2 },
+  { name: "Neubrandenburg-Stadt", offiziell: 107.3, real: 74.9, fehlend: 13.7 },
+  { name: "Ostvorpommern",        offiziell: 97.6,  real: 68.1, fehlend: 27.0 },
+  { name: "Uecker-Randow",        offiziell: 93.8,  real: 65.5, fehlend: 19.0 },
+  { name: "Parchim",              offiziell: 89.6,  real: 62.6, fehlend: 28.7 },
+  { name: "Güstrow",              offiziell: 86.8,  real: 60.6, fehlend: 32.3 },
+  { name: "Bad Doberan",          offiziell: 85.5,  real: 59.7, fehlend: 43.1 },
+  { name: "Mecklenburg-Strelitz", offiziell: 82.8,  real: 57.8, fehlend: 26.5 },
+  { name: "Demmin",               offiziell: 82.7,  real: 57.7, fehlend: 25.6 },
+  { name: "Müritz",               offiziell: 82.4,  real: 57.5, fehlend: 22.7 },
+  { name: "Rügen",                offiziell: 77.1,  real: 53.8, fehlend: 25.5 },
+  { name: "Ludwigslust",          offiziell: 74.0,  real: 51.7, fehlend: 50.5 },
+  { name: "Nordvorpommern",       offiziell: 73.4,  real: 51.2, fehlend: 42.8 },
+  { name: "Nordwestmecklenburg",  offiziell: 63.7,  real: 44.5, fehlend: 55.0 },
+];
+
+// Neubrandenburg: Entwicklung der Zahnarztpraxen
+// (Quelle: Mitgliederverwaltung KZV M-V, 27.11.2025)
+const praxen = [
+  { jahr: "1991", wert: 54 },
+  { jahr: "2015", wert: 56 },
+  { jahr: "Nov 2025", wert: 41 },
+  { jahr: "Jan 2026", wert: 38 },
+];
+
+// Lösungsvorschläge mit Pro/Contra
+const loesungen = [
+  {
+    n: "01",
+    titel: "Kontrollbesuche reduzieren",
+    text: "Reduzierung der in der Regel üblichen Kontrollbesuche der Bestandspatienten auf einen Besuch (bisher meist zwei je Jahr).",
+    pro: ["Freiwerdende Kapazitäten können für Neupatienten genutzt werden"],
+    contra: ["Gefahr des Bonusverlustes, falls Termin vergessen wird"],
+  },
+  {
+    n: "02",
+    titel: "Delegierung von Kontrollen",
+    text: "Delegierung von einfachen Kontrolluntersuchungen an qualifiziertes, nicht approbiertes Fachpersonal mit Sicherstellung einer approbierten Kontrolle im Zweifelsfall (analog oder virtuell) durch Approbierte.",
+    pro: [
+      "Beschränkung der approbierten Behandlung auf Kuration von rein pathologischen Befunden, damit kürzere Wartezeiten bis Therapiebeginn",
+      "Sicherstellung im ländlichen Bereich für minimale Grundversorgung (Bonus)",
+    ],
+    contra: [
+      "Bestehender Fachkräftemangel in zahnärztlichen Praxen limitiert / steigt an",
+      "Gefahr des Übersehens von pathologischen Befunden steigt",
+    ],
+  },
+  {
+    n: "03",
+    titel: "Öffentlichen Gesundheitsdienst einbinden",
+    text: "Einbindung des öffentlichen Gesundheitsdienstes (ÖGD) in die Sicherstellung durch Übernahme von Reihen-/Bonusuntersuchungen mit einfachen Befunderhebungen, äquivalent zur Untersuchung in Kindergärten/Schulen, durch Approbierte und Nichtapprobierte.",
+    pro: [
+      "Sicherstellung wie unter 02 beschrieben",
+      "Bestehende Approbationsexpertise wird auf reine Behandlung beschränkt, Zahnärzte fungieren als „Fachärzte“",
+      "Fachkräftekompetenz im niedergelassenen Bereich wird optimal genutzt",
+    ],
+    contra: [
+      "Abwanderung von Fachkräften in den ÖGD möglich (Hinweis: Gehaltsdifferenz)",
+      "Verlust des Bindungstatusses zum Hauszahnarzt",
+    ],
+  },
+  {
+    n: "04",
+    titel: "Landeskinder zurückholen",
+    text: "Aktive Zurückholung von im Ausland studierenden Landeskindern und deren vorzugsweise Integration in den Studienbetrieb nach dem Physikum.",
+    pro: [],
+    contra: [],
+  },
+  {
+    n: "05",
+    titel: "Studienplätze für M-V reservieren",
+    text: "Erhöhung der Anzahl von Studienplätzen / Reservierung von Studienplätzen primär für zukünftige Approbierte, welche im Land für bspw. 10 Jahre bleiben.",
+    pro: ["Herausnahme einer Universität (Greifswald oder Rostock) aus dem Regelstudienbetrieb, Zuständigkeit ausnahmslos für M-V"],
+    contra: ["Image- und Rankingverlust der Universität / des Landes"],
+  },
+  {
+    n: "06",
+    titel: "Private Hochschule schaffen",
+    text: "Schaffung einer privaten Hochschuleinrichtung, finanziert aus Mitteln von Kassenzahnärztlicher Vereinigung M-V, Zahnärztekammer M-V, Kommunen und Land, welche ausnahmslos für M-V ausbildet.",
+    pro: [],
+    contra: [],
+  },
+];
+
+const maxFehlend = Math.max(...regionen.map((r) => r.fehlend));
+---
+
+<Layout
+  title="Bedarfsanalyse"
+  description="Bedarfsanalyse zum Zahnärztemangel in Mecklenburg-Vorpommern aufgrund statistischer Kennzahlen. Eine Handreichung der Fraktion Projekt NB, Dr. Roman Kubetschek."
+>
+  <PageHeader
+    label="Handreichung · Fraktion Projekt NB · Dezember 2025"
+    title="Bedarfsanalyse Zahnärzte in Mecklenburg-Vorpommern"
+    subtitle="Eine Analyse des Zahnärztemangels aufgrund statistischer Kennzahlen. Mit der Frage: Stimmt der offizielle Versorgungsgrad mit der Realität überein?"
+    image="bedarfsanalyse-leitbild.jpg"
+    imageAlt="Bedarfsanalyse Zahnärzte Mecklenburg-Vorpommern"
+    placeholderColor="#11201A"
+  />
+
+  <!-- Kennzahl-Hero -->
+  <section class="section big-stat-band" aria-label="Kernergebnis">
+    <div class="container">
+      <div class="big-stat">
+        <span class="big-stat__num" data-count-to="439">0</span>
+        <div class="big-stat__label">
+          <strong>fehlende Zahnärzte</strong> in Mecklenburg-Vorpommern, wenn man den
+          tatsächlichen Versorgungsbedarf nach realer Altersstruktur berechnet.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Einleitung -->
+  <section class="section" aria-labelledby="einleitung-heading">
+    <div class="container narrow">
+      <ScrollReveal>
+        <span class="section-label">Einleitung</span>
+        <h2 id="einleitung-heading">Veröffentlichter und gefühlter Versorgungsgrad</h2>
+        <p class="lead">
+          Regelmäßig wird in Mecklenburg-Vorpommern seitens der KZV M-V eine Übersicht
+          gemäß §95 Abs. 1b Satz 6 SGB V zum allgemeinen bedarfsgerechten Versorgungsgrad
+          und zum Stand der vertragszahnärztlichen Versorgung erstellt und veröffentlicht.
+        </p>
+        <p>
+          Aus dieser geht hervor, daß aktuell im Planungsbereich Nordwestmecklenburg (63,7 %)
+          ein Versorgungsmangel bei Zahnärzten droht. Alle anderen Planungsbereiche liegen
+          hinsichtlich des Versorgungsgrades zwischen 73,4 % (Nordvorpommern) und 139,8 %
+          (Wismar-Stadt). In der Realität stimmen diese Zahlen nicht, da es landesweit immer
+          schwieriger für Patienten wird, einen Hauszahnarzt zu finden, da Zahnarztpraxen
+          keine Patienten mehr aufnehmen können.
+        </p>
+        <p>
+          Diese Ausarbeitung analysiert die Diskrepanz zwischen veröffentlichtem und
+          gefühltem Versorgungsgrad und versucht, mögliche Ursachen zu finden und eine
+          Alternative aufzuzeigen. Die Problemlagen lassen sich kurz benennen:
+        </p>
+        <ol class="problem-points">
+          <li>fehlende Behandlungskapazitäten</li>
+          <li>keine Gewährleistung einer flächendeckenden Vorsorge</li>
+          <li>Verlust des Bonus für höhere Festzuschüsse im prothetischen Behandlungsfall</li>
+          <li>keine oder zu späte Erkennung von pathologischen Veränderungen in der Mundhöhle</li>
+        </ol>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Versorgungsschlüssel -->
+  <section class="section section--surface" aria-labelledby="schluessel-heading">
+    <div class="container narrow">
+      <ScrollReveal>
+        <span class="section-label">Versorgungsschlüssel</span>
+        <h2 id="schluessel-heading">Ein Schlüssel aus den 1990ern</h2>
+        <p>
+          Der Gemeinsame Bundesausschuss (G-BA) ist das höchste Gremium der Selbstverwaltung
+          und u. a. zuständig für die Festlegung des Versorgungsschlüssels, d. h., wie viele
+          Zahnärzte je Einwohner für die Sicherung der zahnmedizinischen Versorgung notwendig
+          sind. Der G-BA legte letztmalig in den 1990ern fest, was als ausreichende Anzahl von
+          Zahnärzten notwendig ist:
+        </p>
+      </ScrollReveal>
+      <ScrollReveal delay={120}>
+        <div class="schluessel-cards">
+          <div class="schluessel-card">
+            <div class="schluessel-card__val">1 : <span data-count-to="1680">0</span></div>
+            <div class="schluessel-card__desc">Zahnarzt je Einwohner · M-V gesamt</div>
+          </div>
+          <div class="schluessel-card">
+            <div class="schluessel-card__val">1 : <span data-count-to="1280">0</span></div>
+            <div class="schluessel-card__desc">Rostock (Sonderregelung, da Großstadt)</div>
+          </div>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Altersdurchschnitt -->
+  <section class="section" aria-labelledby="alter-heading">
+    <div class="container">
+      <ScrollReveal>
+        <span class="section-label">Demografie</span>
+        <h2 id="alter-heading">Das Land vergreist. Der Schlüssel bleibt.</h2>
+        <p class="lead">
+          Der Schlüssel wurde bei einem bundesweiten Durchschnittsalter von 43,5 Jahren
+          festgelegt. Bundesweit hat sich daran wenig geändert. In Mecklenburg-Vorpommern
+          stieg das Durchschnittsalter dagegen in 30 Jahren um rund 15 Jahre.
+        </p>
+      </ScrollReveal>
+
+      <ScrollReveal delay={120}>
+        <div class="age-chart chart" data-chart>
+          <div class="age-row">
+            <div class="age-row__head">
+              <span class="age-row__name">Bund (BRD)</span>
+              <span class="age-row__delta">+1,1 Jahre in 30 Jahren</span>
+            </div>
+            <div class="age-bars">
+              <div class="age-bar">
+                <div class="age-bar__fill age-bar__fill--muted" style="--h: 90.4%;">
+                  <span class="age-bar__val"><span data-count-to="43.5" data-decimals="1">0</span></span>
+                </div>
+                <span class="age-bar__year">1995</span>
+              </div>
+              <div class="age-bar">
+                <div class="age-bar__fill age-bar__fill--muted" style="--h: 93.3%;">
+                  <span class="age-bar__val"><span data-count-to="44.9" data-decimals="1">0</span></span>
+                </div>
+                <span class="age-bar__year">2024</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="age-row">
+            <div class="age-row__head">
+              <span class="age-row__name">Mecklenburg-Vorpommern</span>
+              <span class="age-row__delta age-row__delta--alarm">+14,5 Jahre in 30 Jahren</span>
+            </div>
+            <div class="age-bars">
+              <div class="age-bar">
+                <div class="age-bar__fill" style="--h: 69.8%;">
+                  <span class="age-bar__val"><span data-count-to="33.6" data-decimals="1">0</span></span>
+                </div>
+                <span class="age-bar__year">1995</span>
+              </div>
+              <div class="age-bar">
+                <div class="age-bar__fill" style="--h: 87.5%;">
+                  <span class="age-bar__val"><span data-count-to="41.3" data-decimals="1">0</span></span>
+                </div>
+                <span class="age-bar__year">2012</span>
+              </div>
+              <div class="age-bar">
+                <div class="age-bar__fill age-bar__fill--peak" style="--h: 100%;">
+                  <span class="age-bar__val"><span data-count-to="48.1" data-decimals="1">0</span></span>
+                </div>
+                <span class="age-bar__year">2024</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="chart-note">
+          Durchschnittsalter der Bevölkerung in Jahren. Ein wesentlicher Grund: das gehäufte
+          Abwandern junger Menschen nach der Wende aus Mecklenburg-Vorpommern in andere Bundesländer.
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Berechnung -->
+  <section class="section section--dark" aria-labelledby="berechnung-heading">
+    <div class="container narrow">
+      <ScrollReveal>
+        <span class="section-label" style="color: var(--color-gold);">Berechnung</span>
+        <h2 id="berechnung-heading" class="text-white">Was ein Zahnarzt heute wirklich leisten kann</h2>
+        <p class="text-white-muted">
+          Wissenschaftlich anerkannt ist: Der Bedarf an Zahnärzten steigt mit dem Alter der
+          Bevölkerung, weil mit zunehmendem Alter der Behandlungsbedarf steigt. Rechnet man den
+          Versorgungsschlüssel auf die tatsächliche Altersstruktur 2024 hoch, ergibt sich:
+        </p>
+      </ScrollReveal>
+      <ScrollReveal delay={120}>
+        <div class="calc-row">
+          <div class="calc-box">
+            <div class="calc-box__tag">Schlüssel 1990er</div>
+            <div class="calc-box__num">1 : <span data-count-to="1680">0</span></div>
+            <div class="calc-box__sub">Einwohner je Zahnarzt</div>
+          </div>
+          <div class="calc-arrow" aria-hidden="true">→</div>
+          <div class="calc-box calc-box--alarm">
+            <div class="calc-box__tag">tatsächlicher Bedarf M-V 2024</div>
+            <div class="calc-box__num">1 : <span data-count-to="1173">0</span></div>
+            <div class="calc-box__sub">Einwohner je Zahnarzt</div>
+          </div>
+        </div>
+      </ScrollReveal>
+      <ScrollReveal delay={200}>
+        <p class="calc-conclusion">
+          Im Jahr 2024 kann sich ein niedergelassener Zahnarzt in M-V nur noch um
+          <strong>1173 Einwohner</strong> kümmern. Das sind
+          <strong><span data-count-to="507">0</span> weniger</strong> als im Bundesdurchschnitt
+          und über 500 weniger als noch im Jahr 1995.
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Tabellarischer Vergleich / Versorgungsgrad -->
+  <section class="section section--surface" aria-labelledby="versorgung-heading">
+    <div class="container">
+      <ScrollReveal>
+        <span class="section-label">Regionaler Vergleich 2025</span>
+        <h2 id="versorgung-heading">Offizieller Versorgungsgrad gegen die Realität</h2>
+        <p class="lead">
+          Dieselben Planungsbereiche, zwei Lesarten. Hell: der offizielle Versorgungsgrad
+          nach dem alten Schlüssel 1:1680. Grün: der reale Versorgungsgrad, gerechnet nach
+          der tatsächlichen Altersstruktur in M-V (1:1173).
+        </p>
+      </ScrollReveal>
+
+      <ScrollReveal delay={100}>
+        <div class="legend" aria-hidden="true">
+          <span class="legend__item"><span class="legend__swatch legend__swatch--muted"></span> offiziell (1:1680)</span>
+          <span class="legend__item"><span class="legend__swatch legend__swatch--green"></span> real nach Altersstruktur (1:1173)</span>
+          <span class="legend__item"><span class="legend__line"></span> 100 % = bedarfsgerecht</span>
+        </div>
+      </ScrollReveal>
+
+      <div class="vg-chart chart" data-chart>
+        {regionen.map((r, i) => (
+          <ScrollReveal delay={Math.min(i * 30, 240)}>
+            <div class={`vg-row ${r.real < 50 ? "vg-row--critical" : ""}`}>
+              <div class="vg-row__name">{r.name}</div>
+              <div class="vg-row__bars">
+                <div class="vg-track">
+                  <div class="vg-fill vg-fill--muted" style={`--w: ${Math.min(r.offiziell, 150) / 1.5}%;`}></div>
+                  <div class="vg-fill vg-fill--green" style={`--w: ${Math.min(r.real, 150) / 1.5}%;`}></div>
+                  <div class="vg-100" style="left: 66.66%;"></div>
+                </div>
+              </div>
+              <div class="vg-row__vals">
+                <span class="vg-val vg-val--muted">{r.offiziell.toFixed(1).replace(".", ",")} %</span>
+                <span class="vg-val vg-val--green">{r.real.toFixed(1).replace(".", ",")} %</span>
+              </div>
+            </div>
+          </ScrollReveal>
+        ))}
+      </div>
+
+      <ScrollReveal>
+        <p class="chart-note">
+          Rostock-Stadt bleibt mit Sonderstatus 1:1280 (Großstadt) unberücksichtigt. Quelle:
+          „dens“ 6/2025, S. 32, Stichtag 31.12.2024. Hochrechnung nach realer Altersstruktur:
+          Dr. Roman Kubetschek.
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Kritik: Bürokratie / Behandlungszeit -->
+  <section class="section" aria-labelledby="kritik-heading">
+    <div class="container">
+      <ScrollReveal>
+        <span class="section-label">Kritik</span>
+        <h2 id="kritik-heading">Und das ist noch geschönt</h2>
+        <p class="lead">
+          Die Analyse berücksichtigt den gestiegenen bürokratischen Aufwand noch gar nicht.
+          Nach Angaben der KZV M-V sank die Behandlungsquote seit dem Jahr 2000 um den Faktor 1,4.
+          Von 100 % Behandlungszeit im Jahr 2000 blieben knapp 72 %.
+        </p>
+      </ScrollReveal>
+
+      <div class="split-grid">
+        <ScrollReveal delay={100}>
+          <div class="donut-wrap chart" data-chart>
+            <svg viewBox="0 0 120 120" class="donut" role="img" aria-label="Rückgang der Behandlungszeit um 28 Prozent">
+              <circle class="donut__track" cx="60" cy="60" r="52" />
+              <circle class="donut__value" cx="60" cy="60" r="52" style="--dash: 28;" />
+            </svg>
+            <div class="donut-center">
+              <span class="donut-center__num">−<span data-count-to="28">0</span> %</span>
+              <span class="donut-center__label">Behandlungszeit<br />seit 2000</span>
+            </div>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={180}>
+          <div class="split-bars">
+            <p class="split-bars__intro">Der Rückgang von 28 % gliedert sich auf in:</p>
+            <div class="sbar chart" data-chart>
+              <div class="sbar__head">
+                <span>Dokumentationspflichten / Bürokratie</span>
+                <span class="sbar__pct">ca. 20 %</span>
+              </div>
+              <div class="sbar__track"><div class="sbar__fill" style="--w: 71.4%;"></div></div>
+            </div>
+            <div class="sbar chart" data-chart>
+              <div class="sbar__head">
+                <span>Work-Life-Balance</span>
+                <span class="sbar__pct">ca. 8 %</span>
+              </div>
+              <div class="sbar__track"><div class="sbar__fill sbar__fill--alt" style="--w: 28.6%;"></div></div>
+            </div>
+            <p class="split-bars__note">
+              Als Maß für die zunehmende Bürokratie läßt sich der Papierverbrauch einer Praxis
+              heranziehen, welcher sich in diesem Zeitraum knapp verdreifacht hat. Bis 2030 wird
+              erwartet, daß zwei Drittel der Zahnärzteschaft weiblichen Geschlechts sein werden,
+              was den Anteil nicht in Vollzeit arbeitender Kollegen weiter erhöht.
+            </p>
+          </div>
+        </ScrollReveal>
+      </div>
+
+      <ScrollReveal>
+        <div class="kritik-erkenntnis">
+          <p>
+            <strong>Heute wird grundsätzlich 8 % weniger gearbeitet</strong> als noch vor 25 Jahren,
+            bedingt durch eine tatsächliche Verkürzung der Arbeitszeit in Gänze.
+          </p>
+          <p>
+            <strong>Heute wird 20 % weniger am Patienten gearbeitet</strong> als noch vor 25 Jahren,
+            bedingt durch eine tatsächliche Umorganisation der Arbeitszeit aufgrund bürokratischen
+            Mehraufwandes.
+          </p>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Beispiel Neubrandenburg -->
+  <section class="section section--surface" aria-labelledby="nb-heading">
+    <div class="container">
+      <ScrollReveal>
+        <span class="section-label">Überprüfung am Beispiel Neubrandenburg</span>
+        <h2 id="nb-heading">Eine Stadt verliert ihre Praxen</h2>
+        <p class="lead">
+          Nach der Wende herrschte im Bereich Neubrandenburg eine Überversorgung mit Zahnärzten,
+          der Bereich war zulassungsgesperrt. Damals lag das Durchschnittsalter elf Jahre unter
+          dem Bundesdurchschnitt. Heute kippt das Bild.
+        </p>
+      </ScrollReveal>
+
+      <div class="nb-grid">
+        <ScrollReveal delay={100}>
+          <div class="nb-chart">
+            <h3 class="nb-chart__title">Zahnarztpraxen in Neubrandenburg</h3>
+            <div class="col-chart chart" data-chart>
+              {praxen.map((p) => (
+                <div class="col">
+                  <div class="col__bar-wrap">
+                    <span class="col__val">{p.wert}</span>
+                    <div class="col__bar" style={`--h: ${(p.wert / 56) * 100}%;`}></div>
+                  </div>
+                  <span class="col__label">{p.jahr}</span>
+                </div>
+              ))}
+            </div>
+            <p class="chart-note">
+              2026 wird es in Neubrandenburg 16 Zahnarztpraxen weniger geben als 1991.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={180}>
+          <div class="nb-chart">
+            <h3 class="nb-chart__title">Zulassungen seit 01.01.1992</h3>
+            <div class="col-chart col-chart--duo chart" data-chart>
+              <div class="col">
+                <div class="col__bar-wrap">
+                  <span class="col__val">40</span>
+                  <div class="col__bar col__bar--green" style="--h: 72.7%;"></div>
+                </div>
+                <span class="col__label">Neuzulassung</span>
+              </div>
+              <div class="col">
+                <div class="col__bar-wrap">
+                  <span class="col__val">55</span>
+                  <div class="col__bar col__bar--alarm" style="--h: 100%;"></div>
+                </div>
+                <span class="col__label">Ende Niederlassung</span>
+              </div>
+            </div>
+            <p class="chart-note">
+              55 Zulassungen wurden niedergelegt, nur 40 neue vergeben. Differenz: −15.
+            </p>
+          </div>
+        </ScrollReveal>
+      </div>
+
+      <ScrollReveal>
+        <PullQuote
+          quote="Die Anzahl der Zahnärzte war nach der Wende um den Betrag zu hoch, um den diese 30 Jahre später fehlen."
+          author="Bedarfsanalyse, Dr. Roman Kubetschek"
+        />
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Lösungsvorschläge -->
+  <section class="section" aria-labelledby="loesungen-heading">
+    <div class="container">
+      <ScrollReveal>
+        <span class="section-label">Lösungsvorschläge</span>
+        <h2 id="loesungen-heading">An erster Stelle steht das Patientenwohl</h2>
+        <p class="lead">
+          Daraus abgeleitet ergeben sich grundsätzlich folgende Handlungsoptionen. Jede hat
+          Vorzüge und Nachteile, die offen benannt werden.
+        </p>
+      </ScrollReveal>
+
+      <div class="loesung-grid">
+        {loesungen.map((l, i) => (
+          <ScrollReveal delay={Math.min(i * 60, 240)}>
+            <article class="loesung-card">
+              <div class="loesung-card__n" aria-hidden="true">{l.n}</div>
+              <h3 class="loesung-card__title">{l.titel}</h3>
+              <p class="loesung-card__text">{l.text}</p>
+              {(l.pro.length > 0 || l.contra.length > 0) && (
+                <div class="loesung-card__pc">
+                  {l.pro.map((p) => (
+                    <div class="pc-item pc-item--pro"><span class="pc-sign" aria-hidden="true">+</span><span>{p}</span></div>
+                  ))}
+                  {l.contra.map((c) => (
+                    <div class="pc-item pc-item--contra"><span class="pc-sign" aria-hidden="true">−</span><span>{c}</span></div>
+                  ))}
+                </div>
+              )}
+            </article>
+          </ScrollReveal>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Epikrise -->
+  <section class="section section--dark" aria-labelledby="epikrise-heading">
+    <div class="container narrow">
+      <ScrollReveal>
+        <span class="section-label" style="color: var(--color-gold);">Epikrise</span>
+        <h2 id="epikrise-heading" class="text-white">Was kurzfristig wirkt</h2>
+        <p class="text-white-muted">
+          Die unter 01 genannte Reduzierung kann sofort umgesetzt werden, hat jedoch keinen
+          oder nur geringen spürbaren Erfolg. Anders die Maßnahme unter 02: Nach Einschätzung
+          des Verfassers kann mit einer halbjährlichen Qualifizierungszeit der in den Praxen
+          vorhandenen Fachkräfte primär in den Bestandspraxen mit der Umsetzung begonnen werden.
+          Ein Ausbau analog zur etablierten Zweitpraxislösung ist denkbar und möglich. Dies
+          dürfte sich insbesondere im ländlichen Raum positiv bemerkbar machen. Alle anderen
+          Möglichkeiten hätten erst nach mindestens 5 bis 10 Jahren erste spürbare Effekte.
+        </p>
+        <p class="text-white-muted">
+          Das international anerkannte Berufsbild der „Community Health Nurse (CHN)“ wäre geeignet,
+          außerhalb von Zahnarztpraxen in kommunalen Gesundheitszentren im Bereich der öffentlichen
+          Gesundheitsvorsorge tätig zu werden. Screenings, Vorsorgeuntersuchungen und
+          Bedarfserhebungen sind in diesem Berufsbild fest verankert. „Dental Health Nurses (DHN)“
+          wären demnach geeignet, die Bestandspraxen um die Vorsorgeuntersuchungen zu entlasten,
+          was wiederum Kapazitäten für tatsächliche Behandlungen schafft.
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section class="section download-section" aria-labelledby="download-heading">
+    <div class="container narrow">
+      <ScrollReveal>
+        <span class="section-label">Vollständiges Dokument</span>
+        <h2 id="download-heading">Die Handreichung als PDF</h2>
+        <p>
+          Diese Ausarbeitung gibt den Sachstand vom 28. November 2025 wieder. Alle Quellenangaben
+          wurden letztmalig am 9. Dezember 2025 hinsichtlich Funktionalität und Aktualität geprüft.
+          Das vollständige, signierte Dokument inklusive aller Quellen und der Anlage
+          (Aufgabenerweiterungen in Zahnarztpraxen seit 2010) steht hier zum Download.
+        </p>
+        <a
+          href="/bedarfsanalyse-za-mv-2025.pdf"
+          class="download-btn"
+          download
+        >
+          <span class="download-btn__icon" aria-hidden="true">↓</span>
+          <span>
+            <span class="download-btn__title">Bedarfsanalyse Zahnärzte M-V 2025</span>
+            <span class="download-btn__meta">PDF · Fraktion Projekt NB · Dr. Roman Kubetschek</span>
+          </span>
+        </a>
+        <p class="download-footer">
+          Fraktion Projekt NB · Friedrich-Engels-Ring 53 · 17033 Neubrandenburg<br />
+          Fraktionsvorsitzender: Dr. Roman Kubetschek
+        </p>
+      </ScrollReveal>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .narrow { max-width: 820px; }
+
+  .lead {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 680px;
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-6);
+  }
+
+  h2 { margin-top: var(--space-2); }
+
+  .section--surface { background-color: var(--color-surface); }
+  .section--dark { background-color: var(--color-black); }
+
+  .text-white { color: var(--color-white); margin-bottom: var(--space-4); }
+  .text-white-muted {
+    color: rgba(255,255,255,0.7);
+    line-height: 1.75;
+    max-width: var(--max-width-text);
+    margin-bottom: var(--space-4);
+  }
+
+  .chart-note {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    margin-top: var(--space-4);
+    max-width: 640px;
+    line-height: 1.6;
+  }
+
+  /* Großer Kennzahl-Block */
+  .big-stat-band {
+    background-color: var(--color-black);
+    padding-block: var(--space-12);
+  }
+  .big-stat {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-6);
+  }
+  .big-stat__num {
+    font-family: var(--font-display);
+    font-size: clamp(5rem, 16vw, 11rem);
+    font-weight: 700;
+    color: var(--color-gold);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+  }
+  .big-stat__label {
+    font-size: var(--text-lg);
+    color: rgba(255,255,255,0.7);
+    max-width: 420px;
+    line-height: 1.6;
+  }
+  .big-stat__label strong { color: var(--color-white); }
+
+  /* Aufzählung Problempunkte */
+  .problem-points {
+    margin-top: var(--space-3);
+    padding-left: var(--space-3);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .problem-points li { font-size: var(--text-base); line-height: 1.6; }
+
+  /* Versorgungsschlüssel-Karten */
+  .schluessel-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  @media (min-width: 600px) { .schluessel-cards { grid-template-columns: 1fr 1fr; } }
+  .schluessel-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-rule);
+    border-top: 3px solid var(--color-green);
+    border-radius: var(--radius-card);
+    padding: var(--space-6);
+  }
+  .schluessel-card__val {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--color-green);
+    line-height: 1;
+  }
+  .schluessel-card__desc {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    margin-top: var(--space-2);
+  }
+
+  /* Altersdiagramm */
+  .age-chart {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    margin-top: var(--space-6);
+  }
+  @media (min-width: 768px) { .age-chart { grid-template-columns: 1fr 1.5fr; } }
+
+  .age-row__head { margin-bottom: var(--space-3); }
+  .age-row__name {
+    display: block;
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-black);
+  }
+  .age-row__delta { font-size: var(--text-sm); color: var(--color-text-muted); }
+  .age-row__delta--alarm { color: var(--color-gold); font-weight: 600; }
+
+  .age-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-3);
+    height: 220px;
+  }
+  .age-bar { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+  .age-bar__fill {
+    width: 100%;
+    max-width: 64px;
+    height: 0;
+    background-color: var(--color-green);
+    border-radius: 6px 6px 0 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: var(--space-1);
+    transition: height 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .age-bar__fill--muted { background-color: var(--color-gray-400); }
+  .age-bar__fill--peak { background-color: var(--color-gold); }
+  .chart.is-visible .age-bar__fill { height: var(--h); }
+  .age-bar__val { font-family: var(--font-display); font-size: var(--text-sm); font-weight: 700; color: var(--color-white); }
+  .age-bar__year { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-1); }
+
+  /* Berechnung */
+  .calc-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  .calc-box {
+    flex: 1;
+    min-width: 200px;
+    background-color: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: var(--radius-card);
+    padding: var(--space-6);
+    text-align: center;
+  }
+  .calc-box--alarm { border-color: var(--color-gold); background-color: rgba(168,135,45,0.12); }
+  .calc-box__tag { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255,255,255,0.5); }
+  .calc-box__num {
+    font-family: var(--font-display);
+    font-size: var(--text-4xl);
+    font-weight: 700;
+    color: var(--color-white);
+    margin-block: var(--space-2);
+  }
+  .calc-box--alarm .calc-box__num { color: var(--color-gold); }
+  .calc-box__sub { font-size: var(--text-sm); color: rgba(255,255,255,0.6); }
+  .calc-arrow { display: flex; align-items: center; font-size: var(--text-3xl); color: rgba(255,255,255,0.4); }
+  .calc-conclusion {
+    margin-top: var(--space-6);
+    font-size: var(--text-lg);
+    color: rgba(255,255,255,0.85);
+    line-height: 1.7;
+    max-width: var(--max-width-text);
+  }
+  .calc-conclusion strong { color: var(--color-gold); }
+
+  /* Versorgungsgrad-Balken */
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-6);
+  }
+  .legend__item { display: inline-flex; align-items: center; gap: 8px; font-size: var(--text-xs); color: var(--color-text-muted); }
+  .legend__swatch { width: 16px; height: 12px; border-radius: 2px; }
+  .legend__swatch--muted { background-color: var(--color-gray-400); }
+  .legend__swatch--green { background-color: var(--color-green); }
+  .legend__line { width: 2px; height: 14px; background-color: var(--color-gold); }
+
+  .vg-row {
+    display: grid;
+    grid-template-columns: 150px 1fr 92px;
+    gap: var(--space-3);
+    align-items: center;
+    padding-block: 7px;
+  }
+  @media (max-width: 640px) {
+    .vg-row { grid-template-columns: 1fr; gap: 4px; padding-block: var(--space-2); }
+    .vg-row__vals { justify-content: flex-start !important; }
+  }
+  .vg-row__name { font-size: var(--text-sm); font-weight: 600; color: var(--color-black); }
+  .vg-row--critical .vg-row__name { color: var(--color-gold); }
+
+  .vg-track {
+    position: relative;
+    height: 26px;
+    background-color: rgba(0,0,0,0.05);
+    border-radius: 4px;
+  }
+  .vg-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0;
+    border-radius: 4px;
+    transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .vg-fill--muted { background-color: var(--color-gray-400); opacity: 0.55; }
+  .vg-fill--green { background-color: var(--color-green); }
+  .chart.is-visible .vg-fill { width: var(--w); }
+  .vg-100 {
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 2px;
+    background-color: var(--color-gold);
+  }
+  .vg-row__vals { display: flex; gap: var(--space-2); justify-content: flex-end; font-variant-numeric: tabular-nums; }
+  .vg-val { font-size: var(--text-xs); font-weight: 600; }
+  .vg-val--muted { color: var(--color-gray-600); }
+  .vg-val--green { color: var(--color-green); }
+
+  /* Split: Donut + Bars */
+  .split-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: center;
+    margin-top: var(--space-6);
+  }
+  @media (min-width: 768px) { .split-grid { grid-template-columns: 280px 1fr; gap: var(--space-12); } }
+
+  .donut-wrap { position: relative; width: 240px; max-width: 100%; margin: 0 auto; }
+  .donut { width: 100%; height: auto; transform: rotate(-90deg); }
+  .donut__track { fill: none; stroke: var(--color-rule); stroke-width: 12; }
+  .donut__value {
+    fill: none;
+    stroke: var(--color-gold);
+    stroke-width: 12;
+    stroke-linecap: round;
+    stroke-dasharray: 326.7;
+    stroke-dashoffset: 326.7;
+    transition: stroke-dashoffset 1.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  /* 326.7 = 2*pi*52; value 28% => offset = 326.7 * (1 - 0.28) */
+  .chart.is-visible .donut__value { stroke-dashoffset: 235.2; }
+  .donut-center {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center;
+  }
+  .donut-center__num { font-family: var(--font-display); font-size: var(--text-3xl); font-weight: 700; color: var(--color-gold); line-height: 1; }
+  .donut-center__label { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: 6px; line-height: 1.4; }
+
+  .split-bars__intro { font-weight: 600; margin-bottom: var(--space-3); }
+  .sbar { margin-bottom: var(--space-3); }
+  .sbar__head { display: flex; justify-content: space-between; font-size: var(--text-sm); margin-bottom: 6px; }
+  .sbar__pct { font-weight: 700; color: var(--color-green); }
+  .sbar__track { height: 18px; background-color: rgba(0,0,0,0.06); border-radius: 4px; overflow: hidden; }
+  .sbar__fill { height: 100%; width: 0; background-color: var(--color-green); border-radius: 4px; transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1); }
+  .sbar__fill--alt { background-color: var(--color-gray-400); }
+  .chart.is-visible .sbar__fill { width: var(--w); }
+  .split-bars__note { font-size: var(--text-sm); color: var(--color-text-muted); margin-top: var(--space-4); line-height: 1.6; }
+
+  .kritik-erkenntnis {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-rule);
+  }
+  @media (min-width: 768px) { .kritik-erkenntnis { grid-template-columns: 1fr 1fr; } }
+  .kritik-erkenntnis p { font-size: var(--text-base); line-height: 1.7; max-width: none; margin: 0; }
+  .kritik-erkenntnis strong { color: var(--color-green); }
+
+  /* Neubrandenburg Säulendiagramme */
+  .nb-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-8);
+  }
+  @media (min-width: 768px) { .nb-grid { grid-template-columns: 1fr 1fr; gap: var(--space-12); } }
+
+  .nb-chart {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-card);
+    padding: var(--space-6);
+  }
+  .nb-chart__title {
+    font-family: var(--font-display);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+  }
+  .col-chart {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-2);
+    height: 200px;
+  }
+  .col-chart--duo { justify-content: space-around; }
+  .col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+  .col__bar-wrap { width: 100%; max-width: 56px; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: flex-end; }
+  .col__val { font-family: var(--font-display); font-weight: 700; font-size: var(--text-base); color: var(--color-black); margin-bottom: 6px; }
+  .col__bar {
+    width: 100%;
+    height: 0;
+    background-color: var(--color-green);
+    border-radius: 5px 5px 0 0;
+    transition: height 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .col__bar--green { background-color: var(--color-green-light); }
+  .col__bar--alarm { background-color: var(--color-gold); }
+  .chart.is-visible .col__bar { height: var(--h); }
+  .col__label { font-size: var(--text-xs); color: var(--color-text-muted); margin-top: var(--space-2); text-align: center; }
+
+  /* Lösungskarten */
+  .loesung-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+  }
+  @media (min-width: 700px) { .loesung-grid { grid-template-columns: 1fr 1fr; } }
+
+  .loesung-card {
+    background-color: var(--color-white);
+    border: 1px solid var(--color-rule);
+    border-top: 3px solid var(--color-green);
+    border-radius: var(--radius-card);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+  .loesung-card:hover { box-shadow: 0 14px 36px rgba(28,56,48,0.14); transform: translateY(-4px); }
+  .loesung-card__n {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 700;
+    color: var(--color-rule);
+    line-height: 1;
+  }
+  .loesung-card__title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--color-black);
+    line-height: 1.2;
+  }
+  .loesung-card__text { font-size: var(--text-sm); line-height: 1.65; color: var(--color-text); }
+  .loesung-card__pc { display: flex; flex-direction: column; gap: 6px; margin-top: var(--space-2); }
+  .pc-item { display: flex; gap: 8px; font-size: var(--text-sm); line-height: 1.5; align-items: flex-start; }
+  .pc-sign { flex-shrink: 0; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; margin-top: 2px; }
+  .pc-item--pro .pc-sign { background-color: rgba(46,99,85,0.15); color: var(--color-green-light); }
+  .pc-item--contra .pc-sign { background-color: rgba(168,135,45,0.18); color: var(--color-gold); }
+
+  /* Download */
+  .download-section { background-color: var(--color-surface); }
+  .download-section p { max-width: var(--max-width-text); }
+  .download-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+    padding: var(--space-4) var(--space-6);
+    background-color: var(--color-green);
+    border: 2px solid var(--color-green);
+    border-radius: var(--radius-card);
+    text-decoration: none;
+    transition: background-color var(--transition-base), transform 0.2s ease;
+  }
+  .download-btn:hover { background-color: var(--color-green-mid); transform: translateY(-2px); }
+  .download-btn__icon { font-size: var(--text-2xl); color: var(--color-white); }
+  .download-btn__title { display: block; font-weight: 700; color: var(--color-white); }
+  .download-btn__meta { display: block; font-size: var(--text-xs); color: rgba(255,255,255,0.7); margin-top: 2px; }
+  .download-footer { margin-top: var(--space-6); font-size: var(--text-xs); color: var(--color-text-muted); line-height: 1.7; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .age-bar__fill,
+    .vg-fill,
+    .donut__value,
+    .sbar__fill,
+    .col__bar,
+    .loesung-card { transition: none; }
+  }
+</style>
+
+<script>
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // ── Zahlen hochzählen (mit Dezimal-Unterstützung) ──────────────
+  const fmt = (val: number, decimals: number) =>
+    val.toFixed(decimals).replace(".", ",");
+
+  const animateNum = (el: HTMLElement) => {
+    const to = parseFloat(el.dataset.countTo!);
+    const from = parseFloat(el.dataset.countFrom ?? "0");
+    const decimals = parseInt(el.dataset.decimals ?? "0", 10);
+    if (reduced) { el.textContent = fmt(to, decimals); return; }
+    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
+    const duration = 1600;
+    const start = performance.now();
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / duration, 1);
+      el.textContent = fmt(from + (to - from) * easeOut(p), decimals);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const numObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          animateNum(e.target as HTMLElement);
+          numObserver.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.6 }
+  );
+  document.querySelectorAll<HTMLElement>("[data-count-to]").forEach((el) => numObserver.observe(el));
+
+  // ── Diagramme einblenden (CSS-Übergänge per Klasse auslösen) ────
+  const chartObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add("is-visible");
+          chartObserver.unobserve(e.target);
+        }
+      });
+    },
+    { threshold: 0.25 }
+  );
+  document.querySelectorAll<HTMLElement>("[data-chart]").forEach((el) => chartObserver.observe(el));
+</script>

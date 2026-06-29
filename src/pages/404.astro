@@ -1,0 +1,51 @@
+---
+import Layout from "@layouts/Layout.astro";
+---
+
+<Layout
+  title="Seite nicht gefunden"
+  description="Die aufgerufene Seite existiert nicht. Zurück zur Standpunkt-Website von Dr. Roman Kubetschek."
+  noIndex
+>
+  <section class="section notfound">
+    <div class="container narrow">
+      <span class="section-label">Fehler 404</span>
+      <h1>Diese Seite gibt es nicht</h1>
+      <p class="lead">
+        Der Link ist veraltet oder die Adresse wurde falsch eingegeben.
+        Hier geht es zurück zum Standpunkt.
+      </p>
+      <ul class="notfound-links">
+        <li><a href="/">Startseite</a></li>
+        <li><a href="/hintergrund">Hintergrund &amp; Fakten</a></li>
+        <li><a href="/bedarfsanalyse">Bedarfsanalyse</a></li>
+        <li><a href="/standpunkt">Mein Standpunkt</a></li>
+        <li><a href="/mitmachen">Mitmachen &amp; Teilen</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .notfound {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+  }
+  .notfound h1 {
+    margin: var(--space-2) 0 var(--space-3);
+  }
+  .notfound-links {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-6);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+  }
+  .notfound-links a {
+    color: var(--color-green-light);
+    font-weight: 700;
+  }
+</style>

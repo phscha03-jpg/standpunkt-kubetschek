@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Abschluss-Audit – Website Dr. Roman Kubetschek</title>
+<style>
+  :root {
+    --green:#1C3830; --green-light:#2E6355; --gold:#A8872D;
+    --rule:#D4D9D7; --text:#111816; --muted:#505855; --bg:#F7F8F7;
+    --red:#B23A2E; --amber:#B8862B; --ok:#2E6355;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--text); background:var(--bg); line-height:1.6; }
+  header { background:var(--green); color:#fff; padding:40px 32px; }
+  header h1 { margin:0 0 6px; font-size:26px; }
+  header p { margin:0; color:rgba(255,255,255,.75); font-size:15px; }
+  main { max-width:1000px; margin:0 auto; padding:32px; }
+  h2 { font-size:20px; border-bottom:2px solid var(--rule); padding-bottom:8px; margin-top:40px; }
+  table { width:100%; border-collapse:collapse; margin:16px 0; font-size:14px; background:#fff; }
+  th, td { text-align:left; padding:10px 12px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  th { background:#EEF1EF; font-size:13px; text-transform:uppercase; letter-spacing:.04em; }
+  code { background:#EEF1EF; padding:2px 5px; border-radius:4px; font-size:12px; }
+  .lamp { font-weight:700; white-space:nowrap; }
+  .red { color:var(--red); } .amber { color:var(--amber); } .ok { color:var(--ok); }
+  .sev { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:700; color:#fff; }
+  .sev.k { background:var(--red); } .sev.w { background:var(--amber); } .sev.o { background:var(--green-light); }
+  ul { margin:8px 0 8px 18px; } li { margin:4px 0; }
+  .note { background:#fff; border-left:4px solid var(--gold); padding:12px 16px; font-size:14px; margin-top:24px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px; margin-top:16px; }
+  .card { background:#fff; border:1px solid var(--rule); border-radius:10px; padding:14px; }
+  .card b { display:block; font-size:13px; color:var(--muted); }
+  .card span { font-size:15px; font-weight:700; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Abschluss-Audit – Website Dr. Roman Kubetschek</h1>
+  <p>Stand 29.06.2026 · Standpunkt-Website zum Zahnärztemangel · Zieldomain loewen-zahn.de</p>
+</header>
+<main>
+  <h2>Ampel-Übersicht</h2>
+  <div class="grid">
+    <div class="card"><b>Technik &amp; SEO</b><span class="ok">🟢 vollständig</span></div>
+    <div class="card"><b>Performance &amp; A11y</b><span class="ok">🟢 erledigt</span></div>
+    <div class="card"><b>Recht &amp; Datenschutz</b><span class="amber">🟡 nur Anwaltsprüfung offen</span></div>
+    <div class="card"><b>Inhalt &amp; Haltung</b><span class="ok">🟢 sauber</span></div>
+    <div class="card"><b>Bilder &amp; Texte</b><span class="ok">🟢 Bildplätze belegt</span></div>
+  </div>
+
+  <h2>Befunde nach Schweregrad</h2>
+  <table>
+    <tr><th>#</th><th>Schwere</th><th>Befund</th><th>Fundstelle</th><th>Zuständig</th></tr>
+    <tr><td>K1</td><td><span class="sev o">erledigt</span></td><td>Impressum-Pflichtangaben vollständig (Kammer, Aufsicht, gesetzliche Grundlage, Berufsordnungs-Link). Steuernummer entfällt (Freiberufler).</td><td><code>impressum.astro</code></td><td>✅</td></tr>
+    <tr><td>K2</td><td><span class="sev o">erledigt</span></td><td>Datenschutz: Stand „Juni 2026", Hosting auf 1blu AG (Berlin) umgestellt, Banner/Platzhalter entfernt.</td><td><code>datenschutz.astro</code></td><td>✅</td></tr>
+    <tr><td>K3</td><td><span class="sev k">kritisch</span></td><td>Rechtliche Prüfung Impressum/Datenschutz + Trennung projekt-nb.de.</td><td><code>impressum.astro:90</code>, <code>mitmachen.astro:128</code></td><td>Anwalt/Kammer</td></tr>
+    <tr><td>W1</td><td><span class="sev o">erledigt</span></td><td>Finale Domain loewen-zahn.de überall gesetzt (site, Canonical, OG/Twitter, JSON-LD, robots/Sitemap, OG-Bilder).</td><td><code>astro.config.mjs</code> u. a.</td><td>✅</td></tr>
+    <tr><td>W2</td><td><span class="sev w">wichtig</span></td><td>Pressemail + Telefon bestätigen.</td><td><code>impressum.astro:52-54</code></td><td>Kunde</td></tr>
+    <tr><td>W3</td><td><span class="sev o">erledigt</span></td><td>Praxis-Motive vom Kunden datenschutzrechtlich freigegeben.</td><td>Bildmaterial</td><td>✅</td></tr>
+    <tr><td>W4</td><td><span class="sev o">erledigt</span></td><td>Skip-Link „Zum Inhalt springen" ergänzt (Tastaturfokus → #main-content).</td><td><code>Layout.astro</code>, <code>global.css</code></td><td>✅</td></tr>
+    <tr><td>O1</td><td><span class="sev o">erledigt</span></td><td>OG-Bilder als JPG (~70 kB statt ~300 kB). Bewusst JPG statt WebP wegen Social-Scraper-Kompatibilität.</td><td><code>public/og/*.jpg</code></td><td>✅</td></tr>
+    <tr><td>O2</td><td><span class="sev o">erledigt</span></td><td>Gold-Kleintext auf hellem Grund auf #8C6E1A (~4,8:1) angehoben; helles Gold bleibt auf dunklem Grund.</td><td><code>global.css</code> u. a.</td><td>✅</td></tr>
+    <tr><td>O3</td><td><span class="sev o">optional</span></td><td>Social-Texte Standpunkt/Quellen final abnehmen.</td><td>jeweilige Seite</td><td>Kunde</td></tr>
+  </table>
+
+  <h2>To-do vor der Freigabe (zwingend)</h2>
+  <ul>
+    <li>K2 Datenschutz: Stand-Datum + Hosting</li>
+    <li>K3 Anwaltliche/kammerseitige Prüfung</li>
+    <li>W2 Pressemail + Telefon</li>
+  </ul>
+
+  <h2>Aufgabenteilung</h2>
+  <ul>
+    <li><b>Ich (gefahrlos):</b> ✅ W4 Skip-Link, O1 OG-JPG, O2 Kontrast — erledigt.</li>
+    <li><b>Kunde:</b> W2, O3.</li>
+    <li><b>Anwalt/Kammer:</b> K3.</li>
+  </ul>
+
+  <div class="note">Rechtstexte wurden bewusst nicht erfunden oder umgeschrieben. Offene Pflichtfelder bleiben als Platzhalter erhalten und sind oben als Befund gemeldet. Vollständige Details siehe <code>AUDIT-REPORT.md</code>.</div>
+</main>
+</body>
+</html>

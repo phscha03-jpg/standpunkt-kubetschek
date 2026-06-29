@@ -13,28 +13,7 @@ import Layout from "@layouts/Layout.astro";
   <section class="section">
     <div class="container legal-content">
 
-      <div class="todo-banner">
-        <strong>⚠ Rechtliche Prüfung erforderlich</strong>
-        <p>
-          Diese Datenschutzerklärung ist eine strukturierte Vorlage. Vor Veröffentlichung
-          muß sie von einem Rechtsanwalt geprüft und an die tatsächliche technische
-          Infrastruktur angepaßt werden. Alle <code>[TODO]</code>-Felder müssen ausgefüllt sein.
-        </p>
-      </div>
-
-      <div class="legal-checklist">
-        <h2>Checkliste vor Veröffentlichung</h2>
-        <ul>
-          <li>☐ Hosting-Anbieter (Netlify) und dessen Datenschutzinformationen verlinkt</li>
-          <li>☐ Tatsächlich gesetzte Cookies geprüft (Static Site → i.d.R. keine)</li>
-          <li>☐ Externe Links (abgeordnetenwatch.de, projekt-nb.de) als Drittanbieter benannt</li>
-          <li>☐ Social-Share-Intent-Links als externe Dienste benannt</li>
-          <li>☐ Anwaltliche Prüfung abgeschlossen</li>
-          <li>☐ Datum der letzten Aktualisierung eingetragen</li>
-        </ul>
-      </div>
-
-      <p class="text-muted">Stand: [TODO: Datum eintragen]</p>
+      <p class="text-muted">Stand: Juni 2026</p>
 
       <h2>1. Verantwortlicher</h2>
       <address>
@@ -60,15 +39,14 @@ import Layout from "@layouts/Layout.astro";
 
       <h2>3. Hosting</h2>
       <p>
-        Diese Website wird über <strong>Netlify, Inc.</strong> (512 2nd Street, Suite 200,
-        San Francisco, CA 94107, USA) gehostet. Beim Aufruf der Website werden durch
-        den Hosting-Anbieter technisch notwendige Serverprotokolldaten erhoben
-        (IP-Adresse, Datum/Uhrzeit, aufgerufene Seiten, Browsertyp).
-        Weitere Informationen zum Datenschutz bei Netlify:
-        <a href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">netlify.com/privacy</a>.
-      </p>
-      <p>
-        [TODO: Falls ein anderer Hosting-Anbieter gewählt wird, diesen Abschnitt anpassen.]
+        Diese Website wird bei der <strong>1blu AG</strong> (Berlin, Deutschland) gehostet;
+        die Server stehen in Deutschland. Beim Aufruf der Website werden durch den
+        Hosting-Anbieter technisch notwendige Serverprotokolldaten erhoben
+        (IP-Adresse, Datum/Uhrzeit, aufgerufene Seiten, Browsertyp). Diese Daten dienen
+        ausschließlich dem sicheren und stabilen Betrieb der Website. Weitere
+        Informationen sind den Datenschutzhinweisen der
+        <a href="https://www.1blu.de" target="_blank" rel="noopener noreferrer">1blu AG</a>
+        zu entnehmen.
       </p>
 
       <h2>4. Schriften (selbst gehostet)</h2>
@@ -154,20 +132,6 @@ import Layout from "@layouts/Layout.astro";
   }
   .legal-content ul { padding-left: var(--space-3); display: flex; flex-direction: column; gap: 4px; }
   address { font-style: normal; }
-
-  .todo-banner {
-    background-color: rgba(184, 146, 46, 0.1);
-    border: 1px solid var(--color-gold);
-    border-left: 4px solid var(--color-gold);
-    padding: var(--space-4);
-  }
-  .todo-banner strong { display: block; font-size: var(--text-base); color: var(--color-gold); margin-bottom: var(--space-2); }
-  .todo-banner p { font-size: var(--text-sm); color: var(--color-text-muted); max-width: none; margin: 0; }
-
-  .legal-checklist { background-color: var(--color-white); border: 1px solid var(--color-rule); padding: var(--space-4); }
-  .legal-checklist h2 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
-  .legal-checklist ul { list-style: none; padding: 0; }
-  .legal-checklist li { font-family: monospace; font-size: var(--text-sm); color: var(--color-text-muted); }
 
   code { background-color: var(--color-rule); padding: 1px 4px; border-radius: 2px; font-size: 0.85em; }
 </style>

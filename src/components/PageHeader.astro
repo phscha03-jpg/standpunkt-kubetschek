@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import { loadImage } from "@lib/loadImage";
+
 interface Props {
   title: string;
   subtitle?: string;
@@ -8,13 +11,25 @@ interface Props {
   placeholderColor?: string;
 }
 const { title, subtitle, label, image, imageAlt, placeholderColor = "#1C3830" } = Astro.props;
+const bg = loadImage(image);
 ---
 
 <header class="ph">
   <div class="ph__img">
-    <div class="ph__placeholder" style={`background-color: ${placeholderColor};`}>
-      <span class="ph__img-label">{image}</span>
-    </div>
+    {bg ? (
+      <Image
+        class="ph__photo"
+        src={bg}
+        alt={imageAlt}
+        widths={[768, 1280, 1920]}
+        sizes="100vw"
+        loading="eager"
+      />
+    ) : (
+      <div class="ph__placeholder" style={`background-color: ${placeholderColor};`}>
+        <span class="ph__img-label">{image}</span>
+      </div>
+    )}
     <div class="ph__overlay"></div>
   </div>
   <div class="ph__content container">
@@ -41,6 +56,13 @@ const { title, subtitle, label, image, imageAlt, placeholderColor = "#1C3830" } 
   }
   .ph__img-label { font-family: monospace; font-size: 10px; color: rgba(255,255,255,0.15); }
 
+  .ph__photo {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
   .ph__overlay {
     position: absolute; inset: 0;
     background: linear-gradient(
@@ -57,7 +79,7 @@ const { title, subtitle, label, image, imageAlt, placeholderColor = "#1C3830" } 
     padding-top: calc(var(--nav-height) + var(--space-12));
   }
 
-  .ph__label { margin-bottom: var(--space-3); }
+  .ph__label { margin-bottom: var(--space-3); color: var(--color-gold); }
 
   .ph__title {
     font-family: var(--font-display);

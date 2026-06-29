@@ -1,10 +1,9 @@
-/* Playfair Display – selbst gehostet via fontsource */
+/* Playfair Display (Überschriften) – Gewicht 700, selbst gehostet via fontsource */
 @import "@fontsource/playfair-display/700.css";
 @import "@fontsource/playfair-display/700-italic.css";
-@import "@fontsource/playfair-display/400-italic.css";
 
-/* Inter Variable – selbst gehostet via fontsource */
-@import "@fontsource-variable/inter";
+/* Inter Variable (Fließtext) – wght, selbst gehostet via fontsource */
+@import "@fontsource-variable/inter/wght.css";
 
 /* ─── Design-Tokens ──────────────────────────────────────────────── */
 :root {
@@ -14,6 +13,7 @@
   --color-green-light:  #2E6355;
   --color-black:        #0A0D0C;
   --color-gold:         #A8872D;
+  --color-gold-ink:     #8C6E1A; /* dunkleres Gold für Kleintext auf hellem Grund (WCAG AA: ~4,8:1) */
   --color-white:        #FFFFFF;
   --color-surface:      #B8CEBC;
   --color-rule:         #D4D9D7;
@@ -84,6 +84,9 @@ body {
   color: var(--color-text);
   background-color: var(--color-white);
   -webkit-font-smoothing: antialiased;
+  /* Mediävalziffern (old-style figures) überall: Ziffern hängen/ragen
+     je nach Form. Wird von allen Elementen geerbt. */
+  font-variant-numeric: oldstyle-nums;
 }
 
 /* ─── Typografie ─────────────────────────────────────────────────── */
@@ -150,8 +153,14 @@ strong { font-weight: 600; }
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-gold);
+  color: var(--color-gold-ink);
   margin-bottom: var(--space-2);
+}
+
+/* Auf dunklem Grund das hellere Gold beibehalten (dort ausreichend Kontrast) */
+.hero .section-label,
+.section--dark .section-label {
+  color: var(--color-gold);
 }
 
 .rule {
@@ -160,6 +169,28 @@ strong { font-weight: 600; }
   height: 1px;
   background-color: var(--color-rule);
   margin-bottom: var(--space-6);
+}
+
+/* ─── Skip-Link (Tastatur/Screenreader) ─────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: -120px;
+  z-index: 1000;
+  padding: 10px 16px;
+  background-color: var(--color-green);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: top var(--transition-base);
+}
+.skip-link:focus {
+  top: var(--space-2);
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
 }
 
 /* ─── Utility ────────────────────────────────────────────────────── */

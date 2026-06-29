@@ -1,8 +1,12 @@
 ---
+import { Image } from "astro:assets";
 import Layout from "@layouts/Layout.astro";
 import PageHeader from "@components/PageHeader.astro";
 import PullQuote from "@components/PullQuote.astro";
 import ScrollReveal from "@components/ScrollReveal.astro";
+import { loadImage } from "@lib/loadImage";
+
+const nbBild = loadImage("neubrandenburg.jpg");
 
 // Versorgungsgrad je Planungsbereich (Quelle: dens 6/2025, Stichtag 31.12.2024)
 // offiziell (Schlüssel 1:1680) vs. real nach Altersstruktur M-V (1:1173)
@@ -95,18 +99,34 @@ const loesungen = [
 ];
 
 const maxFehlend = Math.max(...regionen.map((r) => r.fehlend));
+
+const articleLd = {
+  "@type": "Article",
+  headline: "Bedarfsanalyse: Zahnärztemangel in Mecklenburg-Vorpommern",
+  description:
+    "Statistische Analyse der zahnärztlichen Versorgungslücke in MV, mit dem Beispiel Neubrandenburg.",
+  inLanguage: "de-DE",
+  author: { "@id": "https://loewen-zahn.de/#person" },
+  isPartOf: { "@id": "https://loewen-zahn.de/#website" },
+};
 ---
 
 <Layout
   title="Bedarfsanalyse"
-  description="Bedarfsanalyse zum Zahnärztemangel in Mecklenburg-Vorpommern aufgrund statistischer Kennzahlen. Eine Handreichung der Fraktion Projekt NB, Dr. Roman Kubetschek."
+  seoTitle="Bedarfsanalyse: Zahnärztemangel in MV"
+  description="Stimmt der offizielle Versorgungsgrad mit der Realität überein? Eine statistische Analyse der Versorgungslücke in MV, mit dem Beispiel Neubrandenburg."
+  socialTitle="326 fehlende Zahnärzte in Mecklenburg-Vorpommern"
+  socialDescription="Was die offizielle Versorgungsstatistik verschweigt – eine Analyse mit dem Beispiel Neubrandenburg."
+  ogImage="/og/bedarfsanalyse.jpg"
+  ogType="article"
+  structuredData={articleLd}
 >
   <PageHeader
     label="Handreichung · Fraktion Projekt NB · Dezember 2025"
     title="Bedarfsanalyse Zahnärzte in Mecklenburg-Vorpommern"
     subtitle="Eine Analyse des Zahnärztemangels aufgrund statistischer Kennzahlen. Mit der Frage: Stimmt der offizielle Versorgungsgrad mit der Realität überein?"
     image="bedarfsanalyse-leitbild.jpg"
-    imageAlt="Bedarfsanalyse Zahnärzte Mecklenburg-Vorpommern"
+    imageAlt="Reitbahnsee in Neubrandenburg, Mecklenburg-Vorpommern"
     placeholderColor="#11201A"
   />
 
@@ -429,6 +449,22 @@ const maxFehlend = Math.max(...regionen.map((r) => r.fehlend));
           dem Bundesdurchschnitt. Heute kippt das Bild.
         </p>
       </ScrollReveal>
+
+      {nbBild && (
+        <ScrollReveal delay={60}>
+          <figure class="nb-figure">
+            <Image
+              class="nb-figure__img"
+              src={nbBild}
+              alt="Neubrandenburg"
+              widths={[768, 1280, 1920]}
+              sizes="(max-width: 1200px) 100vw, 1200px"
+              loading="lazy"
+            />
+            <figcaption class="nb-figure__cap">Neubrandenburg</figcaption>
+          </figure>
+        </ScrollReveal>
+      )}
 
       <div class="nb-grid">
         <ScrollReveal delay={100}>
@@ -872,6 +908,27 @@ const maxFehlend = Math.max(...regionen.map((r) => r.fehlend));
   @media (min-width: 768px) { .kritik-erkenntnis { grid-template-columns: 1fr 1fr; } }
   .kritik-erkenntnis p { font-size: var(--text-base); line-height: 1.7; max-width: none; margin: 0; }
   .kritik-erkenntnis strong { color: var(--color-green); }
+
+  /* Neubrandenburg Bild */
+  .nb-figure {
+    margin-top: var(--space-6);
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    border: 1px solid var(--color-rule);
+  }
+  .nb-figure__img {
+    display: block;
+    width: 100%;
+    height: clamp(220px, 38vw, 440px);
+    object-fit: cover;
+  }
+  .nb-figure__cap {
+    font-family: var(--font-body);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--color-white);
+  }
 
   /* Neubrandenburg Säulendiagramme */
   .nb-grid {

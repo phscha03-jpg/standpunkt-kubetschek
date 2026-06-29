@@ -49,17 +49,33 @@ const timelineItems = [
     source: "KZV Mecklenburg-Vorpommern, Januar 2026",
   },
 ];
+
+const articleLd = {
+  "@type": "Article",
+  headline: "Hintergrund & Fakten zum Ärztemangel",
+  description:
+    "Dokumentierte Fakten zur Versorgungskrise in der Zahnmedizin in Deutschland und Mecklenburg-Vorpommern.",
+  inLanguage: "de-DE",
+  author: { "@id": "https://loewen-zahn.de/#person" },
+  isPartOf: { "@id": "https://loewen-zahn.de/#website" },
+};
 ---
 
 <Layout
   title="Hintergrund &amp; Fakten"
-  description="Dokumentierte Fakten zum Ärztemangel und zur verfehlten Gesundheitspolitik in Deutschland und Mecklenburg-Vorpommern."
+  seoTitle="Hintergrund & Fakten zum Ärztemangel"
+  description="Dokumentierte Fakten zur Versorgungskrise in der Zahnmedizin: Entwicklung, Ursachen und Warnungen seit 2010 – für Deutschland und Mecklenburg-Vorpommern."
+  socialTitle="Das Fundament bröckelt seit Jahren"
+  socialDescription="Belegte Fakten zur zahnärztlichen Versorgungskrise – mit Quellen."
+  ogImage="/og/hintergrund.jpg"
+  ogType="article"
+  structuredData={articleLd}
 >
   <PageHeader
     title="Das Fundament bröckelt seit Jahren"
     subtitle="Belegte Fakten zur Versorgungskrise in der Zahnmedizin"
     image="region-neubrandenburg.jpg"
-    imageAlt="Neubrandenburg und Region, Kontext Versorgungslage"
+    imageAlt="Marienkirche Neubrandenburg, Konzertkirche und Wahrzeichen der Stadt"
     placeholderColor="#1B3A2D"
   />
 

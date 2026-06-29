@@ -1,5 +1,7 @@
 ---
+import { Image } from "astro:assets";
 import ToothWireframe from "@components/ToothWireframe.astro";
+import { loadImage } from "@lib/loadImage";
 
 interface Props {
   image: string;
@@ -8,13 +10,25 @@ interface Props {
   tooth?: boolean;
 }
 const { image, imageAlt, placeholderColor = "#0A0D0C", tooth = false } = Astro.props;
+const bg = loadImage(image);
 ---
 
 <section class="hero" aria-label="Leitbild">
   <div class="hero__bg">
-    <div class="hero__placeholder" style={`background-color: ${placeholderColor};`}>
-      <span class="hero__img-label">{image}</span>
-    </div>
+    {bg ? (
+      <Image
+        class="hero__img"
+        src={bg}
+        alt={imageAlt}
+        widths={[768, 1280, 1920, 2560]}
+        sizes="100vw"
+        loading="eager"
+      />
+    ) : (
+      <div class="hero__placeholder" style={`background-color: ${placeholderColor};`}>
+        <span class="hero__img-label">{image}</span>
+      </div>
+    )}
     <div class="hero__overlay"></div>
     {tooth && <ToothWireframe />}
   </div>
@@ -38,7 +52,7 @@ const { image, imageAlt, placeholderColor = "#0A0D0C", tooth = false } = Astro.p
     position: relative;
     min-height: 100svh;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     overflow: hidden;
   }
 
@@ -49,6 +63,14 @@ const { image, imageAlt, placeholderColor = "#0A0D0C", tooth = false } = Astro.p
     display: flex; align-items: flex-end; padding: var(--space-2);
   }
   .hero__img-label { font-family: monospace; font-size: 10px; color: rgba(255,255,255,0.12); }
+
+  .hero__img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
 
   .hero__overlay {
     position: absolute; inset: 0;
@@ -62,7 +84,8 @@ const { image, imageAlt, placeholderColor = "#0A0D0C", tooth = false } = Astro.p
 
   .hero__content {
     position: relative; z-index: 1;
-    padding-block: var(--space-24);
+    padding-top: var(--space-24);
+    padding-bottom: var(--space-16);
     display: flex;
     flex-direction: column;
     gap: var(--space-6);

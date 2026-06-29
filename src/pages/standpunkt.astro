@@ -4,11 +4,27 @@ import PageHeader from "@components/PageHeader.astro";
 import PullQuote from "@components/PullQuote.astro";
 import ImagePlaceholder from "@components/ImagePlaceholder.astro";
 import ScrollReveal from "@components/ScrollReveal.astro";
+
+const articleLd = {
+  "@type": "Article",
+  headline: "Mein Standpunkt – Dr. Roman Kubetschek",
+  description:
+    "Ein persönlicher Bericht aus dem Praxisalltag zur Lage der zahnärztlichen Versorgung.",
+  inLanguage: "de-DE",
+  author: { "@id": "https://loewen-zahn.de/#person" },
+  isPartOf: { "@id": "https://loewen-zahn.de/#website" },
+};
 ---
 
 <Layout
   title="Mein Standpunkt"
-  description="Der persönliche Erfahrungsbericht von Dr. Roman Kubetschek. Warum er nicht mehr schweigen kann."
+  seoTitle="Mein Standpunkt – Dr. Roman Kubetschek"
+  description="Ein persönlicher Bericht aus dem Praxisalltag: Warum Dr. Roman Kubetschek zur Lage der zahnärztlichen Versorgung nicht länger schweigen kann."
+  socialTitle="Warum ich nicht länger schweige"
+  socialDescription="Dr. Roman Kubetschek über den Alltag zwischen Versorgungslücke und Gesundheitspolitik."
+  ogImage="/og/standpunkt.jpg"
+  ogType="article"
+  structuredData={articleLd}
 >
   <PageHeader
     title="Mein Standpunkt"
@@ -34,6 +50,12 @@ import ScrollReveal from "@components/ScrollReveal.astro";
             abweisen muß, die Hilfe brauchen.
           </p>
           <p>
+            Wenn ich ehrlich bin, ist der Kugelschreiber inzwischen öfter mein Werkzeug
+            als das Instrument, für das ich ausgebildet wurde. Dokumentation, Anträge,
+            Absagen. Die Verwaltung verbraucht die Zeit, die eigentlich den Patienten
+            gehört.
+          </p>
+          <p>
             Diese Website ist kein Klagelied. Sie ist eine Stellungnahme. Ich schreibe
             hier als Einzelperson, nicht als Sprecher irgendeiner Organisation oder Partei.
             Was Sie lesen, ist meine Einschätzung, geprägt durch drei Jahrzehnte Praxis
@@ -48,10 +70,10 @@ import ScrollReveal from "@components/ScrollReveal.astro";
       <div class="intro-image">
         <ScrollReveal delay={200}>
           <ImagePlaceholder
-            filename="portrait-kubetschek-hoch.jpg"
+            filename="portrait-maske-werkzeug.jpg"
             ratio="4:5"
             color="#2D5A42"
-            alt="Portrait Dr. Roman Kubetschek"
+            alt="Dr. Roman Kubetschek mit Mundschutz und Instrument bei der Arbeit"
           />
         </ScrollReveal>
       </div>
@@ -94,23 +116,15 @@ import ScrollReveal from "@components/ScrollReveal.astro";
     </div>
   </section>
 
-  <!-- Praxisalltag: Team -->
+  <!-- Praxisalltag: Team mit Warten-Schild -->
   <section class="section" aria-labelledby="team-heading">
-    <div class="container image-text-block image-text-block--reverse">
-      <ScrollReveal>
-        <ImagePlaceholder
-          filename="alltag-team.jpg"
-          ratio="3:2"
-          color="#4A4540"
-          alt="Team bei der Arbeit"
-        />
-      </ScrollReveal>
+    <div class="container image-text-block">
       <div class="image-text-block__text">
         <ScrollReveal delay={150}>
-          
+
           <h2 id="team-heading">Das Team trägt mit</h2>
           <p>
-            Hinter dieser Entscheidung steht nicht nur ich. Ein ganzes Team arbeitet
+            Hinter dieser Entscheidung stehe nicht nur ich. Ein ganzes Team arbeitet
             täglich an der Grenze des Machbaren. Zahnmedizinische Fachangestellte,
             die jeden Anruf entgegennehmen und ablehnen müssen. Die das Gewissen
             dieser Arbeit täglich spüren.
@@ -122,6 +136,14 @@ import ScrollReveal from "@components/ScrollReveal.astro";
           </p>
         </ScrollReveal>
       </div>
+      <ScrollReveal>
+        <ImagePlaceholder
+          filename="alltag-warten.jpg"
+          ratio="3:2"
+          color="#2D5A42"
+          alt="Türschild Warten, dahinter das Wartezimmer der Praxis"
+        />
+      </ScrollReveal>
     </div>
   </section>
 
@@ -219,15 +241,19 @@ import ScrollReveal from "@components/ScrollReveal.astro";
             author="Entscheider in der Politik müssen das studiert haben, worüber sie entscheiden."
             large
           />
-          <ImagePlaceholder
-            filename="portrait-kubetschek-hoch.jpg"
-            ratio="4:5"
-            color="#2D5A42"
-            alt="Portrait Dr. Roman Kubetschek"
-            class="forderung-portrait"
-          />
         </ScrollReveal>
       </div>
+    </div>
+    <div class="container forderung-image">
+      <ScrollReveal delay={150}>
+        <ImagePlaceholder
+          filename="portrait-kubetschek-quer-2.jpg"
+          ratio="3:2"
+          color="#2D5A42"
+          alt="Portrait von Dr. Roman Kubetschek in seiner Praxis"
+          class="forderung-quer"
+        />
+      </ScrollReveal>
     </div>
   </section>
 
@@ -263,6 +289,12 @@ import ScrollReveal from "@components/ScrollReveal.astro";
 
   .intro-text h2 { margin-bottom: var(--space-4); }
   .intro-text p { max-width: none; }
+
+  .team-prose {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+  .team-prose h2 { margin-bottom: var(--space-4); }
 
   /* Bild-Text-Blöcke */
   .image-text-block {
@@ -363,7 +395,14 @@ import ScrollReveal from "@components/ScrollReveal.astro";
     gap: var(--space-6);
   }
 
-  .forderung-portrait { max-width: 220px; }
+  .forderung-image {
+    padding-top: var(--space-16);
+  }
+
+  .forderung-quer {
+    max-width: 860px;
+    margin-inline: auto;
+  }
 
   /* CTA */
   .cta-actions {

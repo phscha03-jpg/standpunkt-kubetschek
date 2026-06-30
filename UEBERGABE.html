@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Übergabe – Standpunkt-Website Dr. Roman Kubetschek</title>
+<style>
+  :root {
+    --green:#1C3830; --green-light:#2E6355; --gold:#A8872D; --gold-ink:#8C6E1A;
+    --rule:#D4D9D7; --text:#111816; --muted:#505855; --bg:#F7F8F7; --ok:#2E6355; --amber:#B8862B;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    color:var(--text); background:var(--bg); line-height:1.65; }
+  header { background:var(--green); color:#fff; padding:44px 32px; }
+  header h1 { margin:0 0 8px; font-size:27px; }
+  header p { margin:2px 0; color:rgba(255,255,255,.8); font-size:15px; }
+  main { max-width:920px; margin:0 auto; padding:32px; }
+  h2 { font-size:20px; border-bottom:2px solid var(--rule); padding-bottom:8px; margin-top:42px; color:var(--green); }
+  h3 { font-size:16px; margin:22px 0 6px; }
+  p, li { font-size:15px; }
+  ul { margin:8px 0 8px 20px; } li { margin:5px 0; }
+  .lead { background:#fff; border-left:4px solid var(--gold); padding:14px 18px; font-size:15px; border-radius:0 8px 8px 0; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:12px; margin-top:16px; }
+  .card { background:#fff; border:1px solid var(--rule); border-radius:10px; padding:14px 16px; }
+  .card b { display:block; font-size:12px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin-bottom:4px; }
+  .card span { font-size:15px; font-weight:600; }
+  .tag { display:inline-block; font-size:12px; font-weight:700; padding:2px 9px; border-radius:999px; color:#fff; }
+  .tag.ok { background:var(--ok); } .tag.open { background:var(--amber); }
+  code { background:#EEF1EF; padding:1px 6px; border-radius:4px; font-size:13px; }
+  table { width:100%; border-collapse:collapse; margin:14px 0; font-size:14px; background:#fff; }
+  th,td { text-align:left; padding:9px 12px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  th { background:#EEF1EF; font-size:12px; text-transform:uppercase; letter-spacing:.04em; }
+  footer { max-width:920px; margin:0 auto; padding:0 32px 48px; color:var(--muted); font-size:13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Übergabe: Standpunkt-Website Dr. Roman Kubetschek</h1>
+  <p>Stand 30. Juni 2026 · Standpunkt-Website zum Zahnärztemangel</p>
+  <p>Zieldomain loewen-zahn.de · Charakter: Standpunkt, keine Praxiswerbung</p>
+</header>
+<main>
+
+  <p class="lead">Die Website ist inhaltlich, technisch und datenschutzseitig fertiggestellt. Offen ist nur noch die anwaltliche bzw. kammerseitige Prüfung der Rechtstexte und der finale Umzug auf 1blu.</p>
+
+  <div class="grid">
+    <div class="card"><b>Technik &amp; SEO</b><span class="tag ok">fertig</span></div>
+    <div class="card"><b>Performance &amp; Barrierefreiheit</b><span class="tag ok">fertig</span></div>
+    <div class="card"><b>Bild-Datenschutz (DSGVO)</b><span class="tag ok">fertig</span></div>
+    <div class="card"><b>Inhalt &amp; Quellen</b><span class="tag ok">fertig</span></div>
+    <div class="card"><b>Rechtstexte</b><span class="tag open">Prüfung offen</span></div>
+  </div>
+
+  <h2>1. SEO-Optimierung (was und wie)</h2>
+  <p>Optimiert auf Thema, Teilbarkeit und Reichweite. Bewusst <strong>nicht</strong> auf Patientensuche (keine Begriffe wie „Termin" oder „Prophylaxe", kein Dentist- oder MedicalBusiness-Schema), weil es eine Standpunkt-Seite ist und die Praxis keine neuen Patienten aufnimmt.</p>
+  <ul>
+    <li><strong>Meta-Daten je Seite:</strong> eigener Titel und eigene Beschreibung pro Unterseite. Das ist der Text, der in Google-Treffern erscheint.</li>
+    <li><strong>Eine klare H1</strong> pro Seite (auf der Startseite ergänzt) für saubere Suchmaschinen-Struktur.</li>
+    <li><strong>Social-Sharing:</strong> Open Graph und Twitter Cards mit eigenen Titeln und Texten, plus Vorschaubilder (1200x630) je Hauptseite und ein Standardbild. Bewusst als JPG, weil nicht alle Netzwerke WebP-Vorschauen zuverlässig anzeigen.</li>
+    <li><strong>Strukturierte Daten (JSON-LD):</strong> WebSite und Person seitenweit, Article auf den Inhaltsseiten.</li>
+    <li><strong>Sitemap</strong> (Impressum/Datenschutz ausgeschlossen), <strong>robots.txt</strong> und eigene <strong>404-Seite</strong>.</li>
+    <li><strong>Canonical-URLs</strong> gegen doppelte Inhalte, sprechende Seitenadressen, interne Verlinkung über die Fußzeile.</li>
+  </ul>
+
+  <h2>2. Performance und Barrierefreiheit</h2>
+  <ul>
+    <li>Schriften selbst gehostet und vorgeladen, kein externes Google-Fonts-CDN. Schneller und datenschutzfreundlich.</li>
+    <li>Bilder automatisch als WebP in passenden Größen, mit Sofort- bzw. Lazy-Laden.</li>
+    <li>Skip-Link „Zum Inhalt springen" für Tastatur- und Screenreader-Nutzung.</li>
+    <li>Kontrast des goldenen Kleintexts auf hellem Grund auf WCAG-Niveau angehoben.</li>
+  </ul>
+
+  <h2>3. Recht und Datenschutz</h2>
+  <ul>
+    <li><strong>Impressum vollständig:</strong> Zahnärztekammer, Aufsichtsbehörde, gesetzliche Grundlage (Heilberufsgesetz M-V), Link zur Berufsordnung. Steuernummer entfällt (Freiberufler).</li>
+    <li><strong>Datenschutz:</strong> Stand „Juni 2026", Hosting 1blu AG (Berlin, Server in Deutschland), Platzhalter und Vorlage-Banner entfernt.</li>
+    <li>Keine Tracker, keine Marketing-Cookies, kein Kontaktformular, keine eingebetteten Drittanbieter.</li>
+  </ul>
+
+  <h2>4. Bild-Datenschutz (DSGVO)</h2>
+  <p>Auf zwei Praxisfotos waren Patientendaten lesbar. Diese wurden verpixelt:</p>
+  <ul>
+    <li><strong>Startseiten-Header:</strong> Karteikarten, KZV-Kontaktliste mit Namen und Telefon, zentrales Patienten-Formular mit Mitgliedsnummer.</li>
+    <li><strong>Hintergrund-Seite:</strong> gelbes Patienten-Formular und KZV-Kontaktliste.</li>
+  </ul>
+  <p>Alle übrigen Praxisfotos wurden geprüft und enthalten keine lesbaren Patientendaten. Auf den Bildschirmen sind nur Behandlungsarten und interne Raum- bzw. Mitarbeiternamen zu sehen, keine Patientennamen.</p>
+
+  <h2>5. Inhaltliche Korrekturen und Quellenarbeit</h2>
+  <table>
+    <tr><th>Thema</th><th>Änderung</th></tr>
+    <tr><td>Rückgang Zahnarztzahl M-V</td><td>Nicht belegte „60 bis 70 pro Jahr in Rente" ersetzt durch die belegbare Zahl: 985 auf 778 in fünf Jahren, also rund 41 pro Jahr (netto). Start- und Hintergrund-Seite.</td></tr>
+    <tr><td>Versorgungsgrad 55,3 %</td><td>Quelllink ergänzt (ZWP online). Prognose korrigiert auf „bis 2030 auf 45 bis 48 Prozent" (Nordkurier).</td></tr>
+    <tr><td>Nachwuchs 10 von 70</td><td>Quelllink ergänzt.</td></tr>
+    <tr><td>Bürokratie</td><td>Zwei Quelllinks (KZBV/BZÄK, Ifo-Studie) und hochzählende Kennzahl „1/5" der Arbeitszeit.</td></tr>
+    <tr><td>GOZ seit 1988</td><td>Satz zur zugesagten jährlichen Inflationsanpassung ergänzt (kundenseitig bestätigt).</td></tr>
+    <tr><td>Quellenseite</td><td>Nordkurier-Artikel korrekt datiert (1. Januar 2024) und verlinkt, doppelter Eintrag entfernt.</td></tr>
+    <tr><td>Textfeinheiten</td><td>„die Falsche", „aus eigener Praxistätigkeit", „Beispielsweise ist der GOZ-Punktwert ...".</td></tr>
+  </table>
+
+  <h2>6. Domain und Kontakt</h2>
+  <ul>
+    <li>Finale Domain <code>loewen-zahn.de</code> überall gesetzt (Adresse, Canonical, Sharing, Sitemap, Vorschaubilder).</li>
+    <li>E-Mail allgemein: <code>zahnmedizin@use.startmail.com</code></li>
+    <li>E-Mail Presse: <code>pressearbeit@use.startmail.com</code></li>
+    <li>Telefon: <code>0395 5442332</code></li>
+  </ul>
+
+  <h2>7. Status und nächste Schritte</h2>
+  <ul>
+    <li><span class="tag ok">erledigt</span> E-Mail-Adressen und Telefonnummer bestätigt.</li>
+    <li><span class="tag ok">erledigt</span> Veröffentlichung der Testversion auf Cloudflare Pages (loewen-zahn.pages.dev).</li>
+    <li><span class="tag open">offen</span> Anwaltliche bzw. kammerseitige Prüfung von Impressum, Datenschutz und der Trennung zu projekt-nb.de.</li>
+    <li><span class="tag open">offen</span> Finaler Umzug auf 1blu für den Produktivbetrieb.</li>
+  </ul>
+
+</main>
+<footer>
+  Übergabedokument zum Projektabschluss. Die Rechtstexte wurden nicht erfunden, sondern nur mit den vom Kunden gelieferten Pflichtangaben vervollständigt. Eine juristische Schlussprüfung wird empfohlen.
+</footer>
+</body>
+</html>

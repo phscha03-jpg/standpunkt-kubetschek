@@ -9,8 +9,11 @@ interface Props {
   isOpinion?: boolean;
   source?: string;
   sourceUrl?: string;
+  sources?: { label: string; url?: string }[];
 }
-const { headline, stat, countTo, countFrom, countPrefix, countSuffix, isOpinion = false, source, sourceUrl } = Astro.props;
+const { headline, stat, countTo, countFrom, countPrefix, countSuffix, isOpinion = false, source, sourceUrl, sources } = Astro.props;
+
+const sourceList = sources ?? (source ? [{ label: source, url: sourceUrl }] : []);
 ---
 
 <article class="fact">
@@ -29,14 +32,19 @@ const { headline, stat, countTo, countFrom, countPrefix, countSuffix, isOpinion 
     <h3 class="fact__headline">{headline}</h3>
   </div>
   <div class="fact__body"><slot /></div>
-  {(isOpinion || source) && (
+  {(isOpinion || sourceList.length > 0) && (
     <footer class="fact__foot">
       {isOpinion && <span class="fact__tag">Einschätzung Dr. Kubetschek</span>}
-      {source && (
+      {sourceList.length > 0 && (
         <cite class="fact__source">
-          {sourceUrl
-            ? <a href={sourceUrl} target="_blank" rel="noopener noreferrer">{source}</a>
-            : source}
+          {sourceList.map((s, i) => (
+            <>
+              {i > 0 && " · "}
+              {s.url
+                ? <a href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a>
+                : s.label}
+            </>
+          ))}
         </cite>
       )}
     </footer>

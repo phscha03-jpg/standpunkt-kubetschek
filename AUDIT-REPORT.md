@@ -31,8 +31,8 @@ Charakter: **Standpunkt-Website, keine Praxiswerbung.** Die Praxis nimmt keine n
 | # | Befund | Datei / Fundstelle | Zuständig |
 |---|---|---|---|
 | ~~W1~~ | ✅ **Erledigt.** Finale Domain **loewen-zahn.de** gesetzt: `site`, Canonical, OG/Twitter, JSON-LD-IDs, robots/Sitemap, Share-Links und OG-Bilder umgestellt. | `astro.config.mjs` u. a. | — |
-| W2 | **Pressekontakt-E-Mail** (`zahnarzt@startmail.com`) und Telefonnummer bestätigen. | `impressum.astro:52-54`, `kontakt.astro` | Kunde |
-| ~~W3~~ | ✅ **Erledigt.** Praxis-Motive vom Kunden datenschutzrechtlich freigegeben. | Bildmaterial | — |
+| W2 | **E-Mail-Adressen** (allgemein `zahnmedizin@use.startmail.com`, Presse `pressearbeit@use.startmail.com`) und Telefonnummer final bestätigen. | `impressum.astro`, `kontakt.astro`, `datenschutz.astro`, `quellen.astro` | Kunde |
+| ~~W3~~ | ✅ **Erledigt.** Praxis-Motive freigegeben. Nachtrag 30.06.2026: alle patientenbezogenen Stellen verpixelt. `start-leitbild`: Karteikarten, KZV-Kontaktliste (Namen/Telefon/E-Mail), zentrales Patienten-Formular (Mitglieds-Nr.). `alltag-kalender`: gelbes Patienten-Formular und KZV-Kontaktliste. Monitor-Terminplan zeigt nur Behandlungsarten (PZR, ZE-Rep …) und Raum-/Mitarbeiternamen (KUBE1/2, ANTJE, BIANCA), keine Patientennamen. | Bildmaterial | — |
 | ~~W4~~ | ✅ **Erledigt.** Skip-Link „Zum Inhalt springen" ergänzt (sichtbar bei Tastaturfokus, Sprung zu `#main-content`). | `src/layouts/Layout.astro`, `global.css` | — |
 
 ### 🟢 Optional (Feinschliff)

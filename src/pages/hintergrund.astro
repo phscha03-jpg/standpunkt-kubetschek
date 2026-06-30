@@ -116,8 +116,8 @@ const articleLd = {
             <p>
               In fünf Jahren sank die Zahl niedergelassener Zahnärztinnen und Zahnärzte
               in Mecklenburg-Vorpommern von 985 (Januar 2021) auf 778 (Januar 2026).
-              Ein Rückgang von mehr als 20 Prozent. Jährlich gehen 60 bis 70 Zahnärzte
-              in den Ruhestand. Nachwuchs ist im ländlichen Raum kaum in Sicht.
+              Ein Rückgang von mehr als 20 Prozent, also rund 41 Zahnärzte pro Jahr.
+              Nachwuchs ist im ländlichen Raum kaum in Sicht.
             </p>
           </FactBlock>
         </ScrollReveal>
@@ -127,13 +127,17 @@ const articleLd = {
             headline="Nordwestmecklenburg: Versorgungsgrad unter 56 Prozent"
             countTo={55}
             countSuffix=",3%"
-            source="KZV Mecklenburg-Vorpommern"
+            sources={[
+              { label: "ZWP online, Januar 2026", url: "https://www.zwp-online.info/zwpnews/dental-news/branchenmeldungen/zahl-der-zahnmediziner-in-mecklenburg-vorpommern-sinkt" },
+              { label: "Nordkurier, 2026", url: "https://www.nordkurier.de/regional/mecklenburg-vorpommern/zahnaerzte-in-mv-mahnen-patienten-droht-der-versorgungs-kollaps-2927825" },
+            ]}
           >
             <p>
               Während Städte wie Rostock oder Greifswald überversorgt sind,
               liegt der Versorgungsgrad in Nordwestmecklenburg bei nur 55,3 Prozent.
               In Ludwigslust und Nordvorpommern ist die Lage ähnlich kritisch.
-              Bis 2030 drohen einigen Landkreisen Versorgungsgrade unter 50 Prozent.
+              Bis 2030 soll der Versorgungsgrad laut KZV in Nordvorpommern und
+              Nordwestmecklenburg auf 45 bis 48 Prozent sinken.
             </p>
           </FactBlock>
         </ScrollReveal>
@@ -152,7 +156,9 @@ const articleLd = {
               das Zahnarzthonorar seither um fast 109 Prozent an realem Wert verloren.
               Personalkosten, Materialpreise und Betriebskosten stiegen dagegen kontinuierlich.
               Alle politischen und rechtlichen Versuche der Zahnärzteorganisationen,
-              eine Anpassung zu erreichen, blieben bisher ohne Ergebnis.
+              eine Anpassung zu erreichen, blieben bisher ohne Ergebnis. Und das,
+              obwohl sich die Politik zur jährlichen Anpassung an den Inflationsindex
+              verpflichtet hat.
             </p>
           </FactBlock>
         </ScrollReveal>
@@ -161,7 +167,8 @@ const articleLd = {
           <FactBlock
             headline="Nachwuchsmangel: Studieren, aber nicht bleiben"
             stat="10 / 70"
-            source="KZV Mecklenburg-Vorpommern / ZWP online, 2026"
+            source="KZV Mecklenburg-Vorpommern / ZWP online, Januar 2026"
+            sourceUrl="https://www.zwp-online.info/zwpnews/dental-news/branchenmeldungen/zahl-der-zahnmediziner-in-mecklenburg-vorpommern-sinkt"
           >
             <p>
               Jährlich schließen rund 70 Zahnmedizinerinnen und Zahnmediziner ihr Studium
@@ -194,7 +201,13 @@ const articleLd = {
         <ScrollReveal delay={100}>
           <FactBlock
             headline="Überregulierung und Bürokratie"
+            countTo={1}
+            countSuffix="/5"
             isOpinion
+            sources={[
+              { label: "KZBV / BZÄK, Maßnahmenkatalog Bürokratieabbau", url: "https://www.bzaek.de/fileadmin/PDFs/b/Buerokratieabbau_Massnahmenkatalog_KZBV_BZAEK.pdf" },
+              { label: "Ifo-Studie / Dental-Wirtschaft, 2024", url: "https://www.dental-wirtschaft.de/praxis/praxisfuehrung/ifo-studie-22-prozent-der-arbeitszeit-gehen-fuer-verwaltungsaufgaben-drauf" },
+            ]}
           >
             <p>
               Ein wachsender Teil der Arbeitszeit in Zahnarztpraxen geht für Dokumentation,
@@ -233,7 +246,7 @@ const articleLd = {
           >
             <p>
               Entscheidungen über das Gesundheitssystem werden von Menschen getroffen,
-              die das System nicht aus eigenem Erleben kennen. Die Konsequenz:
+              die das System nicht aus eigener Praxistätigkeit kennen. Die Konsequenz:
               realitätsferne Gesetzgebung, starre Verwaltungsvorschriften und eine
               Haltung, die auf regionale, individuelle Lösungen mit „Das geht nicht,
               weil..." reagiert, statt Möglichkeiten zu suchen.
